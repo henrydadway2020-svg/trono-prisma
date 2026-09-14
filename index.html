@@ -118,6 +118,16 @@
   .nav-plain{padding:10px 15px; font-size:14px; font-weight:500; color:var(--ice-dim); border-radius:2px;}
   .nav-plain:hover{color:var(--prism); background:rgba(255,255,255,0.03);}
 
+  .lang-pills{display:flex; align-items:center; gap:2px; padding:4px; border:1px solid var(--line); background:rgba(255,255,255,0.02);}
+  .lang-pill{padding:6px 10px; font-size:12px; font-weight:700; letter-spacing:0.02em; color:var(--ice-dim); border-radius:1px; transition:color .15s, background .15s;}
+  .lang-pill:hover{color:var(--ice); background:rgba(255,255,255,0.05);}
+  .lang-pill.active{background:var(--prism); color:var(--void);}
+  @media(max-width:860px){
+    .lang-pills{width:100%; padding:14px 32px; border:none; border-top:1px solid var(--line); gap:8px; justify-content:flex-start; background:none;}
+    .lang-pill{flex:1; text-align:center; padding:10px 6px; border:1px solid var(--line);}
+    .lang-pill.active{border-color:var(--prism);}
+  }
+
   .btn-enter{
     display:flex; align-items:center; gap:8px;
     background:var(--prism); color:var(--void); font-weight:700; font-size:13.5px; padding:11px 20px 11px 18px;
@@ -393,21 +403,27 @@
     </a>
     <div class="nav-links" id="navLinks">
       <div class="nav-item">
-        <button class="nav-btn" data-panel="panelTorneo" aria-expanded="false">El torneo <span class="chev"></span></button>
+        <button class="nav-btn" data-panel="panelTorneo" aria-expanded="false"><span data-i18n="nav.torneo">El torneo</span> <span class="chev"></span></button>
       </div>
       <div class="nav-item">
-        <button class="nav-btn" data-panel="panelPremios" aria-expanded="false">Premios <span class="chev"></span></button>
+        <button class="nav-btn" data-panel="panelPremios" aria-expanded="false"><span data-i18n="nav.premios">Premios</span> <span class="chev"></span></button>
       </div>
-      <a href="#acerca" class="nav-plain">Acerca de</a>
-      <a href="#honor" class="nav-plain">Cuadro de honor</a>
-      <a href="#reglamento" class="nav-plain">Reglamento</a>
-      <a href="#faq" class="nav-plain">FAQ</a>
+      <a href="#acerca" class="nav-plain" data-i18n="nav.acerca">Acerca de</a>
+      <a href="#honor" class="nav-plain" data-i18n="nav.honor">Cuadro de honor</a>
+      <a href="#reglamento" class="nav-plain" data-i18n="nav.reglamento">Reglamento</a>
+      <a href="#faq" class="nav-plain" data-i18n="nav.faq">FAQ</a>
+      <div class="lang-pills" role="group" aria-label="Idioma / Language">
+        <button class="lang-pill" data-lang="es" type="button">ES</button>
+        <button class="lang-pill" data-lang="en" type="button">EN</button>
+        <button class="lang-pill" data-lang="pt" type="button">PT</button>
+        <button class="lang-pill" data-lang="fr" type="button">FR</button>
+      </div>
     </div>
     <a href="#inscripcion" class="btn-enter">
-      Inscribirme
+      <span data-i18n="cta.inscribirme">Inscribirme</span>
       <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
-    <button class="menu-toggle" id="menuToggle" aria-label="Menú">☰</button>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menú" data-i18n-attr="aria-label:nav.menuLabel">☰</button>
   </nav>
 
   <div class="dropzone" id="dropzone">
@@ -422,15 +438,15 @@
         <div class="tab-panel active" id="fmtPocket">
           <div class="panel-grid">
             <ul class="mini-list">
-              <li><span class="num">01</span><span><b>Juego:</b> TCG Pocket.</span></li>
-              <li><span class="num">02</span><span><b>Cupos:</b> 8, 16 o 32 jugadores — mínimo 8.</span></li>
-              <li><span class="num">03</span><span><b>Formato:</b> BO3, sin repetir Pokémon ni energía en el mismo duelo.</span></li>
-              <li><span class="num">04</span><span><b>Final:</b> transmitida en el canal oficial de TikTok y YouTube, disponible para siempre.</span></li>
+              <li><span class="num">01</span><span data-i18n="fmt.pocket.l1"><b>Juego:</b> TCG Pocket.</span></li>
+              <li><span class="num">02</span><span data-i18n="fmt.cupos"><b>Cupos:</b> 8, 16 o 32 jugadores — mínimo 8.</span></li>
+              <li><span class="num">03</span><span data-i18n="fmt.pocket.l3"><b>Formato:</b> BO3, sin repetir Pokémon ni energía en el mismo duelo.</span></li>
+              <li><span class="num">04</span><span data-i18n="fmt.final"><b>Final:</b> transmitida en el canal oficial de TikTok y YouTube, disponible para siempre.</span></li>
             </ul>
             <div class="payout-mini">
-              <div class="payout-mini-label">Reparto del bote</div>
+              <div class="payout-mini-label" data-i18n="payout.label">Reparto del bote</div>
               <div class="payout-bar"><div class="champ-share"></div><div class="sub-share"></div><div class="org-share"></div></div>
-              <div class="payout-legend"><div><b>70%</b>Campeón</div><div><b>20%</b>Subcampeón</div><div style="text-align:right"><b>10%</b>Organización</div></div>
+              <div class="payout-legend"><div><b>70%</b><span data-i18n="payout.champ">Campeón</span></div><div><b>20%</b><span data-i18n="payout.sub">Subcampeón</span></div><div style="text-align:right"><b>10%</b><span data-i18n="payout.org">Organización</span></div></div>
             </div>
           </div>
         </div>
@@ -438,15 +454,15 @@
         <div class="tab-panel" id="fmtChampions">
           <div class="panel-grid">
             <ul class="mini-list">
-              <li><span class="num">01</span><span><b>Juego:</b> Pokémon Champions.</span></li>
-              <li><span class="num">02</span><span><b>Cupos:</b> 8, 16 o 32 jugadores — mínimo 8.</span></li>
-              <li><span class="num">03</span><span><b>Formato:</b> Dobles, BO3, con el mismo equipo durante todo el enfrentamiento.</span></li>
-              <li><span class="num">04</span><span><b>Final:</b> transmitida en el canal oficial de TikTok y YouTube, disponible para siempre.</span></li>
+              <li><span class="num">01</span><span data-i18n="fmt.champions.l1"><b>Juego:</b> Pokémon Champions.</span></li>
+              <li><span class="num">02</span><span data-i18n="fmt.cupos"><b>Cupos:</b> 8, 16 o 32 jugadores — mínimo 8.</span></li>
+              <li><span class="num">03</span><span data-i18n="fmt.champions.l3"><b>Formato:</b> Dobles, BO3, con el mismo equipo durante todo el enfrentamiento.</span></li>
+              <li><span class="num">04</span><span data-i18n="fmt.final"><b>Final:</b> transmitida en el canal oficial de TikTok y YouTube, disponible para siempre.</span></li>
             </ul>
             <div class="payout-mini">
-              <div class="payout-mini-label">Reparto del bote</div>
+              <div class="payout-mini-label" data-i18n="payout.label">Reparto del bote</div>
               <div class="payout-bar"><div class="champ-share"></div><div class="sub-share"></div><div class="org-share"></div></div>
-              <div class="payout-legend"><div><b>70%</b>Campeón</div><div><b>20%</b>Subcampeón</div><div style="text-align:right"><b>10%</b>Organización</div></div>
+              <div class="payout-legend"><div><b>70%</b><span data-i18n="payout.champ">Campeón</span></div><div><b>20%</b><span data-i18n="payout.sub">Subcampeón</span></div><div style="text-align:right"><b>10%</b><span data-i18n="payout.org">Organización</span></div></div>
             </div>
           </div>
         </div>
@@ -455,23 +471,23 @@
       <div class="panel" id="panelPremios">
         <div class="prize-cols">
           <div class="prize-col">
-            <span class="prize-col-tag">Campeón</span>
+            <span class="prize-col-tag" data-i18n="payout.champ">Campeón</span>
             <ul class="mini-list">
-              <li><span class="num">◆</span><span>70% de lo recaudado</span></li>
-              <li><span class="num">◆</span><span>Sticker + sticker animado de campeón</span></li>
-              <li><span class="num">◆</span><span>Banner de campeón en el Cuadro de Honor</span></li>
+              <li><span class="num">◆</span><span data-i18n="prize.champ.l1">70% de lo recaudado</span></li>
+              <li><span class="num">◆</span><span data-i18n="prize.champ.l2">Sticker + sticker animado de campeón</span></li>
+              <li><span class="num">◆</span><span data-i18n="prize.champ.l3">Banner de campeón en el Cuadro de Honor</span></li>
             </ul>
           </div>
           <div class="prize-col silver">
-            <span class="prize-col-tag">Subcampeón</span>
+            <span class="prize-col-tag" data-i18n="payout.sub">Subcampeón</span>
             <ul class="mini-list">
-              <li><span class="num">◆</span><span>20% de lo recaudado</span></li>
-              <li><span class="num">◆</span><span>Sticker de subcampeón</span></li>
-              <li><span class="num">◆</span><span>Banner de subcampeón en el Cuadro de Honor</span></li>
+              <li><span class="num">◆</span><span data-i18n="prize.sub.l1">20% de lo recaudado</span></li>
+              <li><span class="num">◆</span><span data-i18n="prize.sub.l2">Sticker de subcampeón</span></li>
+              <li><span class="num">◆</span><span data-i18n="prize.sub.l3">Banner de subcampeón en el Cuadro de Honor</span></li>
             </ul>
           </div>
         </div>
-        <p class="prize-note">El 10% restante cubre organización, transmisión y logística. El tercer lugar recibe entrada pagada a la próxima edición como premio no monetario. Los mismos premios aplican para TCG Pocket y para Pokémon Champions.</p>
+        <p class="prize-note" data-i18n="prize.note">El 10% restante cubre organización, transmisión y logística. El tercer lugar recibe entrada pagada a la próxima edición como premio no monetario. Los mismos premios aplican para TCG Pocket y para Pokémon Champions.</p>
       </div>
 
     </div>
@@ -481,25 +497,25 @@
 <section class="hero">
   <div class="wrap">
     <div class="hero-inner">
-      <div class="season-tag"><span class="dot"></span>Torneo de paga · próxima edición abierta</div>
+      <div class="season-tag"><span class="dot"></span><span data-i18n="hero.tag">Torneo de paga · próxima edición abierta</span></div>
       <div class="local-clock" id="localClock" aria-live="polite"></div>
-      <img class="trophy-img" src="assets/trono-prisma-trofeo.png" alt="Trofeo Trono Prisma">
+      <img class="trophy-img" src="assets/trono-prisma-trofeo.png" alt="Trofeo Trono Prisma" data-i18n-attr="alt:hero.trophyAlt">
       <h1>Trono Prisma</h1>
-      <p class="glory">La corona es de cristal: se raja con el primer error y solo el mejor la levanta entera.</p>
+      <p class="glory" data-i18n="hero.glory">La corona es de cristal: se raja con el primer error y solo el mejor la levanta entera.</p>
       <div class="hero-cta">
         <a href="#inscripcion" class="btn-primary">
-          Inscribirme
+          <span data-i18n="cta.inscribirme">Inscribirme</span>
           <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
         <a href="#honor" class="btn-ghost">
-          Ver el Cuadro de Honor
+          <span data-i18n="hero.verHonor">Ver el Cuadro de Honor</span>
           <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.6 6.6L21 10l-5 4.3L17.4 21 12 17.3 6.6 21 8 14.3 3 10l6.4-1.4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
         </a>
       </div>
       <div class="hero-stats">
-        <div><strong>8–32</strong><span>jugadores</span></div>
-        <div><strong>BO3</strong><span>ambos formatos</span></div>
-        <div><strong>70%</strong><span>para el campeón</span></div>
+        <div><strong>8–32</strong><span data-i18n="hero.stat.players">jugadores</span></div>
+        <div><strong>BO3</strong><span data-i18n="hero.stat.formats">ambos formatos</span></div>
+        <div><strong>70%</strong><span data-i18n="hero.stat.champ">para el campeón</span></div>
       </div>
     </div>
   </div>
@@ -508,39 +524,39 @@
 <section id="acerca">
   <div class="wrap">
     <div class="section-head">
-      <div class="kicker">Acerca de</div>
-      <h2>Una liga, no un torneo improvisado</h2>
+      <div class="kicker" data-i18n="about.kicker">Acerca de</div>
+      <h2 data-i18n="about.h2">Una liga, no un torneo improvisado</h2>
     </div>
-    <p class="about-intro">Trono Prisma es una competición de pago organizada por Residente, concebida para ofrecer un entorno competitivo serio, estructurado y transparente — con reglas claras, seguimiento continuo y una identidad propia.</p>
+    <p class="about-intro" data-i18n="about.intro">Trono Prisma es una competición de pago organizada por Residente, concebida para ofrecer un entorno competitivo serio, estructurado y transparente — con reglas claras, seguimiento continuo y una identidad propia.</p>
 
     <div class="about-grid">
       <div class="about-card">
-        <div class="tag"><span class="sq"></span><h3>Organización</h3></div>
-        <p>Torneo de pago organizado por Residente, pensado para ofrecer un entorno competitivo serio, estructurado y transparente en cada edición.</p>
+        <div class="tag"><span class="sq"></span><h3 data-i18n="about.c1.title">Organización</h3></div>
+        <p data-i18n="about.c1.p">Torneo de pago organizado por Residente, pensado para ofrecer un entorno competitivo serio, estructurado y transparente en cada edición.</p>
       </div>
       <div class="about-card accent-gold">
-        <div class="tag"><span class="sq"></span><h3>Reparto del premio</h3></div>
-        <p>El 70% de lo recaudado va para el campeón y el 20% para el subcampeón, en efectivo: una recompensa directa y proporcional al rendimiento de cada jugador.</p>
+        <div class="tag"><span class="sq"></span><h3 data-i18n="about.c2.title">Reparto del premio</h3></div>
+        <p data-i18n="about.c2.p">El 70% de lo recaudado va para el campeón y el 20% para el subcampeón, en efectivo: una recompensa directa y proporcional al rendimiento de cada jugador.</p>
       </div>
       <div class="about-card accent-violet">
-        <div class="tag"><span class="sq"></span><h3>Gestión vía WhatsApp</h3></div>
-        <p>Inscripciones, emparejamientos, comunicación oficial y seguimiento de las partidas se coordinan íntegramente por WhatsApp.</p>
+        <div class="tag"><span class="sq"></span><h3 data-i18n="about.c3.title">Gestión vía WhatsApp</h3></div>
+        <p data-i18n="about.c3.p">Inscripciones, emparejamientos, comunicación oficial y seguimiento de las partidas se coordinan íntegramente por WhatsApp.</p>
       </div>
       <div class="about-card">
-        <div class="tag"><span class="sq"></span><h3>Formato BO3</h3></div>
-        <p>Reglas claras y exigentes: no se permite repetir Pokémon ni energías, lo que obliga a la variedad estratégica y a la adaptación constante.</p>
+        <div class="tag"><span class="sq"></span><h3 data-i18n="about.c4.title">Formato BO3</h3></div>
+        <p data-i18n="about.c4.p">Reglas claras y exigentes: no se permite repetir Pokémon ni energías, lo que obliga a la variedad estratégica y a la adaptación constante.</p>
       </div>
       <div class="about-card accent-violet">
-        <div class="tag"><span class="sq"></span><h3>Llaves siempre pares</h3></div>
-        <p>Eliminación directa con llaves siempre pares, evitando emparejamientos impares, para asegurar igualdad competitiva desde el inicio.</p>
+        <div class="tag"><span class="sq"></span><h3 data-i18n="about.c5.title">Llaves siempre pares</h3></div>
+        <p data-i18n="about.c5.p">Eliminación directa con llaves siempre pares, evitando emparejamientos impares, para asegurar igualdad competitiva desde el inicio.</p>
       </div>
       <div class="about-card accent-gold">
-        <div class="tag"><span class="sq"></span><h3>Estadísticas y contenido</h3></div>
-        <p>Tabla de estadísticas exclusiva de la liga por edición: resultados, rendimiento, decks usados, resúmenes completos, votaciones y eventos adicionales.</p>
+        <div class="tag"><span class="sq"></span><h3 data-i18n="about.c6.title">Estadísticas y contenido</h3></div>
+        <p data-i18n="about.c6.p">Tabla de estadísticas exclusiva de la liga por edición: resultados, rendimiento, decks usados, resúmenes completos, votaciones y eventos adicionales.</p>
       </div>
       <div class="about-card">
-        <div class="tag"><span class="sq"></span><h3>Fecha fija y comunidad</h3></div>
-        <p>Cada edición se juega en un día fijo, con banners y stickers exclusivos para los jugadores destacados y presencia activa en TikTok con resultados y novedades.</p>
+        <div class="tag"><span class="sq"></span><h3 data-i18n="about.c7.title">Fecha fija y comunidad</h3></div>
+        <p data-i18n="about.c7.p">Cada edición se juega en un día fijo, con banners y stickers exclusivos para los jugadores destacados y presencia activa en TikTok con resultados y novedades.</p>
       </div>
     </div>
   </div>
@@ -549,9 +565,9 @@
 <section id="honor">
   <div class="wrap">
     <div class="section-head center">
-      <div class="kicker">Cuadro de Honor</div>
-      <h2>Los que ya levantaron el trono</h2>
-      <p>Cada campeón y subcampeón queda aquí para siempre, con su sticker, su banner y su final.</p>
+      <div class="kicker" data-i18n="honor.kicker">Cuadro de Honor</div>
+      <h2 data-i18n="honor.h2">Los que ya levantaron el trono</h2>
+      <p data-i18n="honor.p">Cada campeón y subcampeón queda aquí para siempre, con su sticker, su banner y su final.</p>
     </div>
 
     <div class="honor-block">
@@ -560,7 +576,7 @@
         <h3>TCG Pocket</h3>
       </div>
       <div class="honor-grid" id="honorGridPocket">
-        <div class="honor-loading">Cargando el Cuadro de Honor…</div>
+        <div class="honor-loading" data-i18n="honor.loading">Cargando el Cuadro de Honor…</div>
       </div>
     </div>
 
@@ -570,7 +586,7 @@
         <h3>Trono Prisma Champions</h3>
       </div>
       <div class="honor-grid" id="honorGridChampions">
-        <div class="honor-loading">Cargando el Cuadro de Honor…</div>
+        <div class="honor-loading" data-i18n="honor.loading">Cargando el Cuadro de Honor…</div>
       </div>
     </div>
   </div>
@@ -579,150 +595,150 @@
 <section id="reglamento">
   <div class="wrap">
     <div class="section-head">
-      <div class="kicker">Reglamento</div>
-      <h2>Reglamento oficial</h2>
-      <p>Documento vinculante de Trono Prisma. Inscribirse en cualquier edición implica la lectura y aceptación total de sus términos.</p>
+      <div class="kicker" data-i18n="reg.kicker">Reglamento</div>
+      <h2 data-i18n="reg.h2">Reglamento oficial</h2>
+      <p data-i18n="reg.intro">Documento vinculante de Trono Prisma. Inscribirse en cualquier edición implica la lectura y aceptación total de sus términos.</p>
     </div>
 
     <div class="reg-block">
-      <div class="reg-head"><span class="reg-num">1</span><h3>Introducción</h3></div>
-      <p>Trono Prisma es una competición de pago organizada por Residente, concebida para ofrecer un entorno competitivo serio, estructurado y transparente para TCG Pocket y Pokémon Champions.</p>
-      <p>Este documento es el reglamento oficial y vinculante de Trono Prisma.</p>
+      <div class="reg-head"><span class="reg-num">1</span><h3 data-i18n="reg.1.title">Introducción</h3></div>
+      <p data-i18n="reg.1.p1">Trono Prisma es una competición de pago organizada por Residente, concebida para ofrecer un entorno competitivo serio, estructurado y transparente para TCG Pocket y Pokémon Champions.</p>
+      <p data-i18n="reg.1.p2">Este documento es el reglamento oficial y vinculante de Trono Prisma.</p>
     </div>
 
     <div class="reg-block">
-      <div class="reg-head"><span class="reg-num">2</span><h3>Organización y canales oficiales</h3></div>
+      <div class="reg-head"><span class="reg-num">2</span><h3 data-i18n="reg.2.title">Organización y canales oficiales</h3></div>
       <ul class="reg-list">
-        <li><b>Organiza:</b> Residente.</li>
-        <li><b>Gestión del torneo:</b> inscripciones, emparejamientos, comunicación oficial y seguimiento de las partidas se coordinan íntegramente a través del grupo de WhatsApp de Trono Prisma.</li>
-        <li><b>Contenido y comunidad:</b> presencia activa en TikTok, con resultados, novedades y contenido de cada edición.</li>
-        <li><b>Transmisión:</b> las finales se transmiten en el canal oficial de TikTok y YouTube, y quedan disponibles de forma permanente.</li>
+        <li data-i18n="reg.2.l1"><b>Organiza:</b> Residente.</li>
+        <li data-i18n="reg.2.l2"><b>Gestión del torneo:</b> inscripciones, emparejamientos, comunicación oficial y seguimiento de las partidas se coordinan íntegramente a través del grupo de WhatsApp de Trono Prisma.</li>
+        <li data-i18n="reg.2.l3"><b>Contenido y comunidad:</b> presencia activa en TikTok, con resultados, novedades y contenido de cada edición.</li>
+        <li data-i18n="reg.2.l4"><b>Transmisión:</b> las finales se transmiten en el canal oficial de TikTok y YouTube, y quedan disponibles de forma permanente.</li>
       </ul>
     </div>
 
     <div class="reg-block">
-      <div class="reg-head"><span class="reg-num">3</span><h3>Modalidades de juego</h3></div>
+      <div class="reg-head"><span class="reg-num">3</span><h3 data-i18n="reg.3.title">Modalidades de juego</h3></div>
       <div class="reg-sub">TCG Pocket</div>
       <ul class="reg-list">
-        <li>Formato BO3 (mejor de 3).</li>
-        <li>No se permite repetir Pokémon ni energía en el mismo duelo — se exige variedad estratégica y adaptación constante.</li>
-        <li>Las energías generadas cuentan como energía repetida para efectos de esta regla.</li>
-        <li>Cada jugador debe enviar al organizador sus 3 decks con los que jugará, para cualquier situación que se presente durante el enfrentamiento.</li>
-        <li>Los decks enviados no podrán cambiarse desde las 48 horas previas al encuentro.</li>
-        <li>Durante el enfrentamiento solo se podrán usar los Pokémon enviados al organizador.</li>
+        <li data-i18n="reg.3.pocket.l1">Formato BO3 (mejor de 3).</li>
+        <li data-i18n="reg.3.pocket.l2">No se permite repetir Pokémon ni energía en el mismo duelo — se exige variedad estratégica y adaptación constante.</li>
+        <li data-i18n="reg.3.pocket.l3">Las energías generadas cuentan como energía repetida para efectos de esta regla.</li>
+        <li data-i18n="reg.3.pocket.l4">Cada jugador debe enviar al organizador sus 3 decks con los que jugará, para cualquier situación que se presente durante el enfrentamiento.</li>
+        <li data-i18n="reg.3.pocket.l5">Los decks enviados no podrán cambiarse desde las 48 horas previas al encuentro.</li>
+        <li data-i18n="reg.3.pocket.l6">Durante el enfrentamiento solo se podrán usar los Pokémon enviados al organizador.</li>
       </ul>
       <div class="reg-sub">Pokémon Champions</div>
       <ul class="reg-list">
-        <li>Dobles, formato BO3.</li>
-        <li>Se usa el mismo equipo durante todo el enfrentamiento; no se cambia de equipo entre partidas de un mismo duelo.</li>
-        <li>Cada jugador debe enviar al organizador el equipo con el que competirá; no podrá cambiarlo desde las 48 horas previas al encuentro.</li>
-        <li>Durante el enfrentamiento solo se podrán usar los Pokémon enviados al organizador.</li>
+        <li data-i18n="reg.3.champ.l1">Dobles, formato BO3.</li>
+        <li data-i18n="reg.3.champ.l2">Se usa el mismo equipo durante todo el enfrentamiento; no se cambia de equipo entre partidas de un mismo duelo.</li>
+        <li data-i18n="reg.3.champ.l3">Cada jugador debe enviar al organizador el equipo con el que competirá; no podrá cambiarlo desde las 48 horas previas al encuentro.</li>
+        <li data-i18n="reg.3.champ.l4">Durante el enfrentamiento solo se podrán usar los Pokémon enviados al organizador.</li>
       </ul>
     </div>
 
     <div class="reg-block">
-      <div class="reg-head"><span class="reg-num">4</span><h3>Cupos e inscripción</h3></div>
+      <div class="reg-head"><span class="reg-num">4</span><h3 data-i18n="reg.4.title">Cupos e inscripción</h3></div>
       <ul class="reg-list">
-        <li>Cada edición abre con 8, 16 o 32 cupos, con un mínimo de 8 jugadores para poder celebrarse.</li>
-        <li>La inscripción se realiza directamente en el grupo de WhatsApp de Trono Prisma; ese es el único canal oficial para inscribirse.</li>
-        <li>El pago de la inscripción confirma el lugar del jugador en el bracket de esa edición.</li>
+        <li data-i18n="reg.4.l1">Cada edición abre con 8, 16 o 32 cupos, con un mínimo de 8 jugadores para poder celebrarse.</li>
+        <li data-i18n="reg.4.l2">La inscripción se realiza directamente en el grupo de WhatsApp de Trono Prisma; ese es el único canal oficial para inscribirse.</li>
+        <li data-i18n="reg.4.l3">El pago de la inscripción confirma el lugar del jugador en el bracket de esa edición.</li>
       </ul>
     </div>
 
     <div class="reg-block">
-      <div class="reg-head"><span class="reg-num">5</span><h3>Cupo mínimo no alcanzado</h3></div>
-      <p>Si al cierre de inscripciones no se alcanza el mínimo de 8 jugadores, la edición se pospone a una nueva fecha.</p>
-      <p>Las inscripciones ya pagadas se mantienen: el cupo del jugador queda reservado para la nueva fecha, sin necesidad de volver a pagar ni de reconfirmar.</p>
+      <div class="reg-head"><span class="reg-num">5</span><h3 data-i18n="reg.5.title">Cupo mínimo no alcanzado</h3></div>
+      <p data-i18n="reg.5.p1">Si al cierre de inscripciones no se alcanza el mínimo de 8 jugadores, la edición se pospone a una nueva fecha.</p>
+      <p data-i18n="reg.5.p2">Las inscripciones ya pagadas se mantienen: el cupo del jugador queda reservado para la nueva fecha, sin necesidad de volver a pagar ni de reconfirmar.</p>
     </div>
 
     <div class="reg-block">
-      <div class="reg-head"><span class="reg-num">6</span><h3>Sistema de llaves (bracket)</h3></div>
+      <div class="reg-head"><span class="reg-num">6</span><h3 data-i18n="reg.6.title">Sistema de llaves (bracket)</h3></div>
       <ul class="reg-list">
-        <li>El torneo se juega por eliminación directa.</li>
-        <li>Las llaves siempre se arman con un número par de jugadores; no se permiten emparejamientos impares, para asegurar igualdad competitiva desde la primera ronda.</li>
+        <li data-i18n="reg.6.l1">El torneo se juega por eliminación directa.</li>
+        <li data-i18n="reg.6.l2">Las llaves siempre se arman con un número par de jugadores; no se permiten emparejamientos impares, para asegurar igualdad competitiva desde la primera ronda.</li>
       </ul>
     </div>
 
     <div class="reg-block">
-      <div class="reg-head"><span class="reg-num">7</span><h3>Desconexiones durante una partida</h3></div>
-      <p>Una desconexión durante una partida se resuelve como derrota automática para el jugador que se desconecta. Existen dos excepciones a esta regla:</p>
+      <div class="reg-head"><span class="reg-num">7</span><h3 data-i18n="reg.7.title">Desconexiones durante una partida</h3></div>
+      <p data-i18n="reg.7.p1">Una desconexión durante una partida se resuelve como derrota automática para el jugador que se desconecta. Existen dos excepciones a esta regla:</p>
       <ul class="reg-list">
-        <li>Que el rival conceda voluntariamente la partida.</li>
-        <li>Que el jugador desconectado presente pruebas suficientes (capturas de pantalla, grabación de pantalla u otra evidencia verificable) de que la desconexión se debió a un problema técnico ajeno a su control.</li>
+        <li data-i18n="reg.7.l1">Que el rival conceda voluntariamente la partida.</li>
+        <li data-i18n="reg.7.l2">Que el jugador desconectado presente pruebas suficientes (capturas de pantalla, grabación de pantalla u otra evidencia verificable) de que la desconexión se debió a un problema técnico ajeno a su control.</li>
       </ul>
-      <p>El staff de Trono Prisma evalúa las pruebas presentadas en cada caso. Su decisión es final e inapelable.</p>
+      <p data-i18n="reg.7.p2">El staff de Trono Prisma evalúa las pruebas presentadas en cada caso. Su decisión es final e inapelable.</p>
     </div>
 
     <div class="reg-block">
-      <div class="reg-head"><span class="reg-num">8</span><h3>Conducta y juego limpio</h3></div>
+      <div class="reg-head"><span class="reg-num">8</span><h3 data-i18n="reg.8.title">Conducta y juego limpio</h3></div>
       <ul class="reg-list">
-        <li>Se espera respeto entre jugadores y hacia la organización en todo momento, dentro y fuera de las partidas.</li>
-        <li>No se permite el uso de trampas, exploits, asistencia externa no autorizada ni ninguna forma de manipulación de resultados.</li>
-        <li>El incumplimiento de esta sección puede resultar en descalificación inmediata, sin derecho a reembolso.</li>
+        <li data-i18n="reg.8.l1">Se espera respeto entre jugadores y hacia la organización en todo momento, dentro y fuera de las partidas.</li>
+        <li data-i18n="reg.8.l2">No se permite el uso de trampas, exploits, asistencia externa no autorizada ni ninguna forma de manipulación de resultados.</li>
+        <li data-i18n="reg.8.l3">El incumplimiento de esta sección puede resultar en descalificación inmediata, sin derecho a reembolso.</li>
       </ul>
     </div>
 
     <div class="reg-block">
-      <div class="reg-head"><span class="reg-num">9</span><h3>Premios</h3></div>
-      <p>El 100% de lo recaudado por inscripciones en cada edición se distribuye de la siguiente manera:</p>
+      <div class="reg-head"><span class="reg-num">9</span><h3 data-i18n="payout.prizes">Premios</h3></div>
+      <p data-i18n="reg.9.p1">El 100% de lo recaudado por inscripciones en cada edición se distribuye de la siguiente manera:</p>
       <div class="reg-prize-grid">
         <div class="reg-prize-card">
           <div class="pct">70%</div>
-          <div class="lbl">Top 1 · Campeón</div>
-          <div class="desc">Efectivo + sticker y sticker animado de campeón + banner de campeón en el Cuadro de Honor.</div>
+          <div class="lbl" data-i18n="reg.9.top1">Top 1 · Campeón</div>
+          <div class="desc" data-i18n="reg.9.top1desc">Efectivo + sticker y sticker animado de campeón + banner de campeón en el Cuadro de Honor.</div>
         </div>
         <div class="reg-prize-card silver">
           <div class="pct">20%</div>
-          <div class="lbl">Top 2 · Subcampeón</div>
-          <div class="desc">Efectivo + sticker de subcampeón + banner de subcampeón en el Cuadro de Honor.</div>
+          <div class="lbl" data-i18n="reg.9.top2">Top 2 · Subcampeón</div>
+          <div class="desc" data-i18n="reg.9.top2desc">Efectivo + sticker de subcampeón + banner de subcampeón en el Cuadro de Honor.</div>
         </div>
         <div class="reg-prize-card bronze">
           <div class="pct">—</div>
-          <div class="lbl">Top 3 · Tercer lugar</div>
-          <div class="desc">Entrada pagada a la próxima edición de Trono Prisma (premio no monetario).</div>
+          <div class="lbl" data-i18n="reg.9.top3">Top 3 · Tercer lugar</div>
+          <div class="desc" data-i18n="reg.9.top3desc">Entrada pagada a la próxima edición de Trono Prisma (premio no monetario).</div>
         </div>
       </div>
-      <p style="margin-top:14px; font-size:12.5px;">El 10% restante del total recaudado se destina a los costos de organización, transmisión y logística de Trono Prisma.</p>
+      <p style="margin-top:14px; font-size:12.5px;" data-i18n="reg.9.p2">El 10% restante del total recaudado se destina a los costos de organización, transmisión y logística de Trono Prisma.</p>
     </div>
 
     <div class="reg-block">
-      <div class="reg-head"><span class="reg-num">10</span><h3>Estadísticas y contenido de la liga</h3></div>
+      <div class="reg-head"><span class="reg-num">10</span><h3 data-i18n="reg.10.title">Estadísticas y contenido de la liga</h3></div>
       <ul class="reg-list">
-        <li>Cada edición cuenta con una tabla de estadísticas exclusiva de la liga, con resultados, rendimiento y datos relevantes de cada participante.</li>
-        <li>Se recopila información de los decks utilizados por los jugadores durante la edición.</li>
-        <li>Se elabora un resumen completo al cierre de cada edición.</li>
-        <li>Se realizan votaciones y eventos adicionales que complementan la experiencia de la liga.</li>
+        <li data-i18n="reg.10.l1">Cada edición cuenta con una tabla de estadísticas exclusiva de la liga, con resultados, rendimiento y datos relevantes de cada participante.</li>
+        <li data-i18n="reg.10.l2">Se recopila información de los decks utilizados por los jugadores durante la edición.</li>
+        <li data-i18n="reg.10.l3">Se elabora un resumen completo al cierre de cada edición.</li>
+        <li data-i18n="reg.10.l4">Se realizan votaciones y eventos adicionales que complementan la experiencia de la liga.</li>
       </ul>
     </div>
 
     <div class="reg-block">
-      <div class="reg-head"><span class="reg-num">11</span><h3>Fecha del torneo</h3></div>
-      <p>Cada edición se celebra en un día fijo, comunicado con anticipación en el grupo oficial de WhatsApp.</p>
+      <div class="reg-head"><span class="reg-num">11</span><h3 data-i18n="reg.11.title">Fecha del torneo</h3></div>
+      <p data-i18n="reg.11.p1">Cada edición se celebra en un día fijo, comunicado con anticipación en el grupo oficial de WhatsApp.</p>
     </div>
 
     <div class="reg-block">
-      <div class="reg-head"><span class="reg-num">12</span><h3>Comunicación oficial</h3></div>
-      <p>El grupo de WhatsApp de Trono Prisma es el único canal oficial para inscripciones, emparejamientos y avisos del torneo. Cualquier comunicación recibida fuera de este canal no tiene validez oficial.</p>
+      <div class="reg-head"><span class="reg-num">12</span><h3 data-i18n="reg.12.title">Comunicación oficial</h3></div>
+      <p data-i18n="reg.12.p1">El grupo de WhatsApp de Trono Prisma es el único canal oficial para inscripciones, emparejamientos y avisos del torneo. Cualquier comunicación recibida fuera de este canal no tiene validez oficial.</p>
     </div>
 
     <div class="reg-block">
-      <div class="reg-head"><span class="reg-num">13</span><h3>Contenido audiovisual</h3></div>
-      <p>TikTok y YouTube se usan exclusivamente para compartir contenido, resultados y las finales de cada edición. No se gestionan inscripciones a través de estos canales.</p>
+      <div class="reg-head"><span class="reg-num">13</span><h3 data-i18n="reg.13.title">Contenido audiovisual</h3></div>
+      <p data-i18n="reg.13.p1">TikTok y YouTube se usan exclusivamente para compartir contenido, resultados y las finales de cada edición. No se gestionan inscripciones a través de estos canales.</p>
     </div>
 
     <div class="reg-block">
-      <div class="reg-head"><span class="reg-num">14</span><h3>Aceptación del reglamento</h3></div>
-      <p>Inscribirse en cualquier edición de Trono Prisma implica la lectura y aceptación total de este reglamento.</p>
-      <p>La organización se reserva el derecho de resolver cualquier situación no contemplada explícitamente en este documento, priorizando siempre la transparencia y la igualdad competitiva entre los participantes.</p>
+      <div class="reg-head"><span class="reg-num">14</span><h3 data-i18n="reg.14.title">Aceptación del reglamento</h3></div>
+      <p data-i18n="reg.14.p1">Inscribirse en cualquier edición de Trono Prisma implica la lectura y aceptación total de este reglamento.</p>
+      <p data-i18n="reg.14.p2">La organización se reserva el derecho de resolver cualquier situación no contemplada explícitamente en este documento, priorizando siempre la transparencia y la igualdad competitiva entre los participantes.</p>
       <div class="reg-contact">
-        <strong>Contacto oficial</strong>
-        <span>Grupo de WhatsApp: <a href="#" data-whatsapp-link target="_blank" rel="noopener">chat.whatsapp.com/JdEqbPhLGwO3rDBwXvaHbY</a></span>
-        <span>TikTok y YouTube: canales oficiales de Trono Prisma (solo contenido y finales)</span>
+        <strong data-i18n="reg.14.contact">Contacto oficial</strong>
+        <span><span data-i18n="reg.14.whatsappLabel">Grupo de WhatsApp:</span> <a href="#" data-whatsapp-link target="_blank" rel="noopener">chat.whatsapp.com/JdEqbPhLGwO3rDBwXvaHbY</a></span>
+        <span data-i18n="reg.14.social">TikTok y YouTube: canales oficiales de Trono Prisma (solo contenido y finales)</span>
       </div>
     </div>
 
     <a href="reglamento-trono-prisma.pdf" target="_blank" rel="noopener" class="btn-ghost reg-download">
-      Descargar reglamento en PDF
+      <span data-i18n="reg.download">Descargar reglamento en PDF</span>
       <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0l-5-5m5 5l5-5M5 21h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
   </div>
@@ -731,43 +747,43 @@
 <section id="faq">
   <div class="wrap">
     <div class="section-head">
-      <div class="kicker">Preguntas frecuentes</div>
-      <h2>Dudas comunes</h2>
-      <p>Un resumen rápido de lo más preguntado. El reglamento oficial arriba siempre tiene la última palabra.</p>
+      <div class="kicker" data-i18n="faq.kicker">Preguntas frecuentes</div>
+      <h2 data-i18n="faq.h2">Dudas comunes</h2>
+      <p data-i18n="faq.p">Un resumen rápido de lo más preguntado. El reglamento oficial arriba siempre tiene la última palabra.</p>
     </div>
 
     <div class="faq-list">
       <details class="faq-item">
-        <summary>¿Cómo me inscribo a una edición? <span class="ico">+</span></summary>
-        <p>Únicamente a través del grupo oficial de WhatsApp de Trono Prisma — ese es el único canal válido para inscripciones. El pago de tu inscripción confirma tu lugar en el bracket de esa edición.</p>
+        <summary><span data-i18n="faq.q1">¿Cómo me inscribo a una edición?</span> <span class="ico">+</span></summary>
+        <p data-i18n="faq.a1">Únicamente a través del grupo oficial de WhatsApp de Trono Prisma — ese es el único canal válido para inscripciones. El pago de tu inscripción confirma tu lugar en el bracket de esa edición.</p>
       </details>
       <details class="faq-item">
-        <summary>¿Qué pasa si no se alcanza el mínimo de 8 jugadores? <span class="ico">+</span></summary>
-        <p>La edición se pospone a una nueva fecha. Las inscripciones ya pagadas se mantienen: tu cupo queda reservado sin necesidad de volver a pagar ni reconfirmar.</p>
+        <summary><span data-i18n="faq.q2">¿Qué pasa si no se alcanza el mínimo de 8 jugadores?</span> <span class="ico">+</span></summary>
+        <p data-i18n="faq.a2">La edición se pospone a una nueva fecha. Las inscripciones ya pagadas se mantienen: tu cupo queda reservado sin necesidad de volver a pagar ni reconfirmar.</p>
       </details>
       <details class="faq-item">
-        <summary>¿Puedo repetir Pokémon o energía en TCG Pocket? <span class="ico">+</span></summary>
-        <p>No. No se permite repetir Pokémon ni energía en el mismo duelo, y las energías generadas también cuentan como energía repetida para esta regla.</p>
+        <summary><span data-i18n="faq.q3">¿Puedo repetir Pokémon o energía en TCG Pocket?</span> <span class="ico">+</span></summary>
+        <p data-i18n="faq.a3">No. No se permite repetir Pokémon ni energía en el mismo duelo, y las energías generadas también cuentan como energía repetida para esta regla.</p>
       </details>
       <details class="faq-item">
-        <summary>¿Tengo que enviar mis decks o mi equipo antes del torneo? <span class="ico">+</span></summary>
-        <p>Sí. En TCG Pocket debes enviar tus 3 decks al organizador; en Pokémon Champions, el equipo con el que competirás. En ambos casos no podrás cambiarlos desde 48 horas antes del encuentro, y durante la partida solo podrás usar los Pokémon que enviaste.</p>
+        <summary><span data-i18n="faq.q4">¿Tengo que enviar mis decks o mi equipo antes del torneo?</span> <span class="ico">+</span></summary>
+        <p data-i18n="faq.a4">Sí. En TCG Pocket debes enviar tus 3 decks al organizador; en Pokémon Champions, el equipo con el que competirás. En ambos casos no podrás cambiarlos desde 48 horas antes del encuentro, y durante la partida solo podrás usar los Pokémon que enviaste.</p>
       </details>
       <details class="faq-item">
-        <summary>¿Qué pasa si me desconecto durante una partida? <span class="ico">+</span></summary>
-        <p>Se resuelve como derrota automática, salvo que tu rival conceda voluntariamente o presentes evidencia verificable (capturas o grabación de pantalla) de que la desconexión se debió a un problema técnico ajeno a tu control. El staff evalúa cada caso y su decisión es final.</p>
+        <summary><span data-i18n="faq.q5">¿Qué pasa si me desconecto durante una partida?</span> <span class="ico">+</span></summary>
+        <p data-i18n="faq.a5">Se resuelve como derrota automática, salvo que tu rival conceda voluntariamente o presentes evidencia verificable (capturas o grabación de pantalla) de que la desconexión se debió a un problema técnico ajeno a tu control. El staff evalúa cada caso y su decisión es final.</p>
       </details>
       <details class="faq-item">
-        <summary>¿Cómo se reparten los premios? <span class="ico">+</span></summary>
-        <p>El campeón recibe el 70% de lo recaudado, el subcampeón el 20%, y el 10% restante cubre organización, transmisión y logística. El tercer lugar recibe entrada pagada a la próxima edición como premio no monetario.</p>
+        <summary><span data-i18n="faq.q6">¿Cómo se reparten los premios?</span> <span class="ico">+</span></summary>
+        <p data-i18n="faq.a6">El campeón recibe el 70% de lo recaudado, el subcampeón el 20%, y el 10% restante cubre organización, transmisión y logística. El tercer lugar recibe entrada pagada a la próxima edición como premio no monetario.</p>
       </details>
       <details class="faq-item">
-        <summary>¿Dónde puedo ver las finales? <span class="ico">+</span></summary>
-        <p>En el canal oficial de TikTok y YouTube de Trono Prisma. Quedan disponibles de forma permanente después de transmitirse.</p>
+        <summary><span data-i18n="faq.q7">¿Dónde puedo ver las finales?</span> <span class="ico">+</span></summary>
+        <p data-i18n="faq.a7">En el canal oficial de TikTok y YouTube de Trono Prisma. Quedan disponibles de forma permanente después de transmitirse.</p>
       </details>
       <details class="faq-item">
-        <summary>¿El grupo de WhatsApp es el único canal oficial? <span class="ico">+</span></summary>
-        <p>Sí. Inscripciones, emparejamientos y avisos del torneo se manejan únicamente ahí. Cualquier comunicación recibida fuera de ese canal no tiene validez oficial.</p>
+        <summary><span data-i18n="faq.q8">¿El grupo de WhatsApp es el único canal oficial?</span> <span class="ico">+</span></summary>
+        <p data-i18n="faq.a8">Sí. Inscripciones, emparejamientos y avisos del torneo se manejan únicamente ahí. Cualquier comunicación recibida fuera de ese canal no tiene validez oficial.</p>
       </details>
     </div>
   </div>
@@ -776,23 +792,23 @@
 <section id="inscripcion">
   <div class="wrap">
     <div class="cta-final">
-      <h2>¿Listo para pelear por el trono?</h2>
-      <p>La inscripción es directa en el grupo de WhatsApp de Trono Prisma. Cupos limitados a 8, 16 o 32 jugadores.</p>
+      <h2 data-i18n="cta.final.h2">¿Listo para pelear por el trono?</h2>
+      <p data-i18n="cta.final.p">La inscripción es directa en el grupo de WhatsApp de Trono Prisma. Cupos limitados a 8, 16 o 32 jugadores.</p>
       <div class="hero-cta">
         <a href="#" data-whatsapp-link class="btn-primary" target="_blank" rel="noopener">
-          Unirme al grupo de WhatsApp
+          <span data-i18n="cta.join">Unirme al grupo de WhatsApp</span>
           <svg viewBox="0 0 24 24" fill="none"><path d="M12 21c5 0 8-3.4 8-7.6S17 5.8 12 5.8 4 9.2 4 13.4c0 1.5.4 2.9 1.2 4.1L4 21l3.8-1.1C9 20.6 10.4 21 12 21z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12.3c.3 1.7 2 3.2 3.6 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
         </a>
       </div>
       <div class="cta-watch">
-        <span>¿Solo quieres ver las finales?</span>
+        <span data-i18n="cta.watchQuestion">¿Solo quieres ver las finales?</span>
         <!-- TODO: reemplazar "#" por el link oficial del canal de TikTok -->
         <a href="#" class="cta-watch-link">TikTok</a>
         <span class="sep">·</span>
         <!-- TODO: reemplazar "#" por el link oficial del canal de YouTube -->
         <a href="#" class="cta-watch-link">YouTube</a>
         <span class="sep">·</span>
-        <a href="#reglamento" class="cta-watch-link">Reglamento oficial</a>
+        <a href="#reglamento" class="cta-watch-link" data-i18n="reg.h2">Reglamento oficial</a>
       </div>
     </div>
   </div>
@@ -808,19 +824,655 @@
         Trono Prisma
       </a>
       <div class="foot-links">
-        <button class="nav-btn" data-panel="panelTorneo" style="padding:0">El torneo</button>
-        <button class="nav-btn" data-panel="panelPremios" style="padding:0">Premios</button>
-        <a href="#acerca">Acerca de</a>
-        <a href="#honor">Cuadro de honor</a>
-        <a href="#reglamento">Reglamento</a>
-        <a href="#faq">FAQ</a>
+        <button class="nav-btn" data-panel="panelTorneo" style="padding:0" data-i18n="nav.torneo">El torneo</button>
+        <button class="nav-btn" data-panel="panelPremios" style="padding:0" data-i18n="nav.premios">Premios</button>
+        <a href="#acerca" data-i18n="nav.acerca">Acerca de</a>
+        <a href="#honor" data-i18n="nav.honor">Cuadro de honor</a>
+        <a href="#reglamento" data-i18n="nav.reglamento">Reglamento</a>
+        <a href="#faq" data-i18n="nav.faq">FAQ</a>
       </div>
     </div>
-    <p class="foot-note">Trono Prisma — torneo independiente de TCG Pocket y Pokémon Champions. No afiliado a The Pokémon Company.</p>
+    <p class="foot-note" data-i18n="footer.note">Trono Prisma — torneo independiente de TCG Pocket y Pokémon Champions. No afiliado a The Pokémon Company.</p>
   </div>
 </footer>
 
 <script>
+  // ============================================================
+  // IDIOMAS — ES / EN / PT / FR. Selector manual en el menú (.lang-pill).
+  // Para editar textos, cambia los valores aquí; las claves (izquierda)
+  // deben coincidir con los atributos data-i18n del HTML.
+  // ============================================================
+  const I18N = {
+    es: {
+          "meta.title": "Trono Prisma — TCG Pocket & Pokémon Champions",
+          "meta.description": "Trono Prisma: el torneo de paga de TCG Pocket y Pokémon Champions. La corona es de cristal — solo el mejor la levanta.",
+          "nav.torneo": "El torneo",
+          "nav.premios": "Premios",
+          "nav.acerca": "Acerca de",
+          "nav.honor": "Cuadro de honor",
+          "nav.reglamento": "Reglamento",
+          "nav.faq": "FAQ",
+          "nav.menuLabel": "Menú",
+          "cta.inscribirme": "Inscribirme",
+          "fmt.pocket.l1": "<b>Juego:</b> TCG Pocket.",
+          "fmt.cupos": "<b>Cupos:</b> 8, 16 o 32 jugadores — mínimo 8.",
+          "fmt.pocket.l3": "<b>Formato:</b> BO3, sin repetir Pokémon ni energía en el mismo duelo.",
+          "fmt.final": "<b>Final:</b> transmitida en el canal oficial de TikTok y YouTube, disponible para siempre.",
+          "payout.label": "Reparto del bote",
+          "payout.champ": "Campeón",
+          "payout.sub": "Subcampeón",
+          "payout.org": "Organización",
+          "payout.prizes": "Premios",
+          "fmt.champions.l1": "<b>Juego:</b> Pokémon Champions.",
+          "fmt.champions.l3": "<b>Formato:</b> Dobles, BO3, con el mismo equipo durante todo el enfrentamiento.",
+          "prize.champ.l1": "70% de lo recaudado",
+          "prize.champ.l2": "Sticker + sticker animado de campeón",
+          "prize.champ.l3": "Banner de campeón en el Cuadro de Honor",
+          "prize.sub.l1": "20% de lo recaudado",
+          "prize.sub.l2": "Sticker de subcampeón",
+          "prize.sub.l3": "Banner de subcampeón en el Cuadro de Honor",
+          "prize.note": "El 10% restante cubre organización, transmisión y logística. El tercer lugar recibe entrada pagada a la próxima edición como premio no monetario. Los mismos premios aplican para TCG Pocket y para Pokémon Champions.",
+          "hero.tag": "Torneo de paga · próxima edición abierta",
+          "hero.trophyAlt": "Trofeo Trono Prisma",
+          "hero.glory": "La corona es de cristal: se raja con el primer error y solo el mejor la levanta entera.",
+          "hero.verHonor": "Ver el Cuadro de Honor",
+          "hero.stat.players": "jugadores",
+          "hero.stat.formats": "ambos formatos",
+          "hero.stat.champ": "para el campeón",
+          "about.kicker": "Acerca de",
+          "about.h2": "Una liga, no un torneo improvisado",
+          "about.intro": "Trono Prisma es una competición de pago organizada por Residente, concebida para ofrecer un entorno competitivo serio, estructurado y transparente — con reglas claras, seguimiento continuo y una identidad propia.",
+          "about.c1.title": "Organización",
+          "about.c1.p": "Torneo de pago organizado por Residente, pensado para ofrecer un entorno competitivo serio, estructurado y transparente en cada edición.",
+          "about.c2.title": "Reparto del premio",
+          "about.c2.p": "El 70% de lo recaudado va para el campeón y el 20% para el subcampeón, en efectivo: una recompensa directa y proporcional al rendimiento de cada jugador.",
+          "about.c3.title": "Gestión vía WhatsApp",
+          "about.c3.p": "Inscripciones, emparejamientos, comunicación oficial y seguimiento de las partidas se coordinan íntegramente por WhatsApp.",
+          "about.c4.title": "Formato BO3",
+          "about.c4.p": "Reglas claras y exigentes: no se permite repetir Pokémon ni energías, lo que obliga a la variedad estratégica y a la adaptación constante.",
+          "about.c5.title": "Llaves siempre pares",
+          "about.c5.p": "Eliminación directa con llaves siempre pares, evitando emparejamientos impares, para asegurar igualdad competitiva desde el inicio.",
+          "about.c6.title": "Estadísticas y contenido",
+          "about.c6.p": "Tabla de estadísticas exclusiva de la liga por edición: resultados, rendimiento, decks usados, resúmenes completos, votaciones y eventos adicionales.",
+          "about.c7.title": "Fecha fija y comunidad",
+          "about.c7.p": "Cada edición se juega en un día fijo, con banners y stickers exclusivos para los jugadores destacados y presencia activa en TikTok con resultados y novedades.",
+          "honor.kicker": "Cuadro de Honor",
+          "honor.h2": "Los que ya levantaron el trono",
+          "honor.p": "Cada campeón y subcampeón queda aquí para siempre, con su sticker, su banner y su final.",
+          "honor.loading": "Cargando el Cuadro de Honor…",
+          "honor.verFinal": "Ver la final →",
+          "honor.bannerAlt": "Banner de {name}",
+          "honor.stickerAlt": "Sticker de {name}",
+          "honor.emptyTitle": "El Cuadro de Honor está vacío — por ahora",
+          "honor.emptyBody": "El primer campeón de {name} escribirá aquí la primera página.",
+          "honor.errorTitle": "El Cuadro de Honor aún no está conectado",
+          "honor.errorBody": "Configura CONFIG.GITHUB_USER y CONFIG.GITHUB_REPO en el código, y agrega {path} a tu repositorio.",
+          "reg.kicker": "Reglamento",
+          "reg.h2": "Reglamento oficial",
+          "reg.intro": "Documento vinculante de Trono Prisma. Inscribirse en cualquier edición implica la lectura y aceptación total de sus términos.",
+          "reg.1.title": "Introducción",
+          "reg.1.p1": "Trono Prisma es una competición de pago organizada por Residente, concebida para ofrecer un entorno competitivo serio, estructurado y transparente para TCG Pocket y Pokémon Champions.",
+          "reg.1.p2": "Este documento es el reglamento oficial y vinculante de Trono Prisma.",
+          "reg.2.title": "Organización y canales oficiales",
+          "reg.2.l1": "<b>Organiza:</b> Residente.",
+          "reg.2.l2": "<b>Gestión del torneo:</b> inscripciones, emparejamientos, comunicación oficial y seguimiento de las partidas se coordinan íntegramente a través del grupo de WhatsApp de Trono Prisma.",
+          "reg.2.l3": "<b>Contenido y comunidad:</b> presencia activa en TikTok, con resultados, novedades y contenido de cada edición.",
+          "reg.2.l4": "<b>Transmisión:</b> las finales se transmiten en el canal oficial de TikTok y YouTube, y quedan disponibles de forma permanente.",
+          "reg.3.title": "Modalidades de juego",
+          "reg.3.pocket.l1": "Formato BO3 (mejor de 3).",
+          "reg.3.pocket.l2": "No se permite repetir Pokémon ni energía en el mismo duelo — se exige variedad estratégica y adaptación constante.",
+          "reg.3.pocket.l3": "Las energías generadas cuentan como energía repetida para efectos de esta regla.",
+          "reg.3.pocket.l4": "Cada jugador debe enviar al organizador sus 3 decks con los que jugará, para cualquier situación que se presente durante el enfrentamiento.",
+          "reg.3.pocket.l5": "Los decks enviados no podrán cambiarse desde las 48 horas previas al encuentro.",
+          "reg.3.pocket.l6": "Durante el enfrentamiento solo se podrán usar los Pokémon enviados al organizador.",
+          "reg.3.champ.l1": "Dobles, formato BO3.",
+          "reg.3.champ.l2": "Se usa el mismo equipo durante todo el enfrentamiento; no se cambia de equipo entre partidas de un mismo duelo.",
+          "reg.3.champ.l3": "Cada jugador debe enviar al organizador el equipo con el que competirá; no podrá cambiarlo desde las 48 horas previas al encuentro.",
+          "reg.3.champ.l4": "Durante el enfrentamiento solo se podrán usar los Pokémon enviados al organizador.",
+          "reg.4.title": "Cupos e inscripción",
+          "reg.4.l1": "Cada edición abre con 8, 16 o 32 cupos, con un mínimo de 8 jugadores para poder celebrarse.",
+          "reg.4.l2": "La inscripción se realiza directamente en el grupo de WhatsApp de Trono Prisma; ese es el único canal oficial para inscribirse.",
+          "reg.4.l3": "El pago de la inscripción confirma el lugar del jugador en el bracket de esa edición.",
+          "reg.5.title": "Cupo mínimo no alcanzado",
+          "reg.5.p1": "Si al cierre de inscripciones no se alcanza el mínimo de 8 jugadores, la edición se pospone a una nueva fecha.",
+          "reg.5.p2": "Las inscripciones ya pagadas se mantienen: el cupo del jugador queda reservado para la nueva fecha, sin necesidad de volver a pagar ni de reconfirmar.",
+          "reg.6.title": "Sistema de llaves (bracket)",
+          "reg.6.l1": "El torneo se juega por eliminación directa.",
+          "reg.6.l2": "Las llaves siempre se arman con un número par de jugadores; no se permiten emparejamientos impares, para asegurar igualdad competitiva desde la primera ronda.",
+          "reg.7.title": "Desconexiones durante una partida",
+          "reg.7.p1": "Una desconexión durante una partida se resuelve como derrota automática para el jugador que se desconecta. Existen dos excepciones a esta regla:",
+          "reg.7.l1": "Que el rival conceda voluntariamente la partida.",
+          "reg.7.l2": "Que el jugador desconectado presente pruebas suficientes (capturas de pantalla, grabación de pantalla u otra evidencia verificable) de que la desconexión se debió a un problema técnico ajeno a su control.",
+          "reg.7.p2": "El staff de Trono Prisma evalúa las pruebas presentadas en cada caso. Su decisión es final e inapelable.",
+          "reg.8.title": "Conducta y juego limpio",
+          "reg.8.l1": "Se espera respeto entre jugadores y hacia la organización en todo momento, dentro y fuera de las partidas.",
+          "reg.8.l2": "No se permite el uso de trampas, exploits, asistencia externa no autorizada ni ninguna forma de manipulación de resultados.",
+          "reg.8.l3": "El incumplimiento de esta sección puede resultar en descalificación inmediata, sin derecho a reembolso.",
+          "reg.9.p1": "El 100% de lo recaudado por inscripciones en cada edición se distribuye de la siguiente manera:",
+          "reg.9.top1": "Top 1 · Campeón",
+          "reg.9.top1desc": "Efectivo + sticker y sticker animado de campeón + banner de campeón en el Cuadro de Honor.",
+          "reg.9.top2": "Top 2 · Subcampeón",
+          "reg.9.top2desc": "Efectivo + sticker de subcampeón + banner de subcampeón en el Cuadro de Honor.",
+          "reg.9.top3": "Top 3 · Tercer lugar",
+          "reg.9.top3desc": "Entrada pagada a la próxima edición de Trono Prisma (premio no monetario).",
+          "reg.9.p2": "El 10% restante del total recaudado se destina a los costos de organización, transmisión y logística de Trono Prisma.",
+          "reg.10.title": "Estadísticas y contenido de la liga",
+          "reg.10.l1": "Cada edición cuenta con una tabla de estadísticas exclusiva de la liga, con resultados, rendimiento y datos relevantes de cada participante.",
+          "reg.10.l2": "Se recopila información de los decks utilizados por los jugadores durante la edición.",
+          "reg.10.l3": "Se elabora un resumen completo al cierre de cada edición.",
+          "reg.10.l4": "Se realizan votaciones y eventos adicionales que complementan la experiencia de la liga.",
+          "reg.11.title": "Fecha del torneo",
+          "reg.11.p1": "Cada edición se celebra en un día fijo, comunicado con anticipación en el grupo oficial de WhatsApp.",
+          "reg.12.title": "Comunicación oficial",
+          "reg.12.p1": "El grupo de WhatsApp de Trono Prisma es el único canal oficial para inscripciones, emparejamientos y avisos del torneo. Cualquier comunicación recibida fuera de este canal no tiene validez oficial.",
+          "reg.13.title": "Contenido audiovisual",
+          "reg.13.p1": "TikTok y YouTube se usan exclusivamente para compartir contenido, resultados y las finales de cada edición. No se gestionan inscripciones a través de estos canales.",
+          "reg.14.title": "Aceptación del reglamento",
+          "reg.14.p1": "Inscribirse en cualquier edición de Trono Prisma implica la lectura y aceptación total de este reglamento.",
+          "reg.14.p2": "La organización se reserva el derecho de resolver cualquier situación no contemplada explícitamente en este documento, priorizando siempre la transparencia y la igualdad competitiva entre los participantes.",
+          "reg.14.contact": "Contacto oficial",
+          "reg.14.whatsappLabel": "Grupo de WhatsApp:",
+          "reg.14.social": "TikTok y YouTube: canales oficiales de Trono Prisma (solo contenido y finales)",
+          "reg.download": "Descargar reglamento en PDF",
+          "faq.kicker": "Preguntas frecuentes",
+          "faq.h2": "Dudas comunes",
+          "faq.p": "Un resumen rápido de lo más preguntado. El reglamento oficial arriba siempre tiene la última palabra.",
+          "faq.q1": "¿Cómo me inscribo a una edición?",
+          "faq.a1": "Únicamente a través del grupo oficial de WhatsApp de Trono Prisma — ese es el único canal válido para inscripciones. El pago de tu inscripción confirma tu lugar en el bracket de esa edición.",
+          "faq.q2": "¿Qué pasa si no se alcanza el mínimo de 8 jugadores?",
+          "faq.a2": "La edición se pospone a una nueva fecha. Las inscripciones ya pagadas se mantienen: tu cupo queda reservado sin necesidad de volver a pagar ni reconfirmar.",
+          "faq.q3": "¿Puedo repetir Pokémon o energía en TCG Pocket?",
+          "faq.a3": "No. No se permite repetir Pokémon ni energía en el mismo duelo, y las energías generadas también cuentan como energía repetida para esta regla.",
+          "faq.q4": "¿Tengo que enviar mis decks o mi equipo antes del torneo?",
+          "faq.a4": "Sí. En TCG Pocket debes enviar tus 3 decks al organizador; en Pokémon Champions, el equipo con el que competirás. En ambos casos no podrás cambiarlos desde 48 horas antes del encuentro, y durante la partida solo podrás usar los Pokémon que enviaste.",
+          "faq.q5": "¿Qué pasa si me desconecto durante una partida?",
+          "faq.a5": "Se resuelve como derrota automática, salvo que tu rival conceda voluntariamente o presentes evidencia verificable (capturas o grabación de pantalla) de que la desconexión se debió a un problema técnico ajeno a tu control. El staff evalúa cada caso y su decisión es final.",
+          "faq.q6": "¿Cómo se reparten los premios?",
+          "faq.a6": "El campeón recibe el 70% de lo recaudado, el subcampeón el 20%, y el 10% restante cubre organización, transmisión y logística. El tercer lugar recibe entrada pagada a la próxima edición como premio no monetario.",
+          "faq.q7": "¿Dónde puedo ver las finales?",
+          "faq.a7": "En el canal oficial de TikTok y YouTube de Trono Prisma. Quedan disponibles de forma permanente después de transmitirse.",
+          "faq.q8": "¿El grupo de WhatsApp es el único canal oficial?",
+          "faq.a8": "Sí. Inscripciones, emparejamientos y avisos del torneo se manejan únicamente ahí. Cualquier comunicación recibida fuera de ese canal no tiene validez oficial.",
+          "cta.final.h2": "¿Listo para pelear por el trono?",
+          "cta.final.p": "La inscripción es directa en el grupo de WhatsApp de Trono Prisma. Cupos limitados a 8, 16 o 32 jugadores.",
+          "cta.join": "Unirme al grupo de WhatsApp",
+          "cta.watchQuestion": "¿Solo quieres ver las finales?",
+          "footer.note": "Trono Prisma — torneo independiente de TCG Pocket y Pokémon Champions. No afiliado a The Pokémon Company.",
+          "clock.prefix": "Tu hora local ahora:"
+    },
+    en: {
+          "meta.title": "Trono Prisma — TCG Pocket & Pokémon Champions",
+          "meta.description": "Trono Prisma: the paid TCG Pocket and Pokémon Champions tournament. The crown is made of glass — only the best can lift it whole.",
+          "nav.torneo": "The tournament",
+          "nav.premios": "Prizes",
+          "nav.acerca": "About",
+          "nav.honor": "Hall of Honor",
+          "nav.reglamento": "Rules",
+          "nav.faq": "FAQ",
+          "nav.menuLabel": "Menu",
+          "cta.inscribirme": "Sign up",
+          "fmt.pocket.l1": "<b>Game:</b> TCG Pocket.",
+          "fmt.cupos": "<b>Slots:</b> 8, 16, or 32 players — 8 minimum.",
+          "fmt.pocket.l3": "<b>Format:</b> BO3, no repeating Pokémon or Energy in the same match.",
+          "fmt.final": "<b>Final:</b> streamed on the official TikTok and YouTube channel, available forever.",
+          "payout.label": "Prize pool split",
+          "payout.champ": "Champion",
+          "payout.sub": "Runner-up",
+          "payout.org": "Organization",
+          "payout.prizes": "Prizes",
+          "fmt.champions.l1": "<b>Game:</b> Pokémon Champions.",
+          "fmt.champions.l3": "<b>Format:</b> Doubles, BO3, same team for the entire match.",
+          "prize.champ.l1": "70% of the pool",
+          "prize.champ.l2": "Sticker + animated champion sticker",
+          "prize.champ.l3": "Champion banner in the Hall of Honor",
+          "prize.sub.l1": "20% of the pool",
+          "prize.sub.l2": "Runner-up sticker",
+          "prize.sub.l3": "Runner-up banner in the Hall of Honor",
+          "prize.note": "The remaining 10% covers organization, streaming, and logistics. Third place gets a paid entry to the next edition as a non-cash prize. The same prizes apply to both TCG Pocket and Pokémon Champions.",
+          "hero.tag": "Paid tournament · next edition open",
+          "hero.trophyAlt": "Trono Prisma trophy",
+          "hero.glory": "The crown is made of glass: it cracks at the first mistake, and only the best can lift it whole.",
+          "hero.verHonor": "See the Hall of Honor",
+          "hero.stat.players": "players",
+          "hero.stat.formats": "both formats",
+          "hero.stat.champ": "for the champion",
+          "about.kicker": "About",
+          "about.h2": "A league, not a pickup tournament",
+          "about.intro": "Trono Prisma is a paid competition organized by Residente, built to offer a serious, structured, and transparent competitive environment — with clear rules, ongoing tracking, and an identity of its own.",
+          "about.c1.title": "Organization",
+          "about.c1.p": "A paid tournament organized by Residente, designed to offer a serious, structured, and transparent competitive environment in every edition.",
+          "about.c2.title": "Prize split",
+          "about.c2.p": "70% of the pool goes to the champion and 20% to the runner-up, in cash: a direct reward proportional to each player's performance.",
+          "about.c3.title": "Managed through WhatsApp",
+          "about.c3.p": "Sign-ups, matchups, official communication, and match tracking are coordinated entirely through WhatsApp.",
+          "about.c4.title": "BO3 format",
+          "about.c4.p": "Clear, demanding rules: no repeating Pokémon or Energy, which forces strategic variety and constant adaptation.",
+          "about.c5.title": "Always even brackets",
+          "about.c5.p": "Single elimination with always-even brackets, avoiding odd matchups, to ensure competitive fairness from the start.",
+          "about.c6.title": "Stats and content",
+          "about.c6.p": "An exclusive league stats table for every edition: results, performance, decks used, full recaps, polls, and extra events.",
+          "about.c7.title": "Fixed date and community",
+          "about.c7.p": "Every edition is played on a fixed day, with exclusive banners and stickers for standout players and active presence on TikTok with results and news.",
+          "honor.kicker": "Hall of Honor",
+          "honor.h2": "Those who already claimed the throne",
+          "honor.p": "Every champion and runner-up stays here forever, with their sticker, their banner, and their final.",
+          "honor.loading": "Loading the Hall of Honor…",
+          "honor.verFinal": "Watch the final →",
+          "honor.bannerAlt": "{name}'s banner",
+          "honor.stickerAlt": "{name}'s sticker",
+          "honor.emptyTitle": "The Hall of Honor is empty — for now",
+          "honor.emptyBody": "The first {name} champion will write the first page here.",
+          "honor.errorTitle": "The Hall of Honor isn't connected yet",
+          "honor.errorBody": "Set CONFIG.GITHUB_USER and CONFIG.GITHUB_REPO in the code, and add {path} to your repository.",
+          "reg.kicker": "Rules",
+          "reg.h2": "Official rules",
+          "reg.intro": "Trono Prisma's binding document. Signing up for any edition means reading and fully accepting its terms.",
+          "reg.1.title": "Introduction",
+          "reg.1.p1": "Trono Prisma is a paid competition organized by Residente, built to offer a serious, structured, and transparent competitive environment for TCG Pocket and Pokémon Champions.",
+          "reg.1.p2": "This document is Trono Prisma's official, binding rulebook.",
+          "reg.2.title": "Organization and official channels",
+          "reg.2.l1": "<b>Organized by:</b> Residente.",
+          "reg.2.l2": "<b>Tournament management:</b> sign-ups, matchups, official communication, and match tracking are coordinated entirely through the Trono Prisma WhatsApp group.",
+          "reg.2.l3": "<b>Content and community:</b> active presence on TikTok, with results, news, and content from every edition.",
+          "reg.2.l4": "<b>Streaming:</b> finals are streamed on the official TikTok and YouTube channel and remain available permanently.",
+          "reg.3.title": "Game formats",
+          "reg.3.pocket.l1": "BO3 format (best of 3).",
+          "reg.3.pocket.l2": "No repeating Pokémon or Energy in the same match is allowed — strategic variety and constant adaptation are required.",
+          "reg.3.pocket.l3": "Generated Energy counts as repeated Energy for the purposes of this rule.",
+          "reg.3.pocket.l4": "Each player must send the organizer the 3 decks they'll play with, to cover any situation that comes up during the match.",
+          "reg.3.pocket.l5": "Submitted decks cannot be changed within 48 hours of the match.",
+          "reg.3.pocket.l6": "During the match, only the Pokémon sent to the organizer may be used.",
+          "reg.3.champ.l1": "Doubles, BO3 format.",
+          "reg.3.champ.l2": "The same team is used for the entire match; the team cannot be changed between games within the same match.",
+          "reg.3.champ.l3": "Each player must send the organizer the team they'll compete with; it cannot be changed within 48 hours of the match.",
+          "reg.3.champ.l4": "During the match, only the Pokémon sent to the organizer may be used.",
+          "reg.4.title": "Slots and sign-up",
+          "reg.4.l1": "Each edition opens with 8, 16, or 32 slots, with a minimum of 8 players required to hold it.",
+          "reg.4.l2": "Sign-up happens directly in the Trono Prisma WhatsApp group; that's the only official sign-up channel.",
+          "reg.4.l3": "Paying the entry fee confirms the player's spot in that edition's bracket.",
+          "reg.5.title": "Minimum player count not reached",
+          "reg.5.p1": "If the 8-player minimum isn't reached by sign-up close, the edition is postponed to a new date.",
+          "reg.5.p2": "Payments already made are kept: the player's slot stays reserved for the new date, with no need to pay or reconfirm again.",
+          "reg.6.title": "Bracket system",
+          "reg.6.l1": "The tournament is played by single elimination.",
+          "reg.6.l2": "Brackets are always built with an even number of players; odd matchups aren't allowed, to ensure competitive fairness from the first round.",
+          "reg.7.title": "Disconnections during a game",
+          "reg.7.p1": "A disconnection during a game is resolved as an automatic loss for the disconnected player. There are two exceptions to this rule:",
+          "reg.7.l1": "The opponent voluntarily concedes the game.",
+          "reg.7.l2": "The disconnected player provides sufficient evidence (screenshots, screen recording, or other verifiable evidence) that the disconnection was due to a technical issue beyond their control.",
+          "reg.7.p2": "Trono Prisma staff evaluates the evidence submitted in each case. Their decision is final and cannot be appealed.",
+          "reg.8.title": "Conduct and fair play",
+          "reg.8.l1": "Respect between players and toward the organization is expected at all times, both during and outside of matches.",
+          "reg.8.l2": "The use of cheats, exploits, unauthorized outside assistance, or any form of result manipulation is not allowed.",
+          "reg.8.l3": "Violating this section can result in immediate disqualification, with no right to a refund.",
+          "reg.9.p1": "100% of the entry fees collected each edition is distributed as follows:",
+          "reg.9.top1": "Top 1 · Champion",
+          "reg.9.top1desc": "Cash + champion sticker and animated sticker + champion banner in the Hall of Honor.",
+          "reg.9.top2": "Top 2 · Runner-up",
+          "reg.9.top2desc": "Cash + runner-up sticker + runner-up banner in the Hall of Honor.",
+          "reg.9.top3": "Top 3 · Third place",
+          "reg.9.top3desc": "A paid entry to the next Trono Prisma edition (non-cash prize).",
+          "reg.9.p2": "The remaining 10% of the total collected goes toward Trono Prisma's organization, streaming, and logistics costs.",
+          "reg.10.title": "League stats and content",
+          "reg.10.l1": "Each edition has an exclusive league stats table with results, performance, and relevant data for every participant.",
+          "reg.10.l2": "Information is collected on the decks players used during the edition.",
+          "reg.10.l3": "A full recap is put together at the close of each edition.",
+          "reg.10.l4": "Polls and extra events are held to round out the league experience.",
+          "reg.11.title": "Tournament date",
+          "reg.11.p1": "Each edition is held on a fixed day, announced in advance in the official WhatsApp group.",
+          "reg.12.title": "Official communication",
+          "reg.12.p1": "The Trono Prisma WhatsApp group is the only official channel for sign-ups, matchups, and tournament announcements. Any communication received outside this channel has no official validity.",
+          "reg.13.title": "Audiovisual content",
+          "reg.13.p1": "TikTok and YouTube are used exclusively to share content, results, and each edition's finals. Sign-ups are not handled through these channels.",
+          "reg.14.title": "Acceptance of the rules",
+          "reg.14.p1": "Signing up for any Trono Prisma edition means reading and fully accepting this rulebook.",
+          "reg.14.p2": "The organization reserves the right to resolve any situation not explicitly covered in this document, always prioritizing transparency and competitive fairness among participants.",
+          "reg.14.contact": "Official contact",
+          "reg.14.whatsappLabel": "WhatsApp group:",
+          "reg.14.social": "TikTok and YouTube: Trono Prisma's official channels (content and finals only)",
+          "reg.download": "Download the rules as PDF",
+          "faq.kicker": "FAQ",
+          "faq.h2": "Common questions",
+          "faq.p": "A quick rundown of the most-asked questions. The official rules above always have the final word.",
+          "faq.q1": "How do I sign up for an edition?",
+          "faq.a1": "Only through Trono Prisma's official WhatsApp group — that's the only valid channel for sign-ups. Paying your entry fee confirms your spot in that edition's bracket.",
+          "faq.q2": "What happens if the 8-player minimum isn't reached?",
+          "faq.a2": "The edition is postponed to a new date. Payments already made are kept: your slot stays reserved with no need to pay or reconfirm again.",
+          "faq.q3": "Can I repeat Pokémon or Energy in TCG Pocket?",
+          "faq.a3": "No. You can't repeat Pokémon or Energy in the same match, and generated Energy also counts as repeated Energy under this rule.",
+          "faq.q4": "Do I have to submit my decks or team before the tournament?",
+          "faq.a4": "Yes. In TCG Pocket you must send your 3 decks to the organizer; in Pokémon Champions, the team you'll compete with. Either way, you can't change them within 48 hours of the match, and during the game you can only use the Pokémon you submitted.",
+          "faq.q5": "What happens if I disconnect during a game?",
+          "faq.a5": "It's resolved as an automatic loss, unless your opponent voluntarily concedes or you provide verifiable evidence (screenshots or screen recording) that the disconnection was due to a technical issue beyond your control. Staff evaluates each case and their decision is final.",
+          "faq.q6": "How are prizes split?",
+          "faq.a6": "The champion gets 70% of the pool, the runner-up 20%, and the remaining 10% covers organization, streaming, and logistics. Third place gets a paid entry to the next edition as a non-cash prize.",
+          "faq.q7": "Where can I watch the finals?",
+          "faq.a7": "On Trono Prisma's official TikTok and YouTube channel. They stay available permanently after airing.",
+          "faq.q8": "Is the WhatsApp group the only official channel?",
+          "faq.a8": "Yes. Sign-ups, matchups, and tournament announcements are handled exclusively there. Any communication received outside that channel has no official validity.",
+          "cta.final.h2": "Ready to fight for the throne?",
+          "cta.final.p": "Sign-up happens directly in the Trono Prisma WhatsApp group. Slots limited to 8, 16, or 32 players.",
+          "cta.join": "Join the WhatsApp group",
+          "cta.watchQuestion": "Just here to watch the finals?",
+          "footer.note": "Trono Prisma — an independent TCG Pocket and Pokémon Champions tournament. Not affiliated with The Pokémon Company.",
+          "clock.prefix": "Your local time right now:"
+    },
+    pt: {
+          "meta.title": "Trono Prisma — TCG Pocket & Pokémon Champions",
+          "meta.description": "Trono Prisma: o torneio pago de TCG Pocket e Pokémon Champions. A coroa é de cristal — só o melhor consegue erguê-la inteira.",
+          "nav.torneo": "O torneio",
+          "nav.premios": "Premiação",
+          "nav.acerca": "Sobre",
+          "nav.honor": "Quadro de Honra",
+          "nav.reglamento": "Regulamento",
+          "nav.faq": "Perguntas frequentes",
+          "nav.menuLabel": "Menu",
+          "cta.inscribirme": "Inscrever-me",
+          "fmt.pocket.l1": "<b>Jogo:</b> TCG Pocket.",
+          "fmt.cupos": "<b>Vagas:</b> 8, 16 ou 32 jogadores — mínimo de 8.",
+          "fmt.pocket.l3": "<b>Formato:</b> MD3, sem repetir Pokémon nem energia no mesmo duelo.",
+          "fmt.final": "<b>Final:</b> transmitida no canal oficial do TikTok e YouTube, disponível para sempre.",
+          "payout.label": "Divisão do prêmio",
+          "payout.champ": "Campeão",
+          "payout.sub": "Vice-campeão",
+          "payout.org": "Organização",
+          "payout.prizes": "Premiação",
+          "fmt.champions.l1": "<b>Jogo:</b> Pokémon Champions.",
+          "fmt.champions.l3": "<b>Formato:</b> Duplas, MD3, com a mesma equipe durante todo o confronto.",
+          "prize.champ.l1": "70% do valor arrecadado",
+          "prize.champ.l2": "Sticker + sticker animado de campeão",
+          "prize.champ.l3": "Banner de campeão no Quadro de Honra",
+          "prize.sub.l1": "20% do valor arrecadado",
+          "prize.sub.l2": "Sticker de vice-campeão",
+          "prize.sub.l3": "Banner de vice-campeão no Quadro de Honra",
+          "prize.note": "Os 10% restantes cobrem organização, transmissão e logística. O terceiro lugar recebe inscrição paga para a próxima edição como prêmio não monetário. Os mesmos prêmios valem para TCG Pocket e para Pokémon Champions.",
+          "hero.tag": "Torneio pago · próxima edição aberta",
+          "hero.trophyAlt": "Troféu Trono Prisma",
+          "hero.glory": "A coroa é de cristal: racha no primeiro erro e só o melhor consegue erguê-la inteira.",
+          "hero.verHonor": "Ver o Quadro de Honra",
+          "hero.stat.players": "jogadores",
+          "hero.stat.formats": "os dois formatos",
+          "hero.stat.champ": "para o campeão",
+          "about.kicker": "Sobre",
+          "about.h2": "Uma liga, não um torneio improvisado",
+          "about.intro": "Trono Prisma é uma competição paga organizada pela Residente, criada para oferecer um ambiente competitivo sério, estruturado e transparente — com regras claras, acompanhamento contínuo e identidade própria.",
+          "about.c1.title": "Organização",
+          "about.c1.p": "Torneio pago organizado pela Residente, pensado para oferecer um ambiente competitivo sério, estruturado e transparente em cada edição.",
+          "about.c2.title": "Divisão do prêmio",
+          "about.c2.p": "70% do valor arrecadado vai para o campeão e 20% para o vice-campeão, em dinheiro: uma recompensa direta e proporcional ao desempenho de cada jogador.",
+          "about.c3.title": "Gestão via WhatsApp",
+          "about.c3.p": "Inscrições, confrontos, comunicação oficial e acompanhamento das partidas são coordenados integralmente pelo WhatsApp.",
+          "about.c4.title": "Formato MD3",
+          "about.c4.p": "Regras claras e exigentes: não é permitido repetir Pokémon nem energias, o que exige variedade estratégica e adaptação constante.",
+          "about.c5.title": "Chaves sempre pares",
+          "about.c5.p": "Eliminação direta com chaves sempre pares, evitando confrontos ímpares, para garantir igualdade competitiva desde o início.",
+          "about.c6.title": "Estatísticas e conteúdo",
+          "about.c6.p": "Tabela de estatísticas exclusiva da liga por edição: resultados, desempenho, decks usados, resumos completos, votações e eventos adicionais.",
+          "about.c7.title": "Data fixa e comunidade",
+          "about.c7.p": "Cada edição acontece em um dia fixo, com banners e stickers exclusivos para os jogadores destaque e presença ativa no TikTok com resultados e novidades.",
+          "honor.kicker": "Quadro de Honra",
+          "honor.h2": "Quem já ergueu o trono",
+          "honor.p": "Cada campeão e vice-campeão fica aqui para sempre, com seu sticker, seu banner e sua final.",
+          "honor.loading": "Carregando o Quadro de Honra…",
+          "honor.verFinal": "Ver a final →",
+          "honor.bannerAlt": "Banner de {name}",
+          "honor.stickerAlt": "Sticker de {name}",
+          "honor.emptyTitle": "O Quadro de Honra está vazio — por enquanto",
+          "honor.emptyBody": "O primeiro campeão de {name} escreverá aqui a primeira página.",
+          "honor.errorTitle": "O Quadro de Honra ainda não está conectado",
+          "honor.errorBody": "Configure CONFIG.GITHUB_USER e CONFIG.GITHUB_REPO no código, e adicione {path} ao seu repositório.",
+          "reg.kicker": "Regulamento",
+          "reg.h2": "Regulamento oficial",
+          "reg.intro": "Documento vinculante do Trono Prisma. Inscrever-se em qualquer edição implica a leitura e aceitação total de seus termos.",
+          "reg.1.title": "Introdução",
+          "reg.1.p1": "Trono Prisma é uma competição paga organizada pela Residente, criada para oferecer um ambiente competitivo sério, estruturado e transparente para TCG Pocket e Pokémon Champions.",
+          "reg.1.p2": "Este documento é o regulamento oficial e vinculante do Trono Prisma.",
+          "reg.2.title": "Organização e canais oficiais",
+          "reg.2.l1": "<b>Organiza:</b> Residente.",
+          "reg.2.l2": "<b>Gestão do torneio:</b> inscrições, confrontos, comunicação oficial e acompanhamento das partidas são coordenados integralmente pelo grupo de WhatsApp do Trono Prisma.",
+          "reg.2.l3": "<b>Conteúdo e comunidade:</b> presença ativa no TikTok, com resultados, novidades e conteúdo de cada edição.",
+          "reg.2.l4": "<b>Transmissão:</b> as finais são transmitidas no canal oficial do TikTok e YouTube, e ficam disponíveis permanentemente.",
+          "reg.3.title": "Modalidades de jogo",
+          "reg.3.pocket.l1": "Formato MD3 (melhor de 3).",
+          "reg.3.pocket.l2": "Não é permitido repetir Pokémon nem energia no mesmo duelo — exige-se variedade estratégica e adaptação constante.",
+          "reg.3.pocket.l3": "As energias geradas contam como energia repetida para os efeitos desta regra.",
+          "reg.3.pocket.l4": "Cada jogador deve enviar ao organizador seus 3 decks com os quais jogará, para qualquer situação que surja durante o confronto.",
+          "reg.3.pocket.l5": "Os decks enviados não poderão ser alterados a partir de 48 horas antes do confronto.",
+          "reg.3.pocket.l6": "Durante o confronto só poderão ser usados os Pokémon enviados ao organizador.",
+          "reg.3.champ.l1": "Duplas, formato MD3.",
+          "reg.3.champ.l2": "Usa-se a mesma equipe durante todo o confronto; não se troca de equipe entre partidas de um mesmo duelo.",
+          "reg.3.champ.l3": "Cada jogador deve enviar ao organizador a equipe com a qual vai competir; não poderá alterá-la a partir de 48 horas antes do confronto.",
+          "reg.3.champ.l4": "Durante o confronto só poderão ser usados os Pokémon enviados ao organizador.",
+          "reg.4.title": "Vagas e inscrição",
+          "reg.4.l1": "Cada edição abre com 8, 16 ou 32 vagas, com um mínimo de 8 jogadores para poder acontecer.",
+          "reg.4.l2": "A inscrição é feita diretamente no grupo de WhatsApp do Trono Prisma; esse é o único canal oficial para se inscrever.",
+          "reg.4.l3": "O pagamento da inscrição confirma o lugar do jogador na chave daquela edição.",
+          "reg.5.title": "Mínimo de vagas não atingido",
+          "reg.5.p1": "Se, no fechamento das inscrições, o mínimo de 8 jogadores não for atingido, a edição é adiada para uma nova data.",
+          "reg.5.p2": "As inscrições já pagas são mantidas: a vaga do jogador fica reservada para a nova data, sem necessidade de pagar novamente nem reconfirmar.",
+          "reg.6.title": "Sistema de chaves (bracket)",
+          "reg.6.l1": "O torneio é disputado em eliminação direta.",
+          "reg.6.l2": "As chaves são sempre montadas com um número par de jogadores; não são permitidos confrontos ímpares, para garantir igualdade competitiva desde a primeira rodada.",
+          "reg.7.title": "Desconexões durante uma partida",
+          "reg.7.p1": "Uma desconexão durante uma partida é resolvida como derrota automática para o jogador que se desconectou. Existem duas exceções a esta regra:",
+          "reg.7.l1": "O rival conceder voluntariamente a partida.",
+          "reg.7.l2": "O jogador desconectado apresentar provas suficientes (capturas de tela, gravação de tela ou outra evidência verificável) de que a desconexão se deveu a um problema técnico alheio ao seu controle.",
+          "reg.7.p2": "A equipe do Trono Prisma avalia as provas apresentadas em cada caso. Sua decisão é final e inapelável.",
+          "reg.8.title": "Conduta e jogo limpo",
+          "reg.8.l1": "Espera-se respeito entre jogadores e com a organização em todo momento, dentro e fora das partidas.",
+          "reg.8.l2": "Não é permitido o uso de trapaças, exploits, assistência externa não autorizada nem nenhuma forma de manipulação de resultados.",
+          "reg.8.l3": "O descumprimento desta seção pode resultar em desclassificação imediata, sem direito a reembolso.",
+          "reg.9.p1": "100% do valor arrecadado com as inscrições em cada edição é distribuído da seguinte forma:",
+          "reg.9.top1": "Top 1 · Campeão",
+          "reg.9.top1desc": "Dinheiro + sticker e sticker animado de campeão + banner de campeão no Quadro de Honra.",
+          "reg.9.top2": "Top 2 · Vice-campeão",
+          "reg.9.top2desc": "Dinheiro + sticker de vice-campeão + banner de vice-campeão no Quadro de Honra.",
+          "reg.9.top3": "Top 3 · Terceiro lugar",
+          "reg.9.top3desc": "Inscrição paga para a próxima edição do Trono Prisma (prêmio não monetário).",
+          "reg.9.p2": "Os 10% restantes do total arrecadado são destinados aos custos de organização, transmissão e logística do Trono Prisma.",
+          "reg.10.title": "Estatísticas e conteúdo da liga",
+          "reg.10.l1": "Cada edição conta com uma tabela de estatísticas exclusiva da liga, com resultados, desempenho e dados relevantes de cada participante.",
+          "reg.10.l2": "São coletadas informações sobre os decks utilizados pelos jogadores durante a edição.",
+          "reg.10.l3": "É elaborado um resumo completo ao fim de cada edição.",
+          "reg.10.l4": "São realizadas votações e eventos adicionais que complementam a experiência da liga.",
+          "reg.11.title": "Data do torneio",
+          "reg.11.p1": "Cada edição acontece em um dia fixo, comunicado com antecedência no grupo oficial de WhatsApp.",
+          "reg.12.title": "Comunicação oficial",
+          "reg.12.p1": "O grupo de WhatsApp do Trono Prisma é o único canal oficial para inscrições, confrontos e avisos do torneio. Qualquer comunicação recebida fora desse canal não tem validade oficial.",
+          "reg.13.title": "Conteúdo audiovisual",
+          "reg.13.p1": "TikTok e YouTube são usados exclusivamente para compartilhar conteúdo, resultados e as finais de cada edição. As inscrições não são feitas por esses canais.",
+          "reg.14.title": "Aceitação do regulamento",
+          "reg.14.p1": "Inscrever-se em qualquer edição do Trono Prisma implica a leitura e aceitação total deste regulamento.",
+          "reg.14.p2": "A organização reserva-se o direito de resolver qualquer situação não contemplada explicitamente neste documento, priorizando sempre a transparência e a igualdade competitiva entre os participantes.",
+          "reg.14.contact": "Contato oficial",
+          "reg.14.whatsappLabel": "Grupo de WhatsApp:",
+          "reg.14.social": "TikTok e YouTube: canais oficiais do Trono Prisma (apenas conteúdo e finais)",
+          "reg.download": "Baixar o regulamento em PDF",
+          "faq.kicker": "Perguntas frequentes",
+          "faq.h2": "Dúvidas comuns",
+          "faq.p": "Um resumo rápido do que mais perguntam. O regulamento oficial acima sempre tem a palavra final.",
+          "faq.q1": "Como faço para me inscrever em uma edição?",
+          "faq.a1": "Somente pelo grupo oficial de WhatsApp do Trono Prisma — esse é o único canal válido para inscrições. O pagamento da sua inscrição confirma seu lugar na chave daquela edição.",
+          "faq.q2": "O que acontece se o mínimo de 8 jogadores não for atingido?",
+          "faq.a2": "A edição é adiada para uma nova data. As inscrições já pagas são mantidas: sua vaga fica reservada sem necessidade de pagar novamente nem reconfirmar.",
+          "faq.q3": "Posso repetir Pokémon ou energia no TCG Pocket?",
+          "faq.a3": "Não. Não é permitido repetir Pokémon nem energia no mesmo duelo, e as energias geradas também contam como energia repetida para essa regra.",
+          "faq.q4": "Preciso enviar meus decks ou minha equipe antes do torneio?",
+          "faq.a4": "Sim. No TCG Pocket você deve enviar seus 3 decks ao organizador; no Pokémon Champions, a equipe com a qual vai competir. Em ambos os casos, não poderá alterá-los a partir de 48 horas antes do confronto, e durante a partida só poderá usar os Pokémon que enviou.",
+          "faq.q5": "O que acontece se eu me desconectar durante uma partida?",
+          "faq.a5": "É resolvido como derrota automática, a menos que seu rival conceda voluntariamente ou você apresente evidência verificável (capturas ou gravação de tela) de que a desconexão se deveu a um problema técnico alheio ao seu controle. A equipe avalia cada caso e sua decisão é final.",
+          "faq.q6": "Como é feita a divisão dos prêmios?",
+          "faq.a6": "O campeão recebe 70% do valor arrecadado, o vice-campeão 20%, e os 10% restantes cobrem organização, transmissão e logística. O terceiro lugar recebe inscrição paga para a próxima edição como prêmio não monetário.",
+          "faq.q7": "Onde posso assistir às finais?",
+          "faq.a7": "No canal oficial do TikTok e YouTube do Trono Prisma. Ficam disponíveis permanentemente depois de transmitidas.",
+          "faq.q8": "O grupo de WhatsApp é o único canal oficial?",
+          "faq.a8": "Sim. Inscrições, confrontos e avisos do torneio são tratados exclusivamente ali. Qualquer comunicação recebida fora desse canal não tem validade oficial.",
+          "cta.final.h2": "Pronto para lutar pelo trono?",
+          "cta.final.p": "A inscrição é direta no grupo de WhatsApp do Trono Prisma. Vagas limitadas a 8, 16 ou 32 jogadores.",
+          "cta.join": "Entrar no grupo de WhatsApp",
+          "cta.watchQuestion": "Só quer assistir às finais?",
+          "footer.note": "Trono Prisma — torneio independente de TCG Pocket e Pokémon Champions. Não afiliado à The Pokémon Company.",
+          "clock.prefix": "Sua hora local agora:"
+    },
+    fr: {
+          "meta.title": "Trono Prisma — TCG Pocket & Pokémon Champions",
+          "meta.description": "Trono Prisma : le tournoi payant de TCG Pocket et Pokémon Champions. La couronne est en cristal — seul le meilleur peut la soulever entière.",
+          "nav.torneo": "Le tournoi",
+          "nav.premios": "Récompenses",
+          "nav.acerca": "À propos",
+          "nav.honor": "Tableau d'honneur",
+          "nav.reglamento": "Règlement",
+          "nav.faq": "FAQ",
+          "nav.menuLabel": "Menu",
+          "cta.inscribirme": "M'inscrire",
+          "fmt.pocket.l1": "<b>Jeu :</b> TCG Pocket.",
+          "fmt.cupos": "<b>Places :</b> 8, 16 ou 32 joueurs — 8 minimum.",
+          "fmt.pocket.l3": "<b>Format :</b> BO3, sans répéter de Pokémon ni d'Énergie lors d'un même duel.",
+          "fmt.final": "<b>Finale :</b> diffusée sur la chaîne officielle TikTok et YouTube, disponible pour toujours.",
+          "payout.label": "Répartition de la cagnotte",
+          "payout.champ": "Champion",
+          "payout.sub": "Vice-champion",
+          "payout.org": "Organisation",
+          "payout.prizes": "Récompenses",
+          "fmt.champions.l1": "<b>Jeu :</b> Pokémon Champions.",
+          "fmt.champions.l3": "<b>Format :</b> Doubles, BO3, avec la même équipe pendant tout le match.",
+          "prize.champ.l1": "70% de la cagnotte",
+          "prize.champ.l2": "Sticker + sticker animé de champion",
+          "prize.champ.l3": "Bannière de champion dans le Tableau d'honneur",
+          "prize.sub.l1": "20% de la cagnotte",
+          "prize.sub.l2": "Sticker de vice-champion",
+          "prize.sub.l3": "Bannière de vice-champion dans le Tableau d'honneur",
+          "prize.note": "Les 10% restants couvrent l'organisation, la diffusion et la logistique. La troisième place reçoit une inscription payée pour la prochaine édition, en tant que récompense non monétaire. Les mêmes récompenses s'appliquent à TCG Pocket comme à Pokémon Champions.",
+          "hero.tag": "Tournoi payant · prochaine édition ouverte",
+          "hero.trophyAlt": "Trophée Trono Prisma",
+          "hero.glory": "La couronne est en cristal : elle se fissure à la première erreur, et seul le meilleur peut la soulever entière.",
+          "hero.verHonor": "Voir le Tableau d'honneur",
+          "hero.stat.players": "joueurs",
+          "hero.stat.formats": "les deux formats",
+          "hero.stat.champ": "pour le champion",
+          "about.kicker": "À propos",
+          "about.h2": "Une ligue, pas un tournoi improvisé",
+          "about.intro": "Trono Prisma est une compétition payante organisée par Residente, pensée pour offrir un environnement compétitif sérieux, structuré et transparent — avec des règles claires, un suivi continu et une identité propre.",
+          "about.c1.title": "Organisation",
+          "about.c1.p": "Tournoi payant organisé par Residente, pensé pour offrir un environnement compétitif sérieux, structuré et transparent à chaque édition.",
+          "about.c2.title": "Répartition des gains",
+          "about.c2.p": "70% de la cagnotte revient au champion et 20% au vice-champion, en espèces : une récompense directe et proportionnelle à la performance de chaque joueur.",
+          "about.c3.title": "Gestion via WhatsApp",
+          "about.c3.p": "Inscriptions, appariements, communication officielle et suivi des matchs sont coordonnés entièrement par WhatsApp.",
+          "about.c4.title": "Format BO3",
+          "about.c4.p": "Des règles claires et exigeantes : impossible de répéter un Pokémon ou une Énergie, ce qui impose variété stratégique et adaptation constante.",
+          "about.c5.title": "Tableaux toujours pairs",
+          "about.c5.p": "Élimination directe avec des tableaux toujours pairs, évitant les appariements impairs, pour garantir l'équité compétitive dès le début.",
+          "about.c6.title": "Statistiques et contenu",
+          "about.c6.p": "Un tableau de statistiques exclusif à la ligue pour chaque édition : résultats, performances, decks utilisés, récapitulatifs complets, votes et événements additionnels.",
+          "about.c7.title": "Date fixe et communauté",
+          "about.c7.p": "Chaque édition se joue un jour fixe, avec des bannières et des stickers exclusifs pour les joueurs qui se distinguent, et une présence active sur TikTok avec résultats et actualités.",
+          "honor.kicker": "Tableau d'honneur",
+          "honor.h2": "Ceux qui ont déjà soulevé le trône",
+          "honor.p": "Chaque champion et vice-champion reste ici pour toujours, avec son sticker, sa bannière et sa finale.",
+          "honor.loading": "Chargement du Tableau d'honneur…",
+          "honor.verFinal": "Voir la finale →",
+          "honor.bannerAlt": "Bannière de {name}",
+          "honor.stickerAlt": "Sticker de {name}",
+          "honor.emptyTitle": "Le Tableau d'honneur est vide — pour l'instant",
+          "honor.emptyBody": "Le premier champion de {name} écrira ici la première page.",
+          "honor.errorTitle": "Le Tableau d'honneur n'est pas encore connecté",
+          "honor.errorBody": "Configurez CONFIG.GITHUB_USER et CONFIG.GITHUB_REPO dans le code, et ajoutez {path} à votre dépôt.",
+          "reg.kicker": "Règlement",
+          "reg.h2": "Règlement officiel",
+          "reg.intro": "Document contraignant de Trono Prisma. S'inscrire à une édition implique la lecture et l'acceptation totale de ses termes.",
+          "reg.1.title": "Introduction",
+          "reg.1.p1": "Trono Prisma est une compétition payante organisée par Residente, pensée pour offrir un environnement compétitif sérieux, structuré et transparent pour TCG Pocket et Pokémon Champions.",
+          "reg.1.p2": "Ce document est le règlement officiel et contraignant de Trono Prisma.",
+          "reg.2.title": "Organisation et canaux officiels",
+          "reg.2.l1": "<b>Organisé par :</b> Residente.",
+          "reg.2.l2": "<b>Gestion du tournoi :</b> inscriptions, appariements, communication officielle et suivi des matchs sont coordonnés entièrement via le groupe WhatsApp de Trono Prisma.",
+          "reg.2.l3": "<b>Contenu et communauté :</b> présence active sur TikTok, avec résultats, actualités et contenu de chaque édition.",
+          "reg.2.l4": "<b>Diffusion :</b> les finales sont diffusées sur la chaîne officielle TikTok et YouTube, et restent disponibles de façon permanente.",
+          "reg.3.title": "Modalités de jeu",
+          "reg.3.pocket.l1": "Format BO3 (meilleur des 3).",
+          "reg.3.pocket.l2": "Il est interdit de répéter un Pokémon ou une Énergie lors d'un même duel — variété stratégique et adaptation constante sont exigées.",
+          "reg.3.pocket.l3": "Les Énergies générées comptent comme Énergie répétée pour l'application de cette règle.",
+          "reg.3.pocket.l4": "Chaque joueur doit envoyer à l'organisateur ses 3 decks avec lesquels il jouera, pour toute situation pouvant survenir pendant le match.",
+          "reg.3.pocket.l5": "Les decks envoyés ne peuvent plus être modifiés dans les 48 heures précédant le match.",
+          "reg.3.pocket.l6": "Pendant le match, seuls les Pokémon envoyés à l'organisateur peuvent être utilisés.",
+          "reg.3.champ.l1": "Doubles, format BO3.",
+          "reg.3.champ.l2": "La même équipe est utilisée pendant tout le match ; l'équipe ne change pas entre les manches d'un même duel.",
+          "reg.3.champ.l3": "Chaque joueur doit envoyer à l'organisateur l'équipe avec laquelle il va concourir ; elle ne pourra pas être modifiée dans les 48 heures précédant le match.",
+          "reg.3.champ.l4": "Pendant le match, seuls les Pokémon envoyés à l'organisateur peuvent être utilisés.",
+          "reg.4.title": "Places et inscription",
+          "reg.4.l1": "Chaque édition ouvre avec 8, 16 ou 32 places, avec un minimum de 8 joueurs pour pouvoir se tenir.",
+          "reg.4.l2": "L'inscription se fait directement dans le groupe WhatsApp de Trono Prisma ; c'est l'unique canal officiel d'inscription.",
+          "reg.4.l3": "Le paiement de l'inscription confirme la place du joueur dans le tableau de cette édition.",
+          "reg.5.title": "Nombre minimum de joueurs non atteint",
+          "reg.5.p1": "Si, à la clôture des inscriptions, le minimum de 8 joueurs n'est pas atteint, l'édition est reportée à une nouvelle date.",
+          "reg.5.p2": "Les inscriptions déjà payées sont conservées : la place du joueur reste réservée pour la nouvelle date, sans besoin de repayer ni de reconfirmer.",
+          "reg.6.title": "Système de tableau (bracket)",
+          "reg.6.l1": "Le tournoi se joue par élimination directe.",
+          "reg.6.l2": "Les tableaux sont toujours constitués d'un nombre pair de joueurs ; les appariements impairs ne sont pas autorisés, afin de garantir l'équité compétitive dès le premier tour.",
+          "reg.7.title": "Déconnexions pendant un match",
+          "reg.7.p1": "Une déconnexion pendant un match est résolue comme une défaite automatique pour le joueur déconnecté. Cette règle comporte deux exceptions :",
+          "reg.7.l1": "L'adversaire concède volontairement le match.",
+          "reg.7.l2": "Le joueur déconnecté présente des preuves suffisantes (captures d'écran, enregistrement d'écran ou autre preuve vérifiable) que la déconnexion était due à un problème technique indépendant de sa volonté.",
+          "reg.7.p2": "L'équipe de Trono Prisma évalue les preuves présentées au cas par cas. Sa décision est finale et sans appel.",
+          "reg.8.title": "Conduite et fair-play",
+          "reg.8.l1": "Le respect entre joueurs et envers l'organisation est attendu à tout moment, pendant et en dehors des matchs.",
+          "reg.8.l2": "L'utilisation de triches, d'exploits, d'aide extérieure non autorisée ou de toute forme de manipulation des résultats est interdite.",
+          "reg.8.l3": "Le non-respect de cette section peut entraîner une disqualification immédiate, sans droit à remboursement.",
+          "reg.9.p1": "100% des inscriptions perçues à chaque édition sont réparties comme suit :",
+          "reg.9.top1": "Top 1 · Champion",
+          "reg.9.top1desc": "Espèces + sticker et sticker animé de champion + bannière de champion dans le Tableau d'honneur.",
+          "reg.9.top2": "Top 2 · Vice-champion",
+          "reg.9.top2desc": "Espèces + sticker de vice-champion + bannière de vice-champion dans le Tableau d'honneur.",
+          "reg.9.top3": "Top 3 · Troisième place",
+          "reg.9.top3desc": "Inscription payée pour la prochaine édition de Trono Prisma (récompense non monétaire).",
+          "reg.9.p2": "Les 10% restants du total perçu sont consacrés aux frais d'organisation, de diffusion et de logistique de Trono Prisma.",
+          "reg.10.title": "Statistiques et contenu de la ligue",
+          "reg.10.l1": "Chaque édition dispose d'un tableau de statistiques exclusif à la ligue, avec résultats, performances et données pertinentes pour chaque participant.",
+          "reg.10.l2": "Des informations sont recueillies sur les decks utilisés par les joueurs pendant l'édition.",
+          "reg.10.l3": "Un récapitulatif complet est réalisé à la clôture de chaque édition.",
+          "reg.10.l4": "Des votes et des événements additionnels sont organisés pour enrichir l'expérience de la ligue.",
+          "reg.11.title": "Date du tournoi",
+          "reg.11.p1": "Chaque édition se tient un jour fixe, annoncé à l'avance dans le groupe WhatsApp officiel.",
+          "reg.12.title": "Communication officielle",
+          "reg.12.p1": "Le groupe WhatsApp de Trono Prisma est l'unique canal officiel pour les inscriptions, les appariements et les annonces du tournoi. Toute communication reçue en dehors de ce canal n'a aucune validité officielle.",
+          "reg.13.title": "Contenu audiovisuel",
+          "reg.13.p1": "TikTok et YouTube sont utilisés exclusivement pour partager du contenu, des résultats et les finales de chaque édition. Les inscriptions ne sont pas gérées via ces canaux.",
+          "reg.14.title": "Acceptation du règlement",
+          "reg.14.p1": "S'inscrire à une édition de Trono Prisma implique la lecture et l'acceptation totale de ce règlement.",
+          "reg.14.p2": "L'organisation se réserve le droit de trancher toute situation non explicitement prévue dans ce document, en donnant toujours la priorité à la transparence et à l'équité compétitive entre les participants.",
+          "reg.14.contact": "Contact officiel",
+          "reg.14.whatsappLabel": "Groupe WhatsApp :",
+          "reg.14.social": "TikTok et YouTube : chaînes officielles de Trono Prisma (contenu et finales uniquement)",
+          "reg.download": "Télécharger le règlement en PDF",
+          "faq.kicker": "FAQ",
+          "faq.h2": "Questions courantes",
+          "faq.p": "Un résumé rapide des questions les plus fréquentes. Le règlement officiel ci-dessus a toujours le dernier mot.",
+          "faq.q1": "Comment je m'inscris à une édition ?",
+          "faq.a1": "Uniquement via le groupe WhatsApp officiel de Trono Prisma — c'est le seul canal valide pour les inscriptions. Le paiement de votre inscription confirme votre place dans le tableau de cette édition.",
+          "faq.q2": "Que se passe-t-il si le minimum de 8 joueurs n'est pas atteint ?",
+          "faq.a2": "L'édition est reportée à une nouvelle date. Les inscriptions déjà payées sont conservées : votre place reste réservée sans besoin de repayer ni de reconfirmer.",
+          "faq.q3": "Puis-je répéter un Pokémon ou une Énergie dans TCG Pocket ?",
+          "faq.a3": "Non. Il est interdit de répéter un Pokémon ou une Énergie lors d'un même duel, et les Énergies générées comptent aussi comme Énergie répétée pour cette règle.",
+          "faq.q4": "Dois-je envoyer mes decks ou mon équipe avant le tournoi ?",
+          "faq.a4": "Oui. Sur TCG Pocket, vous devez envoyer vos 3 decks à l'organisateur ; sur Pokémon Champions, l'équipe avec laquelle vous allez concourir. Dans les deux cas, vous ne pourrez plus les modifier dans les 48 heures précédant le match, et pendant la partie vous ne pourrez utiliser que les Pokémon envoyés.",
+          "faq.q5": "Que se passe-t-il si je me déconnecte pendant un match ?",
+          "faq.a5": "C'est résolu comme une défaite automatique, sauf si votre adversaire concède volontairement ou si vous présentez une preuve vérifiable (captures ou enregistrement d'écran) que la déconnexion était due à un problème technique indépendant de votre volonté. L'équipe évalue chaque cas et sa décision est finale.",
+          "faq.q6": "Comment les récompenses sont-elles réparties ?",
+          "faq.a6": "Le champion reçoit 70% de la cagnotte, le vice-champion 20%, et les 10% restants couvrent l'organisation, la diffusion et la logistique. La troisième place reçoit une inscription payée pour la prochaine édition, en tant que récompense non monétaire.",
+          "faq.q7": "Où puis-je regarder les finales ?",
+          "faq.a7": "Sur la chaîne officielle TikTok et YouTube de Trono Prisma. Elles restent disponibles en permanence après leur diffusion.",
+          "faq.q8": "Le groupe WhatsApp est-il l'unique canal officiel ?",
+          "faq.a8": "Oui. Les inscriptions, les appariements et les annonces du tournoi sont gérés exclusivement là-bas. Toute communication reçue en dehors de ce canal n'a aucune validité officielle.",
+          "cta.final.h2": "Prêt à te battre pour le trône ?",
+          "cta.final.p": "L'inscription se fait directement dans le groupe WhatsApp de Trono Prisma. Places limitées à 8, 16 ou 32 joueurs.",
+          "cta.join": "Rejoindre le groupe WhatsApp",
+          "cta.watchQuestion": "Tu veux juste regarder les finales ?",
+          "footer.note": "Trono Prisma — tournoi indépendant de TCG Pocket et Pokémon Champions. Non affilié à The Pokémon Company.",
+          "clock.prefix": "Ton heure locale actuelle :"
+    }
+  };
+
   // ============================================================
   // CONFIGURACIÓN — edita esto con tu usuario y repo de GitHub
   // ============================================================
@@ -866,14 +1518,78 @@
     }catch(e){ return ""; }
   }
 
+  // ---------- idiomas ----------
+  // idioma activo + helpers de traducción. El español vive embebido en el
+  // HTML como contenido por defecto; el resto de idiomas se aplican con JS.
+  let currentLang = "es";
+
+  const LOCALE_MAP = { es: "es-MX", en: "en-US", pt: "pt-BR", fr: "fr-FR" };
+
+  function t(key){
+    const dict = I18N[currentLang] || I18N.es;
+    if(dict[key] != null) return dict[key];
+    return (I18N.es[key] != null) ? I18N.es[key] : key;
+  }
+
+  // sustituye {placeholders} en una cadena traducida, escapando los valores insertados
+  function tFormat(key, vars){
+    let str = t(key);
+    Object.keys(vars || {}).forEach(k => {
+      str = str.replace(new RegExp(`\\{${k}\\}`, "g"), esc(vars[k]));
+    });
+    return str;
+  }
+
+  function applyLanguage(lang){
+    if(!I18N[lang]) lang = "es";
+    currentLang = lang;
+    document.documentElement.lang = lang;
+
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const key = el.getAttribute("data-i18n");
+      const val = t(key);
+      if(val != null) el.innerHTML = val;
+    });
+
+    document.querySelectorAll("[data-i18n-attr]").forEach(el => {
+      el.getAttribute("data-i18n-attr").split(",").forEach(pair => {
+        const [attr, key] = pair.split(":");
+        if(attr && key){
+          const val = t(key.trim());
+          if(val != null) el.setAttribute(attr.trim(), val);
+        }
+      });
+    });
+
+    document.querySelectorAll(".lang-pill").forEach(p => {
+      p.classList.toggle("active", p.dataset.lang === lang);
+    });
+
+    document.title = t("meta.title");
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if(metaDesc) metaDesc.setAttribute("content", t("meta.description"));
+
+    try{ localStorage.setItem("tp_lang", lang); }catch(e){}
+
+    // re-renderiza contenido generado por JS (Cuadro de Honor + reloj) en el nuevo idioma
+    renderHonorGrid("honorGridPocket");
+    renderHonorGrid("honorGridChampions");
+    updateLocalClock();
+  }
+
+  document.querySelectorAll(".lang-pill").forEach(btn => {
+    btn.addEventListener("click", () => applyLanguage(btn.dataset.lang));
+  });
+
   // ---------- reloj con la hora/fecha local de cada visitante ----------
   // cada persona ve su propia hora y fecha, según la zona horaria que su
   // navegador/dispositivo reporte — no la del organizador ni un huso fijo.
+  // El formato de fecha sigue el idioma elegido en el sitio.
   function updateLocalClock(){
     const el = document.getElementById("localClock");
     if(!el) return;
     const now = new Date();
-    const locale = (navigator.language || "es-MX");
+    const locale = LOCALE_MAP[currentLang] || "es-MX";
     let datePart, timePart, tz;
     try{
       datePart = now.toLocaleDateString(locale, {weekday:"long", day:"numeric", month:"long"});
@@ -885,7 +1601,7 @@
       tz = "";
     }
     const dateCap = datePart.charAt(0).toUpperCase() + datePart.slice(1);
-    el.innerHTML = `Tu hora local ahora: <b>${esc(dateCap)} · ${esc(timePart)}</b>${tz ? ` <span class="tz">(${esc(tz)})</span>` : ""}`;
+    el.innerHTML = `${esc(t("clock.prefix"))} <b>${esc(dateCap)} · ${esc(timePart)}</b>${tz ? ` <span class="tz">(${esc(tz)})</span>` : ""}`;
   }
 
   function honorCardHTML(edicion){
@@ -894,52 +1610,68 @@
     const finalUrl = safeUrl(edicion.final_url);
     return `
       <div class="honor-card">
-        ${c.banner ? `<img class="honor-banner" src="${esc(assetUrl(c.banner))}" alt="Banner de ${esc(c.nombre || 'campeón')}" loading="lazy">` : ""}
+        ${c.banner ? `<img class="honor-banner" src="${esc(assetUrl(c.banner))}" alt="${tFormat('honor.bannerAlt', {name:c.nombre || t('payout.champ')})}" loading="lazy">` : ""}
         <div class="honor-body">
           <div class="honor-meta">
             <span>${esc(edicion.torneo)}</span>
             <span>${esc(edicion.fecha)}</span>
           </div>
           <div class="honor-row">
-            ${c.sticker ? `<img class="honor-sticker" src="${esc(assetUrl(c.sticker))}" alt="Sticker de ${esc(c.nombre || 'campeón')}" loading="lazy">` : ""}
-            <div><span class="role">Campeón</span><span class="name">${esc(c.nombre) || "—"}</span></div>
+            ${c.sticker ? `<img class="honor-sticker" src="${esc(assetUrl(c.sticker))}" alt="${tFormat('honor.stickerAlt', {name:c.nombre || t('payout.champ')})}" loading="lazy">` : ""}
+            <div><span class="role">${esc(t('payout.champ'))}</span><span class="name">${esc(c.nombre) || "—"}</span></div>
           </div>
           <div class="honor-row sub">
-            ${s.sticker ? `<img class="honor-sticker" src="${esc(assetUrl(s.sticker))}" alt="Sticker de ${esc(s.nombre || 'subcampeón')}" loading="lazy">` : ""}
-            <div><span class="role">Subcampeón</span><span class="name">${esc(s.nombre) || "—"}</span></div>
+            ${s.sticker ? `<img class="honor-sticker" src="${esc(assetUrl(s.sticker))}" alt="${tFormat('honor.stickerAlt', {name:s.nombre || t('payout.sub')})}" loading="lazy">` : ""}
+            <div><span class="role">${esc(t('payout.sub'))}</span><span class="name">${esc(s.nombre) || "—"}</span></div>
           </div>
-          ${finalUrl ? `<a class="honor-final" href="${finalUrl}" target="_blank" rel="noopener">Ver la final →</a>` : ""}
+          ${finalUrl ? `<a class="honor-final" href="${finalUrl}" target="_blank" rel="noopener">${esc(t('honor.verFinal'))}</a>` : ""}
         </div>
       </div>
     `;
   }
 
-  async function loadHonorRoll(dataPath, gridId, nombreVacio){
+  // caché de los datos ya descargados por grid, para poder volver a
+  // dibujar las tarjetas en el idioma nuevo sin tener que re-descargar
+  const honorDataCache = {};
+
+  function renderHonorGrid(gridId){
     const grid = document.getElementById(gridId);
+    if(!grid) return;
+    const entry = honorDataCache[gridId];
+    if(!entry) return; // todavía cargando
+
+    if(entry.error){
+      grid.innerHTML = `
+        <div class="honor-empty">
+          <strong>${esc(t('honor.errorTitle'))}</strong>
+          ${tFormat('honor.errorBody', {path: entry.dataPath})}
+        </div>`;
+      return;
+    }
+
+    if(!Array.isArray(entry.ediciones) || entry.ediciones.length === 0){
+      grid.innerHTML = `
+        <div class="honor-empty">
+          <strong>${esc(t('honor.emptyTitle'))}</strong>
+          ${tFormat('honor.emptyBody', {name: entry.nombreVacio})}
+        </div>`;
+      return;
+    }
+
+    grid.innerHTML = entry.ediciones.slice().reverse().map(honorCardHTML).join("");
+  }
+
+  async function loadHonorRoll(dataPath, gridId, nombreVacio){
     try{
       const res = await fetch(`${CDN_BASE}/${dataPath}`, {cache:"no-store"});
       if(!res.ok) throw new Error("No se pudo cargar el archivo de datos");
       const ediciones = await res.json();
-
-      if(!Array.isArray(ediciones) || ediciones.length === 0){
-        grid.innerHTML = `
-          <div class="honor-empty">
-            <strong>El Cuadro de Honor está vacío — por ahora</strong>
-            El primer campeón de ${nombreVacio} escribirá aquí la primera página.
-          </div>`;
-        return;
-      }
-
-      grid.innerHTML = ediciones.slice().reverse().map(honorCardHTML).join("");
-
+      honorDataCache[gridId] = { ediciones, nombreVacio, dataPath };
     }catch(err){
-      grid.innerHTML = `
-        <div class="honor-empty">
-          <strong>El Cuadro de Honor aún no está conectado</strong>
-          Configura CONFIG.GITHUB_USER y CONFIG.GITHUB_REPO en el código, y agrega ${dataPath} a tu repositorio.
-        </div>`;
+      honorDataCache[gridId] = { error: true, dataPath, nombreVacio };
       console.warn("Trono Prisma — error cargando el Cuadro de Honor:", err);
     }
+    renderHonorGrid(gridId);
   }
 
   // ---------- pestañas genéricas (formatos y cuadros de honor) ----------
@@ -1007,7 +1739,15 @@
   loadHonorRoll(CONFIG.DATA_PATHS.pocket, "honorGridPocket", "TCG Pocket");
   loadHonorRoll(CONFIG.DATA_PATHS.champions, "honorGridChampions", "Trono Prisma Champions");
 
-  updateLocalClock();
+  // ---------- idioma inicial ----------
+  // usa el idioma guardado si el visitante ya eligió uno antes; si no, español.
+  let savedLang = "es";
+  try{
+    const stored = localStorage.getItem("tp_lang");
+    if(stored && I18N[stored]) savedLang = stored;
+  }catch(e){}
+  applyLanguage(savedLang);
+
   setInterval(updateLocalClock, 30000);
 </script>
 
