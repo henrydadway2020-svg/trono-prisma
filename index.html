@@ -7,187 +7,284 @@
 <meta name="description" content="Trono Prisma: el torneo de paga de TCG Pocket y Pokémon Champions. La corona es de cristal — solo el mejor la levanta.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --void:#05070D;
-    --panel:#0D1424;
-    --panel-2:#111A2E;
-    --line:#233150;
-    --ice:#E8ECF5;
-    --ice-dim:#9BA9C6;
+    --void:#05060B;
+    --void-2:#090C15;
+    --panel:#0E1526;
+    --panel-2:#131C33;
+    --line:#213052;
+    --line-soft:rgba(62,214,255,0.16);
+    --ice:#EEF1FA;
+    --ice-dim:#93A1C4;
     --prism:#3ED6FF;
+    --prism-dim:rgba(62,214,255,0.12);
     --royal:#2451FF;
-    --violet:#6C63FF;
-    --sub:#8B96B4;
+    --violet:#9C8CFF;
+    --gold:#FFC259;
+    --sub:#7C89AD;
   }
 
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
-  body{background:var(--void); color:var(--ice); font-family:'Inter', sans-serif; line-height:1.6; overflow-x:hidden;}
-  h1,h2,h3,.display{font-family:'Unbounded', sans-serif; line-height:1.12; letter-spacing:-0.01em;}
+  body{
+    background:var(--void); color:var(--ice); font-family:'Inter', sans-serif; line-height:1.6;
+    overflow-x:hidden; position:relative;
+  }
+  /* faint arena-grid floor beneath the whole page — a single, consistent texture rather than per-section decoration */
+  body::before{
+    content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      linear-gradient(var(--line-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+    background-size:64px 64px;
+    -webkit-mask-image:radial-gradient(ellipse 900px 700px at 50% 0%, black, transparent 70%);
+    mask-image:radial-gradient(ellipse 900px 700px at 50% 0%, black, transparent 70%);
+    opacity:0.5;
+  }
+  header, .hero, section, footer{position:relative; z-index:1;}
+
+  h1,h2,h3,.display{font-family:'Unbounded', sans-serif; line-height:1.14; letter-spacing:-0.01em;}
   a{color:inherit; text-decoration:none;}
   img{max-width:100%; display:block;}
   button{font-family:inherit; cursor:pointer; background:none; border:0; color:inherit;}
   .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+  ::selection{background:var(--prism); color:var(--void);}
+  :focus-visible{outline:2px solid var(--prism); outline-offset:3px;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
 
   /* ---------- header + accordion nav ---------- */
   header{
     position:sticky; top:0; z-index:50;
-    background:rgba(5,7,13,0.92);
-    backdrop-filter:blur(10px);
+    background:rgba(5,6,11,0.85);
+    backdrop-filter:blur(14px);
     border-bottom:1px solid var(--line);
   }
   nav{
     display:flex; align-items:center; justify-content:space-between;
-    padding:18px 32px; max-width:1180px; margin:0 auto;
+    padding:16px 32px; max-width:1180px; margin:0 auto; gap:20px;
   }
-  .brand{display:flex; align-items:center; gap:10px; font-family:'Unbounded'; font-weight:800; font-size:17px;}
-  .brand svg{width:24px; height:24px;}
+  .brand{display:flex; align-items:center; gap:10px; font-family:'Unbounded'; font-weight:700; font-size:16.5px;}
+  .brand-mark{
+    width:30px; height:30px; display:grid; place-items:center; flex-shrink:0;
+    background:linear-gradient(160deg, var(--panel-2), var(--panel));
+    border:1px solid var(--line); clip-path:polygon(20% 0,100% 0,100% 80%,80% 100%,0 100%,0 20%);
+  }
+  .brand-mark svg{width:16px; height:16px;}
 
-  .nav-links{display:flex; align-items:center; gap:8px;}
+  .nav-links{display:flex; align-items:center; gap:2px;}
   .nav-item{position:relative;}
   .nav-btn{
-    display:flex; align-items:center; gap:6px;
-    padding:10px 14px; font-size:14.5px; font-weight:500; color:var(--ice-dim);
+    display:flex; align-items:center; gap:7px;
+    padding:10px 15px; font-size:14px; font-weight:500; color:var(--ice-dim);
+    border-radius:2px;
   }
-  .nav-btn:hover{color:var(--ice);}
-  .nav-btn[aria-expanded="true"]{color:var(--prism);}
-  .nav-btn .chev{width:9px; height:9px; border-right:1.6px solid currentColor; border-bottom:1.6px solid currentColor; transform:rotate(45deg); transition:transform .2s; margin-top:-3px;}
+  .nav-btn:hover{color:var(--ice); background:rgba(255,255,255,0.03);}
+  .nav-btn[aria-expanded="true"]{color:var(--prism); background:var(--prism-dim);}
+  .nav-btn .chev{width:8px; height:8px; border-right:1.5px solid currentColor; border-bottom:1.5px solid currentColor; transform:rotate(45deg); transition:transform .2s; margin-top:-3px;}
   .nav-btn[aria-expanded="true"] .chev{transform:rotate(225deg); margin-top:3px;}
-  .nav-plain{padding:10px 14px; font-size:14.5px; font-weight:500; color:var(--ice-dim);}
-  .nav-plain:hover{color:var(--prism);}
+  .nav-plain{padding:10px 15px; font-size:14px; font-weight:500; color:var(--ice-dim); border-radius:2px;}
+  .nav-plain:hover{color:var(--prism); background:rgba(255,255,255,0.03);}
 
   .btn-enter{
-    background:var(--prism); color:var(--void); font-weight:700; font-size:13.5px; padding:10px 20px;
-    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+    display:flex; align-items:center; gap:8px;
+    background:var(--prism); color:var(--void); font-weight:700; font-size:13.5px; padding:11px 20px 11px 18px;
+    clip-path:polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+    box-shadow:0 0 0 1px rgba(62,214,255,0.4), 0 8px 24px -8px rgba(62,214,255,0.55);
+    transition:box-shadow .2s, transform .2s;
   }
-  .menu-toggle{display:none; font-size:24px;}
+  .btn-enter:hover{box-shadow:0 0 0 1px rgba(62,214,255,0.7), 0 10px 30px -6px rgba(62,214,255,0.75); transform:translateY(-1px);}
+  .btn-enter svg{width:13px; height:13px;}
+  .menu-toggle{display:none; font-size:22px; width:38px; height:38px; place-items:center;}
 
   .dropzone{
     max-height:0; overflow:hidden; opacity:0;
-    background:var(--panel); border-bottom:1px solid var(--line);
+    background:var(--void-2); border-bottom:1px solid var(--line);
     transition:max-height .32s ease, opacity .25s ease;
   }
-  .dropzone.open{max-height:760px; opacity:1;}
+  .dropzone.open{max-height:780px; opacity:1;}
   .dropzone-inner{max-width:1180px; margin:0 auto; padding:32px 32px 40px;}
   .panel{display:none;}
   .panel.active{display:block;}
 
   /* ---------- segmented tabs (reused: formats + honor) ---------- */
-  .tab-bar{display:inline-flex; border:1px solid var(--line); margin-bottom:24px;}
+  .tab-bar{display:inline-flex; border:1px solid var(--line); margin-bottom:24px; background:var(--panel);}
   .tab-bar button{
-    padding:9px 18px; font-size:13.5px; font-weight:600; color:var(--ice-dim);
-    border-right:1px solid var(--line);
+    padding:10px 20px; font-size:13.5px; font-weight:600; color:var(--ice-dim);
+    border-right:1px solid var(--line); transition:color .15s, background .15s;
   }
   .tab-bar button:last-child{border-right:none;}
+  .tab-bar button:hover{color:var(--ice);}
   .tab-bar button.active{background:var(--prism); color:var(--void);}
   .tab-panel{display:none;}
   .tab-panel.active{display:block;}
 
-  .panel-grid{display:grid; grid-template-columns:1fr 1fr; gap:36px;}
+  .panel-grid{display:grid; grid-template-columns:1.15fr 0.85fr; gap:40px; align-items:start;}
   .mini-list{list-style:none;}
-  .mini-list li{display:flex; gap:12px; padding:13px 0; border-top:1px solid var(--line); font-size:14px; color:var(--ice-dim);}
+  .mini-list li{display:flex; gap:14px; padding:13px 0; border-top:1px solid var(--line); font-size:14px; color:var(--ice-dim);}
   .mini-list li:first-child{border-top:none;}
   .mini-list b{color:var(--ice); font-weight:600;}
-  .mini-list .num{color:var(--prism); font-family:'Unbounded'; font-size:12px; padding-top:2px; flex-shrink:0;}
+  .mini-list .num{color:var(--prism); font-family:'Unbounded'; font-size:11.5px; padding-top:2px; flex-shrink:0; width:18px;}
 
-  .payout-mini{padding:4px 0;}
-  .payout-bar{height:12px; width:100%; display:flex; overflow:hidden; clip-path:polygon(0 0,100% 0,96% 100%,0 100%);}
-  .payout-bar .champ-share{width:90%; background:var(--prism);}
-  .payout-bar .org-share{width:10%; background:var(--violet);}
-  .payout-legend{display:flex; justify-content:space-between; margin-top:10px; font-size:12.5px; color:var(--ice-dim);}
-  .payout-legend b{color:var(--ice); font-family:'Unbounded'; font-size:17px; display:block;}
+  .payout-mini{padding:6px 0; background:var(--panel); border:1px solid var(--line); padding:20px;}
+  .payout-mini-label{font-size:11.5px; color:var(--sub); font-weight:600; margin-bottom:12px;}
+  .payout-bar{height:10px; width:100%; display:flex; overflow:hidden; clip-path:polygon(0 0,100% 0,96% 100%,0 100%); background:var(--void);}
+  .payout-bar .champ-share{width:90%; background:linear-gradient(90deg, var(--prism), var(--violet));}
+  .payout-bar .org-share{width:10%; background:var(--line);}
+  .payout-legend{display:flex; justify-content:space-between; margin-top:14px; font-size:12.5px; color:var(--ice-dim);}
+  .payout-legend b{color:var(--ice); font-family:'Unbounded'; font-size:19px; display:block; font-weight:600;}
 
   .prize-cols{display:grid; grid-template-columns:1fr 1fr; gap:28px;}
-  .prize-col-tag{font-family:'Unbounded'; font-size:11.5px; font-weight:700; color:var(--void); background:var(--prism); display:inline-block; padding:5px 12px; margin-bottom:14px; clip-path:polygon(6% 0,100% 0,94% 100%,0 100%);}
-  .prize-col.silver .prize-col-tag{background:var(--sub);}
-  .prize-note{margin-top:18px; font-size:13px; color:var(--ice-dim);}
+  .prize-col{background:var(--panel); border:1px solid var(--line); padding:24px;}
+  .prize-col-tag{font-family:'Unbounded'; font-size:11px; font-weight:700; color:var(--void); background:var(--prism); display:inline-block; padding:5px 13px; margin-bottom:16px; clip-path:polygon(6% 0,100% 0,94% 100%,0 100%);}
+  .prize-col.silver{border-color:rgba(124,137,173,0.35);}
+  .prize-col.silver .prize-col-tag{background:var(--sub); color:var(--void-2);}
+  .prize-note{margin-top:18px; font-size:13px; color:var(--sub);}
 
   @media(max-width:860px){
     .nav-links{
       display:none; position:absolute; top:100%; left:0; right:0;
       flex-direction:column; align-items:stretch; gap:0;
-      background:var(--panel); border-bottom:1px solid var(--line);
+      background:var(--void-2); border-bottom:1px solid var(--line);
     }
     .nav-links.open{display:flex;}
     .nav-item, .nav-btn, .nav-plain{width:100%;}
-    .nav-btn, .nav-plain{padding:16px 32px; border-top:1px solid var(--line); justify-content:space-between;}
+    .nav-btn, .nav-plain{padding:16px 32px; border-top:1px solid var(--line); justify-content:space-between; border-radius:0;}
     .btn-enter{display:none;}
-    .menu-toggle{display:block;}
+    .menu-toggle{display:grid;}
     .panel-grid, .prize-cols{grid-template-columns:1fr;}
     .dropzone-inner{padding:28px 24px 34px;}
   }
 
   /* ---------- hero ---------- */
-  .hero{position:relative; padding:76px 0 90px; overflow:hidden;}
+  .hero{position:relative; padding:88px 0 96px; overflow:hidden;}
   .hero::before{
     content:""; position:absolute; inset:0;
-    background: radial-gradient(ellipse 700px 500px at 50% 0%, rgba(62,214,255,0.14), transparent 60%);
+    background:
+      radial-gradient(ellipse 640px 460px at 30% 10%, rgba(62,214,255,0.16), transparent 60%),
+      radial-gradient(ellipse 520px 420px at 74% 6%, rgba(156,140,255,0.13), transparent 62%);
     pointer-events:none;
   }
-  .hero-inner{position:relative; z-index:1; text-align:center; max-width:720px; margin:0 auto;}
-  .trophy-img{max-width:300px; margin:0 auto 28px; filter:drop-shadow(0 20px 60px rgba(62,214,255,0.25));}
-  .eyebrow{display:inline-flex; align-items:center; gap:10px; color:var(--prism); font-weight:600; font-size:13px; margin-bottom:14px;}
-  .eyebrow::before, .eyebrow::after{content:""; width:22px; height:2px; background:var(--prism); display:block;}
-  .hero h1{font-size:clamp(36px,6vw,58px); font-weight:900;}
-  .glory{margin-top:18px; font-family:'Unbounded'; font-weight:400; font-size:clamp(15px,2vw,18px); color:var(--ice-dim); max-width:440px; margin-left:auto; margin-right:auto;}
-  .hero-cta{display:flex; gap:14px; margin-top:36px; justify-content:center; flex-wrap:wrap;}
-  .btn-primary{background:var(--prism); color:var(--void); font-weight:700; font-size:14.5px; padding:15px 28px; clip-path:polygon(8% 0,100% 0,92% 100%,0% 100%);}
-  .btn-ghost{border:1px solid var(--line); color:var(--ice); font-weight:600; font-size:14.5px; padding:15px 28px; clip-path:polygon(8% 0,100% 0,92% 100%,0% 100%);}
-  .btn-ghost:hover{border-color:var(--prism); color:var(--prism);}
+  .hero-inner{position:relative; z-index:1; text-align:center; max-width:740px; margin:0 auto;}
 
-  .hero-stats{display:flex; gap:34px; margin-top:48px; justify-content:center; flex-wrap:wrap;}
-  .hero-stats div{text-align:center;}
-  .hero-stats div strong{display:block; font-family:'Unbounded'; font-size:22px;}
-  .hero-stats div span{font-size:12px; color:var(--ice-dim);}
+  .season-tag{
+    display:inline-flex; align-items:center; gap:8px; margin-bottom:26px;
+    padding:7px 16px 7px 12px; font-size:12px; font-weight:600; color:var(--ice-dim);
+    border:1px solid var(--line); background:rgba(255,255,255,0.02);
+    clip-path:polygon(0 0, 100% 0, 94% 100%, 6% 100%);
+  }
+  .season-tag .dot{width:6px; height:6px; background:var(--prism); flex-shrink:0; box-shadow:0 0 8px var(--prism);}
+
+  .trophy-img{max-width:250px; margin:0 auto 30px; filter:drop-shadow(0 22px 60px rgba(62,214,255,0.3));}
+
+  .hero h1{font-size:clamp(38px,6.4vw,64px); font-weight:900;}
+  .glory{margin-top:20px; font-size:clamp(15px,2vw,16.5px); color:var(--ice-dim); max-width:460px; margin-left:auto; margin-right:auto;}
+  .hero-cta{display:flex; gap:14px; margin-top:38px; justify-content:center; flex-wrap:wrap;}
+  .btn-primary{
+    display:flex; align-items:center; gap:9px;
+    background:var(--prism); color:var(--void); font-weight:700; font-size:14.5px; padding:16px 26px 16px 22px;
+    clip-path:polygon(8% 0,100% 0,92% 100%,0% 100%);
+    box-shadow:0 0 0 1px rgba(62,214,255,0.4), 0 12px 32px -10px rgba(62,214,255,0.6);
+    transition:box-shadow .2s, transform .2s;
+  }
+  .btn-primary:hover{transform:translateY(-1px); box-shadow:0 0 0 1px rgba(62,214,255,0.7), 0 14px 36px -8px rgba(62,214,255,0.75);}
+  .btn-primary svg{width:14px; height:14px;}
+  .btn-ghost{
+    display:flex; align-items:center; gap:9px;
+    border:1px solid var(--line); color:var(--ice); font-weight:600; font-size:14.5px; padding:16px 26px 16px 22px;
+    clip-path:polygon(8% 0,100% 0,92% 100%,0% 100%); transition:border-color .2s, color .2s, background .2s;
+  }
+  .btn-ghost:hover{border-color:var(--prism); color:var(--prism); background:var(--prism-dim);}
+  .btn-ghost svg{width:14px; height:14px;}
+
+  .hero-stats{display:flex; gap:0; margin-top:56px; justify-content:center; flex-wrap:wrap; border:1px solid var(--line); background:var(--panel);}
+  .hero-stats div{text-align:center; padding:20px 34px; border-right:1px solid var(--line);}
+  .hero-stats div:last-child{border-right:none;}
+  .hero-stats div strong{display:block; font-family:'Unbounded'; font-size:23px; font-weight:600; color:var(--prism);}
+  .hero-stats div span{font-size:11.5px; color:var(--sub); margin-top:4px; display:block;}
+  @media(max-width:560px){ .hero-stats{flex-direction:column;} .hero-stats div{border-right:none; border-bottom:1px solid var(--line);} .hero-stats div:last-child{border-bottom:none;} }
+
+  /* ---------- acerca de ---------- */
+  #acerca{border-bottom:1px solid var(--line);}
+  .about-intro{color:var(--ice-dim); font-size:15px; max-width:640px; margin-bottom:40px;}
+  .about-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(270px, 1fr)); gap:1px; background:var(--line); border:1px solid var(--line);}
+  .about-card{background:var(--void); padding:26px 24px;}
+  .about-card .tag{display:flex; align-items:center; gap:9px; margin-bottom:12px;}
+  .about-card .tag .sq{width:8px; height:8px; background:var(--prism); flex-shrink:0;}
+  .about-card h3{font-size:14.5px; font-weight:700; color:var(--ice);}
+  .about-card p{font-size:13.5px; color:var(--ice-dim); line-height:1.65;}
+  .about-card.accent-violet .tag .sq{background:var(--violet);}
+  .about-card.accent-gold .tag .sq{background:var(--gold);}
 
   /* ---------- honor (always visible) ---------- */
-  section{padding:80px 0;}
-  #honor{background:var(--panel); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
-  .section-head{max-width:520px; margin-bottom:32px; text-align:center; margin-left:auto; margin-right:auto;}
-  .section-head h2{font-size:clamp(26px,3.6vw,36px); font-weight:800;}
-  .section-head p{color:var(--ice-dim); margin-top:10px; font-size:14.5px;}
+  section{padding:88px 0;}
+  #honor{background:var(--void-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .section-head{max-width:540px; margin-bottom:44px;}
+  .section-head .kicker{color:var(--prism); font-weight:600; font-size:12.5px; display:flex; align-items:center; gap:9px; margin-bottom:12px;}
+  .section-head .kicker::before{content:""; width:20px; height:2px; background:var(--prism); display:block;}
+  .section-head h2{font-size:clamp(27px,3.6vw,37px); font-weight:800;}
+  .section-head p{color:var(--ice-dim); margin-top:12px; font-size:14.5px; max-width:440px;}
+  .section-head.center{text-align:center; margin-left:auto; margin-right:auto;}
+  .section-head.center .kicker{justify-content:center;}
+  .section-head.center p{margin-left:auto; margin-right:auto;}
 
-  .honor-block{margin-bottom:56px;}
+  .honor-block{margin-bottom:60px;}
   .honor-block:last-child{margin-bottom:0;}
-  .honor-block-head{display:flex; align-items:center; gap:10px; margin-bottom:24px;}
-  .honor-block-head h3{font-size:18px; font-weight:700;}
-  .honor-dot{width:9px; height:9px; flex-shrink:0; background:var(--prism);}
+  .honor-block-head{display:flex; align-items:center; gap:12px; margin-bottom:26px; padding-bottom:14px; border-bottom:1px solid var(--line);}
+  .honor-block-head h3{font-size:17px; font-weight:700;}
+  .honor-block-head .count{margin-left:auto; font-size:12px; color:var(--sub);}
+  .honor-dot{width:10px; height:10px; flex-shrink:0; background:var(--prism); clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);}
   .honor-dot.champions{background:var(--violet);}
 
-  .honor-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:24px;}
-  .honor-card{background:var(--panel-2); border:1px solid var(--line); clip-path:polygon(0 0,100% 0,100% 92%,92% 100%,0 100%); overflow:hidden;}
+  .honor-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:22px;}
+  .honor-card{
+    background:linear-gradient(160deg, var(--panel-2), var(--panel));
+    border:1px solid var(--line);
+    clip-path:polygon(0 0,100% 0,100% 92%,92% 100%,0 100%); overflow:hidden;
+    transition:border-color .2s;
+  }
+  .honor-card:hover{border-color:rgba(62,214,255,0.4);}
   .honor-banner{width:100%; aspect-ratio:16/7; object-fit:cover; background:var(--void);}
   .honor-body{padding:22px;}
-  .honor-meta{display:flex; justify-content:space-between; align-items:center; font-size:12px; color:var(--ice-dim); margin-bottom:12px;}
-  .honor-row{display:flex; align-items:center; gap:13px; padding:8px 0;}
-  .honor-sticker{width:42px; height:42px; border-radius:50%; object-fit:cover; background:var(--panel); border:1px solid var(--line); flex-shrink:0;}
-  .honor-row .role{font-size:11px; color:var(--prism); font-weight:600; display:block;}
+  .honor-meta{display:flex; justify-content:space-between; align-items:center; font-size:11.5px; color:var(--sub); margin-bottom:16px; text-transform:none;}
+  .honor-row{display:flex; align-items:center; gap:13px; padding:9px 0;}
+  .honor-sticker{width:40px; height:40px; border-radius:50%; object-fit:cover; background:var(--panel); border:1px solid var(--line); flex-shrink:0;}
+  .honor-row .role{font-size:10.5px; color:var(--prism); font-weight:700; display:block; margin-bottom:2px;}
   .honor-row.sub .role{color:var(--sub);}
   .honor-row .name{font-weight:600; font-size:14.5px;}
-  .honor-final{margin-top:14px; display:inline-block; font-size:13px; font-weight:600; color:var(--prism); border-bottom:1px solid var(--prism); padding-bottom:2px;}
-  .honor-empty{border:1px dashed var(--line); padding:54px 36px; text-align:center; color:var(--ice-dim); grid-column:1/-1;}
-  .honor-empty strong{display:block; color:var(--ice); font-family:'Unbounded'; font-size:18px; margin-bottom:8px;}
-  .honor-loading{grid-column:1/-1; text-align:center; padding:54px; color:var(--ice-dim); font-size:14px;}
+  .honor-final{margin-top:16px; display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:var(--prism); border-bottom:1px solid transparent; transition:border-color .15s;}
+  .honor-final:hover{border-color:var(--prism);}
+  .honor-empty{border:1px dashed var(--line); padding:56px 36px; text-align:center; color:var(--ice-dim); grid-column:1/-1;}
+  .honor-empty strong{display:block; color:var(--ice); font-family:'Unbounded'; font-size:17px; margin-bottom:8px; font-weight:600;}
+  .honor-loading{grid-column:1/-1; text-align:center; padding:56px; color:var(--sub); font-size:14px;}
 
   /* ---------- CTA ---------- */
   .cta-final{
+    position:relative; overflow:hidden;
     background:linear-gradient(135deg, var(--panel-2), var(--panel)); border:1px solid var(--line);
-    padding:56px 48px; clip-path:polygon(0 0,100% 0,100% 88%,96% 100%,0 100%); text-align:center;
+    padding:60px 48px; clip-path:polygon(0 0,100% 0,100% 88%,96% 100%,0 100%); text-align:center;
   }
+  .cta-final::before{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:radial-gradient(ellipse 500px 300px at 50% 0%, rgba(62,214,255,0.12), transparent 70%);
+  }
+  .cta-final > *{position:relative; z-index:1;}
   .cta-final h2{font-size:clamp(24px,3.4vw,32px); font-weight:800;}
   .cta-final p{color:var(--ice-dim); margin-top:12px; max-width:420px; margin-left:auto; margin-right:auto; font-size:14.5px;}
-  .cta-final .hero-cta{margin-top:26px;}
-  @media(max-width:640px){.cta-final{padding:44px 24px;}}
+  .cta-final .hero-cta{margin-top:28px;}
+  @media(max-width:640px){.cta-final{padding:46px 24px;}}
 
   /* ---------- footer ---------- */
-  footer{border-top:1px solid var(--line); padding:40px 0;}
+  footer{border-top:1px solid var(--line); padding:44px 0;}
   .foot-row{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:18px;}
   .foot-row .brand{font-size:14.5px;}
-  .foot-links{display:flex; gap:22px; font-size:13px; color:var(--ice-dim);}
+  .foot-links{display:flex; gap:24px; font-size:13px; color:var(--ice-dim);}
   .foot-links a:hover, .foot-links button:hover{color:var(--prism);}
-  .foot-note{margin-top:22px; font-size:12px; color:var(--ice-dim); opacity:0.7; text-align:center;}
+  .foot-note{margin-top:26px; font-size:12px; color:var(--sub); text-align:center;}
 </style>
 </head>
 <body>
@@ -195,7 +292,9 @@
 <header>
   <nav>
     <a href="#" class="brand">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L4 9l2.5 11h11L20 9l-8-7z" stroke="#3ED6FF" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 9l4-5 4 5" stroke="#3ED6FF" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      <span class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L4 9l2.5 11h11L20 9l-8-7z" stroke="#3ED6FF" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 9l4-5 4 5" stroke="#3ED6FF" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      </span>
       Trono Prisma
     </a>
     <div class="nav-links" id="navLinks">
@@ -205,9 +304,13 @@
       <div class="nav-item">
         <button class="nav-btn" data-panel="panelPremios" aria-expanded="false">Premios <span class="chev"></span></button>
       </div>
+      <a href="#acerca" class="nav-plain">Acerca de</a>
       <a href="#honor" class="nav-plain">Cuadro de honor</a>
     </div>
-    <a href="#inscripcion" class="btn-enter">Inscribirme</a>
+    <a href="#inscripcion" class="btn-enter">
+      Inscribirme
+      <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
     <button class="menu-toggle" id="menuToggle" aria-label="Menú">☰</button>
   </nav>
 
@@ -229,6 +332,7 @@
               <li><span class="num">04</span><span><b>Final:</b> transmitida en el canal oficial de TikTok y YouTube, disponible para siempre.</span></li>
             </ul>
             <div class="payout-mini">
+              <div class="payout-mini-label">Reparto del bote</div>
               <div class="payout-bar"><div class="champ-share"></div><div class="org-share"></div></div>
               <div class="payout-legend"><div><b>90%</b>Campeón</div><div style="text-align:right"><b>10%</b>Organización</div></div>
             </div>
@@ -244,6 +348,7 @@
               <li><span class="num">04</span><span><b>Final:</b> transmitida en el canal oficial de TikTok y YouTube, disponible para siempre.</span></li>
             </ul>
             <div class="payout-mini">
+              <div class="payout-mini-label">Reparto del bote</div>
               <div class="payout-bar"><div class="champ-share"></div><div class="org-share"></div></div>
               <div class="payout-legend"><div><b>90%</b>Campeón</div><div style="text-align:right"><b>10%</b>Organización</div></div>
             </div>
@@ -280,13 +385,19 @@
 <section class="hero">
   <div class="wrap">
     <div class="hero-inner">
+      <div class="season-tag"><span class="dot"></span>Torneo de paga · próxima edición abierta</div>
       <img class="trophy-img" src="assets/trono-prisma-trofeo.png" alt="Trofeo Trono Prisma">
-      <div class="eyebrow">TCG Pocket · Pokémon Champions</div>
       <h1>Trono Prisma</h1>
       <p class="glory">La corona es de cristal: se raja con el primer error y solo el mejor la levanta entera.</p>
       <div class="hero-cta">
-        <a href="#inscripcion" class="btn-primary">Inscribirme</a>
-        <a href="#honor" class="btn-ghost">Ver el Cuadro de Honor</a>
+        <a href="#inscripcion" class="btn-primary">
+          Inscribirme
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#honor" class="btn-ghost">
+          Ver el Cuadro de Honor
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.6 6.6L21 10l-5 4.3L17.4 21 12 17.3 6.6 21 8 14.3 3 10l6.4-1.4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        </a>
       </div>
       <div class="hero-stats">
         <div><strong>8–32</strong><span>jugadores</span></div>
@@ -297,10 +408,52 @@
   </div>
 </section>
 
-<section id="honor">
+<section id="acerca">
   <div class="wrap">
     <div class="section-head">
-      <h2>Cuadro de Honor</h2>
+      <div class="kicker">Acerca de</div>
+      <h2>Una liga, no un torneo improvisado</h2>
+    </div>
+    <p class="about-intro">Trono Prisma es una competición de pago organizada por Residente, concebida para ofrecer un entorno competitivo serio, estructurado y transparente — con reglas claras, seguimiento continuo y una identidad propia.</p>
+
+    <div class="about-grid">
+      <div class="about-card">
+        <div class="tag"><span class="sq"></span><h3>Organización</h3></div>
+        <p>Torneo de pago organizado por Residente, pensado para ofrecer un entorno competitivo serio, estructurado y transparente en cada edición.</p>
+      </div>
+      <div class="about-card accent-gold">
+        <div class="tag"><span class="sq"></span><h3>Reparto del premio</h3></div>
+        <p>El 100% del premio total recaudado se distribuye entre el Top 1, Top 2 y Top 3: una recompensa directa y proporcional al rendimiento de cada jugador.</p>
+      </div>
+      <div class="about-card accent-violet">
+        <div class="tag"><span class="sq"></span><h3>Gestión vía WhatsApp</h3></div>
+        <p>Inscripciones, emparejamientos, comunicación oficial y seguimiento de las partidas se coordinan íntegramente por WhatsApp.</p>
+      </div>
+      <div class="about-card">
+        <div class="tag"><span class="sq"></span><h3>Formato BO3</h3></div>
+        <p>Reglas claras y exigentes: no se permite repetir Pokémon ni energías, lo que obliga a la variedad estratégica y a la adaptación constante.</p>
+      </div>
+      <div class="about-card accent-violet">
+        <div class="tag"><span class="sq"></span><h3>Llaves siempre pares</h3></div>
+        <p>Eliminación directa con llaves siempre pares, evitando emparejamientos impares, para asegurar igualdad competitiva desde el inicio.</p>
+      </div>
+      <div class="about-card accent-gold">
+        <div class="tag"><span class="sq"></span><h3>Estadísticas y contenido</h3></div>
+        <p>Tabla de estadísticas exclusiva de la liga por edición: resultados, rendimiento, decks usados, resúmenes completos, votaciones y eventos adicionales.</p>
+      </div>
+      <div class="about-card">
+        <div class="tag"><span class="sq"></span><h3>Fecha fija y comunidad</h3></div>
+        <p>Cada edición se juega en un día fijo, con banners y stickers exclusivos para los jugadores destacados y presencia activa en TikTok con resultados y novedades.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="honor">
+  <div class="wrap">
+    <div class="section-head center">
+      <div class="kicker">Cuadro de Honor</div>
+      <h2>Los que ya levantaron el trono</h2>
       <p>Cada campeón y subcampeón queda aquí para siempre, con su sticker, su banner y su final.</p>
     </div>
 
@@ -332,7 +485,10 @@
       <h2>¿Listo para pelear por el trono?</h2>
       <p>Cupos limitados a 8, 16 o 32 jugadores. Escríbenos para asegurar tu lugar en la próxima edición.</p>
       <div class="hero-cta">
-        <a href="#" class="btn-primary">Contactar por TikTok</a>
+        <a href="#" class="btn-primary">
+          Contactar por TikTok
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
         <a href="#" class="btn-ghost">Contactar por YouTube</a>
       </div>
     </div>
@@ -343,12 +499,15 @@
   <div class="wrap">
     <div class="foot-row">
       <a href="#" class="brand">
-        <svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M12 2L4 9l2.5 11h11L20 9l-8-7z" stroke="#3ED6FF" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <span class="brand-mark" style="width:24px; height:24px;">
+          <svg viewBox="0 0 24 24" fill="none" width="14" height="14"><path d="M12 2L4 9l2.5 11h11L20 9l-8-7z" stroke="#3ED6FF" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        </span>
         Trono Prisma
       </a>
       <div class="foot-links">
         <button class="nav-btn" data-panel="panelTorneo" style="padding:0">El torneo</button>
         <button class="nav-btn" data-panel="panelPremios" style="padding:0">Premios</button>
+        <a href="#acerca">Acerca de</a>
         <a href="#honor">Cuadro de honor</a>
       </div>
     </div>
@@ -361,7 +520,7 @@
   // CONFIGURACIÓN — edita esto con tu usuario y repo de GitHub
   // ============================================================
   const CONFIG = {
-    GITHUB_USER: "TU-USUARIO",
+    GITHUB_USER: "henrydadway2020-svg",
     GITHUB_REPO: "trono-prisma",
     BRANCH: "main",
     DATA_PATHS: {
