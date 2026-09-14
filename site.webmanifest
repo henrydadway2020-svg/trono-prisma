@@ -1,0 +1,26 @@
+{
+  "name": "Trono Prisma",
+  "short_name": "Trono Prisma",
+  "description": "Torneo de paga de TCG Pocket y Pokémon Champions.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#05060B",
+  "theme_color": "#05060B",
+  "icons": [
+    {
+      "src": "assets/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
