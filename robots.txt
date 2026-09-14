@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://henrydadway2020-svg.github.io/trono-prisma/sitemap.xml
+Sitemap: https://trono-prisma.pages.dev/sitemap.xml
