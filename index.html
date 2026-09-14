@@ -201,12 +201,19 @@
   .hero-inner{position:relative; z-index:1; text-align:center; max-width:740px; margin:0 auto;}
 
   .season-tag{
-    display:inline-flex; align-items:center; gap:8px; margin-bottom:26px;
+    display:inline-flex; align-items:center; gap:8px; margin-bottom:14px;
     padding:7px 16px 7px 12px; font-size:12px; font-weight:600; color:var(--ice-dim);
     border:1px solid var(--line); background:rgba(255,255,255,0.02);
     clip-path:polygon(0 0, 100% 0, 94% 100%, 6% 100%);
   }
   .season-tag .dot{width:6px; height:6px; background:var(--prism); flex-shrink:0; box-shadow:0 0 8px var(--prism);}
+
+  .local-clock{
+    margin-bottom:26px; font-size:12px; color:var(--sub);
+    display:flex; align-items:center; justify-content:center; gap:6px; flex-wrap:wrap;
+  }
+  .local-clock b{color:var(--ice-dim); font-weight:600;}
+  .local-clock .tz{opacity:0.75;}
 
   .trophy-img{max-width:250px; margin:0 auto 30px; filter:drop-shadow(0 22px 60px rgba(62,214,255,0.3));}
 
@@ -475,6 +482,7 @@
   <div class="wrap">
     <div class="hero-inner">
       <div class="season-tag"><span class="dot"></span>Torneo de paga · próxima edición abierta</div>
+      <div class="local-clock" id="localClock" aria-live="polite"></div>
       <img class="trophy-img" src="assets/trono-prisma-trofeo.png" alt="Trofeo Trono Prisma">
       <h1>Trono Prisma</h1>
       <p class="glory">La corona es de cristal: se raja con el primer error y solo el mejor la levanta entera.</p>
@@ -858,6 +866,28 @@
     }catch(e){ return ""; }
   }
 
+  // ---------- reloj con la hora/fecha local de cada visitante ----------
+  // cada persona ve su propia hora y fecha, según la zona horaria que su
+  // navegador/dispositivo reporte — no la del organizador ni un huso fijo.
+  function updateLocalClock(){
+    const el = document.getElementById("localClock");
+    if(!el) return;
+    const now = new Date();
+    const locale = (navigator.language || "es-MX");
+    let datePart, timePart, tz;
+    try{
+      datePart = now.toLocaleDateString(locale, {weekday:"long", day:"numeric", month:"long"});
+      timePart = now.toLocaleTimeString(locale, {hour:"2-digit", minute:"2-digit"});
+      tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+    }catch(e){
+      datePart = now.toLocaleDateString();
+      timePart = now.toLocaleTimeString();
+      tz = "";
+    }
+    const dateCap = datePart.charAt(0).toUpperCase() + datePart.slice(1);
+    el.innerHTML = `Tu hora local ahora: <b>${esc(dateCap)} · ${esc(timePart)}</b>${tz ? ` <span class="tz">(${esc(tz)})</span>` : ""}`;
+  }
+
   function honorCardHTML(edicion){
     const c = edicion.campeon || {};
     const s = edicion.subcampeon || {};
@@ -976,6 +1006,9 @@
 
   loadHonorRoll(CONFIG.DATA_PATHS.pocket, "honorGridPocket", "TCG Pocket");
   loadHonorRoll(CONFIG.DATA_PATHS.champions, "honorGridChampions", "Trono Prisma Champions");
+
+  updateLocalClock();
+  setInterval(updateLocalClock, 30000);
 </script>
 
 </body>
