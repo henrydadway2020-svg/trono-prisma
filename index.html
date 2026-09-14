@@ -346,6 +346,22 @@
 
   .reg-download{display:inline-flex; align-items:center; gap:9px; margin-top:36px;}
 
+  /* ---------- preguntas frecuentes ---------- */
+  .faq-list{max-width:800px;}
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-item summary{
+    cursor:pointer; padding:22px 0; font-family:'Unbounded'; font-weight:600; font-size:14.5px; color:var(--ice);
+    display:flex; justify-content:space-between; align-items:center; gap:20px; list-style:none;
+  }
+  .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-item summary .ico{
+    flex-shrink:0; width:22px; height:22px; display:grid; place-items:center;
+    border:1px solid var(--line); color:var(--prism); font-size:15px; font-weight:400; transition:transform .2s, border-color .2s;
+  }
+  .faq-item:hover summary .ico{border-color:var(--prism);}
+  .faq-item[open] summary .ico{transform:rotate(45deg); border-color:var(--prism);}
+  .faq-item p{padding:0 34px 22px 0; color:var(--ice-dim); font-size:14px; max-width:720px;}
+
   /* ---------- footer ---------- */
   footer{border-top:1px solid var(--line); padding:44px 0;}
   .foot-row{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:18px;}
@@ -375,6 +391,7 @@
       <a href="#acerca" class="nav-plain">Acerca de</a>
       <a href="#honor" class="nav-plain">Cuadro de honor</a>
       <a href="#reglamento" class="nav-plain">Reglamento</a>
+      <a href="#faq" class="nav-plain">FAQ</a>
     </div>
     <a href="#inscripcion" class="btn-enter">
       Inscribirme
@@ -700,6 +717,51 @@
   </div>
 </section>
 
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Preguntas frecuentes</div>
+      <h2>Dudas comunes</h2>
+      <p>Un resumen rápido de lo más preguntado. El reglamento oficial arriba siempre tiene la última palabra.</p>
+    </div>
+
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>¿Cómo me inscribo a una edición? <span class="ico">+</span></summary>
+        <p>Únicamente a través del grupo oficial de WhatsApp de Trono Prisma — ese es el único canal válido para inscripciones. El pago de tu inscripción confirma tu lugar en el bracket de esa edición.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Qué pasa si no se alcanza el mínimo de 8 jugadores? <span class="ico">+</span></summary>
+        <p>La edición se pospone a una nueva fecha. Las inscripciones ya pagadas se mantienen: tu cupo queda reservado sin necesidad de volver a pagar ni reconfirmar.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Puedo repetir Pokémon o energía en TCG Pocket? <span class="ico">+</span></summary>
+        <p>No. No se permite repetir Pokémon ni energía en el mismo duelo, y las energías generadas también cuentan como energía repetida para esta regla.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Tengo que enviar mis decks o mi equipo antes del torneo? <span class="ico">+</span></summary>
+        <p>Sí. En TCG Pocket debes enviar tus 3 decks al organizador; en Pokémon Champions, el equipo con el que competirás. En ambos casos no podrás cambiarlos desde 48 horas antes del encuentro, y durante la partida solo podrás usar los Pokémon que enviaste.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Qué pasa si me desconecto durante una partida? <span class="ico">+</span></summary>
+        <p>Se resuelve como derrota automática, salvo que tu rival conceda voluntariamente o presentes evidencia verificable (capturas o grabación de pantalla) de que la desconexión se debió a un problema técnico ajeno a tu control. El staff evalúa cada caso y su decisión es final.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Cómo se reparten los premios? <span class="ico">+</span></summary>
+        <p>El campeón recibe el 70% de lo recaudado, el subcampeón el 20%, y el 10% restante cubre organización, transmisión y logística. El tercer lugar recibe entrada pagada a la próxima edición como premio no monetario.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Dónde puedo ver las finales? <span class="ico">+</span></summary>
+        <p>En el canal oficial de TikTok y YouTube de Trono Prisma. Quedan disponibles de forma permanente después de transmitirse.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿El grupo de WhatsApp es el único canal oficial? <span class="ico">+</span></summary>
+        <p>Sí. Inscripciones, emparejamientos y avisos del torneo se manejan únicamente ahí. Cualquier comunicación recibida fuera de ese canal no tiene validez oficial.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
 <section id="inscripcion">
   <div class="wrap">
     <div class="cta-final">
@@ -740,6 +802,7 @@
         <a href="#acerca">Acerca de</a>
         <a href="#honor">Cuadro de honor</a>
         <a href="#reglamento">Reglamento</a>
+        <a href="#faq">FAQ</a>
       </div>
     </div>
     <p class="foot-note">Trono Prisma — torneo independiente de TCG Pocket y Pokémon Champions. No afiliado a The Pokémon Company.</p>
