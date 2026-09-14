@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trono Prisma — TCG Pocket & Pokémon Champions</title>
+<meta name="description" content="Trono Prisma: el torneo de paga de TCG Pocket y Pokémon Champions. La corona es de cristal — solo el mejor la levanta.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#05070D;
+    --panel:#0D1424;
+    --panel-2:#111A2E;
+    --line:#233150;
+    --ice:#E8ECF5;
+    --ice-dim:#9BA9C6;
+    --prism:#3ED6FF;
+    --royal:#2451FF;
+    --violet:#6C63FF;
+    --sub:#8B96B4;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--void); color:var(--ice); font-family:'Inter', sans-serif; line-height:1.6; overflow-x:hidden;}
+  h1,h2,h3,.display{font-family:'Unbounded', sans-serif; line-height:1.12; letter-spacing:-0.01em;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  button{font-family:inherit; cursor:pointer; background:none; border:0; color:inherit;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+
+  /* ---------- header + accordion nav ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(5,7,13,0.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 32px; max-width:1180px; margin:0 auto;
+  }
+  .brand{display:flex; align-items:center; gap:10px; font-family:'Unbounded'; font-weight:800; font-size:17px;}
+  .brand svg{width:24px; height:24px;}
+
+  .nav-links{display:flex; align-items:center; gap:8px;}
+  .nav-item{position:relative;}
+  .nav-btn{
+    display:flex; align-items:center; gap:6px;
+    padding:10px 14px; font-size:14.5px; font-weight:500; color:var(--ice-dim);
+  }
+  .nav-btn:hover{color:var(--ice);}
+  .nav-btn[aria-expanded="true"]{color:var(--prism);}
+  .nav-btn .chev{width:9px; height:9px; border-right:1.6px solid currentColor; border-bottom:1.6px solid currentColor; transform:rotate(45deg); transition:transform .2s; margin-top:-3px;}
+  .nav-btn[aria-expanded="true"] .chev{transform:rotate(225deg); margin-top:3px;}
+  .nav-plain{padding:10px 14px; font-size:14.5px; font-weight:500; color:var(--ice-dim);}
+  .nav-plain:hover{color:var(--prism);}
+
+  .btn-enter{
+    background:var(--prism); color:var(--void); font-weight:700; font-size:13.5px; padding:10px 20px;
+    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+  }
+  .menu-toggle{display:none; font-size:24px;}
+
+  .dropzone{
+    max-height:0; overflow:hidden; opacity:0;
+    background:var(--panel); border-bottom:1px solid var(--line);
+    transition:max-height .32s ease, opacity .25s ease;
+  }
+  .dropzone.open{max-height:760px; opacity:1;}
+  .dropzone-inner{max-width:1180px; margin:0 auto; padding:32px 32px 40px;}
+  .panel{display:none;}
+  .panel.active{display:block;}
+
+  /* ---------- segmented tabs (reused: formats + honor) ---------- */
+  .tab-bar{display:inline-flex; border:1px solid var(--line); margin-bottom:24px;}
+  .tab-bar button{
+    padding:9px 18px; font-size:13.5px; font-weight:600; color:var(--ice-dim);
+    border-right:1px solid var(--line);
+  }
+  .tab-bar button:last-child{border-right:none;}
+  .tab-bar button.active{background:var(--prism); color:var(--void);}
+  .tab-panel{display:none;}
+  .tab-panel.active{display:block;}
+
+  .panel-grid{display:grid; grid-template-columns:1fr 1fr; gap:36px;}
+  .mini-list{list-style:none;}
+  .mini-list li{display:flex; gap:12px; padding:13px 0; border-top:1px solid var(--line); font-size:14px; color:var(--ice-dim);}
+  .mini-list li:first-child{border-top:none;}
+  .mini-list b{color:var(--ice); font-weight:600;}
+  .mini-list .num{color:var(--prism); font-family:'Unbounded'; font-size:12px; padding-top:2px; flex-shrink:0;}
+
+  .payout-mini{padding:4px 0;}
+  .payout-bar{height:12px; width:100%; display:flex; overflow:hidden; clip-path:polygon(0 0,100% 0,96% 100%,0 100%);}
+  .payout-bar .champ-share{width:90%; background:var(--prism);}
+  .payout-bar .org-share{width:10%; background:var(--violet);}
+  .payout-legend{display:flex; justify-content:space-between; margin-top:10px; font-size:12.5px; color:var(--ice-dim);}
+  .payout-legend b{color:var(--ice); font-family:'Unbounded'; font-size:17px; display:block;}
+
+  .prize-cols{display:grid; grid-template-columns:1fr 1fr; gap:28px;}
+  .prize-col-tag{font-family:'Unbounded'; font-size:11.5px; font-weight:700; color:var(--void); background:var(--prism); display:inline-block; padding:5px 12px; margin-bottom:14px; clip-path:polygon(6% 0,100% 0,94% 100%,0 100%);}
+  .prize-col.silver .prize-col-tag{background:var(--sub);}
+  .prize-note{margin-top:18px; font-size:13px; color:var(--ice-dim);}
+
+  @media(max-width:860px){
+    .nav-links{
+      display:none; position:absolute; top:100%; left:0; right:0;
+      flex-direction:column; align-items:stretch; gap:0;
+      background:var(--panel); border-bottom:1px solid var(--line);
+    }
+    .nav-links.open{display:flex;}
+    .nav-item, .nav-btn, .nav-plain{width:100%;}
+    .nav-btn, .nav-plain{padding:16px 32px; border-top:1px solid var(--line); justify-content:space-between;}
+    .btn-enter{display:none;}
+    .menu-toggle{display:block;}
+    .panel-grid, .prize-cols{grid-template-columns:1fr;}
+    .dropzone-inner{padding:28px 24px 34px;}
+  }
+
+  /* ---------- hero ---------- */
+  .hero{position:relative; padding:76px 0 90px; overflow:hidden;}
+  .hero::before{
+    content:""; position:absolute; inset:0;
+    background: radial-gradient(ellipse 700px 500px at 50% 0%, rgba(62,214,255,0.14), transparent 60%);
+    pointer-events:none;
+  }
+  .hero-inner{position:relative; z-index:1; text-align:center; max-width:720px; margin:0 auto;}
+  .trophy-img{max-width:300px; margin:0 auto 28px; filter:drop-shadow(0 20px 60px rgba(62,214,255,0.25));}
+  .eyebrow{display:inline-flex; align-items:center; gap:10px; color:var(--prism); font-weight:600; font-size:13px; margin-bottom:14px;}
+  .eyebrow::before, .eyebrow::after{content:""; width:22px; height:2px; background:var(--prism); display:block;}
+  .hero h1{font-size:clamp(36px,6vw,58px); font-weight:900;}
+  .glory{margin-top:18px; font-family:'Unbounded'; font-weight:400; font-size:clamp(15px,2vw,18px); color:var(--ice-dim); max-width:440px; margin-left:auto; margin-right:auto;}
+  .hero-cta{display:flex; gap:14px; margin-top:36px; justify-content:center; flex-wrap:wrap;}
+  .btn-primary{background:var(--prism); color:var(--void); font-weight:700; font-size:14.5px; padding:15px 28px; clip-path:polygon(8% 0,100% 0,92% 100%,0% 100%);}
+  .btn-ghost{border:1px solid var(--line); color:var(--ice); font-weight:600; font-size:14.5px; padding:15px 28px; clip-path:polygon(8% 0,100% 0,92% 100%,0% 100%);}
+  .btn-ghost:hover{border-color:var(--prism); color:var(--prism);}
+
+  .hero-stats{display:flex; gap:34px; margin-top:48px; justify-content:center; flex-wrap:wrap;}
+  .hero-stats div{text-align:center;}
+  .hero-stats div strong{display:block; font-family:'Unbounded'; font-size:22px;}
+  .hero-stats div span{font-size:12px; color:var(--ice-dim);}
+
+  /* ---------- honor (always visible) ---------- */
+  section{padding:80px 0;}
+  #honor{background:var(--panel); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .section-head{max-width:520px; margin-bottom:32px; text-align:center; margin-left:auto; margin-right:auto;}
+  .section-head h2{font-size:clamp(26px,3.6vw,36px); font-weight:800;}
+  .section-head p{color:var(--ice-dim); margin-top:10px; font-size:14.5px;}
+
+  .honor-block{margin-bottom:56px;}
+  .honor-block:last-child{margin-bottom:0;}
+  .honor-block-head{display:flex; align-items:center; gap:10px; margin-bottom:24px;}
+  .honor-block-head h3{font-size:18px; font-weight:700;}
+  .honor-dot{width:9px; height:9px; flex-shrink:0; background:var(--prism);}
+  .honor-dot.champions{background:var(--violet);}
+
+  .honor-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:24px;}
+  .honor-card{background:var(--panel-2); border:1px solid var(--line); clip-path:polygon(0 0,100% 0,100% 92%,92% 100%,0 100%); overflow:hidden;}
+  .honor-banner{width:100%; aspect-ratio:16/7; object-fit:cover; background:var(--void);}
+  .honor-body{padding:22px;}
+  .honor-meta{display:flex; justify-content:space-between; align-items:center; font-size:12px; color:var(--ice-dim); margin-bottom:12px;}
+  .honor-row{display:flex; align-items:center; gap:13px; padding:8px 0;}
+  .honor-sticker{width:42px; height:42px; border-radius:50%; object-fit:cover; background:var(--panel); border:1px solid var(--line); flex-shrink:0;}
+  .honor-row .role{font-size:11px; color:var(--prism); font-weight:600; display:block;}
+  .honor-row.sub .role{color:var(--sub);}
+  .honor-row .name{font-weight:600; font-size:14.5px;}
+  .honor-final{margin-top:14px; display:inline-block; font-size:13px; font-weight:600; color:var(--prism); border-bottom:1px solid var(--prism); padding-bottom:2px;}
+  .honor-empty{border:1px dashed var(--line); padding:54px 36px; text-align:center; color:var(--ice-dim); grid-column:1/-1;}
+  .honor-empty strong{display:block; color:var(--ice); font-family:'Unbounded'; font-size:18px; margin-bottom:8px;}
+  .honor-loading{grid-column:1/-1; text-align:center; padding:54px; color:var(--ice-dim); font-size:14px;}
+
+  /* ---------- CTA ---------- */
+  .cta-final{
+    background:linear-gradient(135deg, var(--panel-2), var(--panel)); border:1px solid var(--line);
+    padding:56px 48px; clip-path:polygon(0 0,100% 0,100% 88%,96% 100%,0 100%); text-align:center;
+  }
+  .cta-final h2{font-size:clamp(24px,3.4vw,32px); font-weight:800;}
+  .cta-final p{color:var(--ice-dim); margin-top:12px; max-width:420px; margin-left:auto; margin-right:auto; font-size:14.5px;}
+  .cta-final .hero-cta{margin-top:26px;}
+  @media(max-width:640px){.cta-final{padding:44px 24px;}}
+
+  /* ---------- footer ---------- */
+  footer{border-top:1px solid var(--line); padding:40px 0;}
+  .foot-row{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:18px;}
+  .foot-row .brand{font-size:14.5px;}
+  .foot-links{display:flex; gap:22px; font-size:13px; color:var(--ice-dim);}
+  .foot-links a:hover, .foot-links button:hover{color:var(--prism);}
+  .foot-note{margin-top:22px; font-size:12px; color:var(--ice-dim); opacity:0.7; text-align:center;}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="#" class="brand">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L4 9l2.5 11h11L20 9l-8-7z" stroke="#3ED6FF" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 9l4-5 4 5" stroke="#3ED6FF" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      Trono Prisma
+    </a>
+    <div class="nav-links" id="navLinks">
+      <div class="nav-item">
+        <button class="nav-btn" data-panel="panelTorneo" aria-expanded="false">El torneo <span class="chev"></span></button>
+      </div>
+      <div class="nav-item">
+        <button class="nav-btn" data-panel="panelPremios" aria-expanded="false">Premios <span class="chev"></span></button>
+      </div>
+      <a href="#honor" class="nav-plain">Cuadro de honor</a>
+    </div>
+    <a href="#inscripcion" class="btn-enter">Inscribirme</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menú">☰</button>
+  </nav>
+
+  <div class="dropzone" id="dropzone">
+    <div class="dropzone-inner">
+
+      <div class="panel" id="panelTorneo">
+        <div class="tab-bar" data-tabgroup="formato">
+          <button class="active" data-tab="fmtPocket">TCG Pocket</button>
+          <button data-tab="fmtChampions">Pokémon Champions</button>
+        </div>
+
+        <div class="tab-panel active" id="fmtPocket">
+          <div class="panel-grid">
+            <ul class="mini-list">
+              <li><span class="num">01</span><span><b>Juego:</b> TCG Pocket.</span></li>
+              <li><span class="num">02</span><span><b>Cupos:</b> 8, 16 o 32 jugadores — mínimo 8.</span></li>
+              <li><span class="num">03</span><span><b>Formato:</b> BO3, sin repetir Pokémon ni energía en el mismo duelo.</span></li>
+              <li><span class="num">04</span><span><b>Final:</b> transmitida en el canal oficial de TikTok y YouTube, disponible para siempre.</span></li>
+            </ul>
+            <div class="payout-mini">
+              <div class="payout-bar"><div class="champ-share"></div><div class="org-share"></div></div>
+              <div class="payout-legend"><div><b>90%</b>Campeón</div><div style="text-align:right"><b>10%</b>Organización</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="fmtChampions">
+          <div class="panel-grid">
+            <ul class="mini-list">
+              <li><span class="num">01</span><span><b>Juego:</b> Pokémon Champions.</span></li>
+              <li><span class="num">02</span><span><b>Cupos:</b> 8, 16 o 32 jugadores — mínimo 8.</span></li>
+              <li><span class="num">03</span><span><b>Formato:</b> Dobles, BO3, con el mismo equipo durante todo el enfrentamiento.</span></li>
+              <li><span class="num">04</span><span><b>Final:</b> transmitida en el canal oficial de TikTok y YouTube, disponible para siempre.</span></li>
+            </ul>
+            <div class="payout-mini">
+              <div class="payout-bar"><div class="champ-share"></div><div class="org-share"></div></div>
+              <div class="payout-legend"><div><b>90%</b>Campeón</div><div style="text-align:right"><b>10%</b>Organización</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" id="panelPremios">
+        <div class="prize-cols">
+          <div class="prize-col">
+            <span class="prize-col-tag">Campeón</span>
+            <ul class="mini-list">
+              <li><span class="num">◆</span><span>90% de lo recaudado</span></li>
+              <li><span class="num">◆</span><span>Sticker + sticker animado de campeón</span></li>
+              <li><span class="num">◆</span><span>Banner de campeón en el Cuadro de Honor</span></li>
+            </ul>
+          </div>
+          <div class="prize-col silver">
+            <span class="prize-col-tag">Subcampeón</span>
+            <ul class="mini-list">
+              <li><span class="num">◆</span><span>Entrada pagada al próximo Prisma</span></li>
+              <li><span class="num">◆</span><span>Sticker de subcampeón</span></li>
+              <li><span class="num">◆</span><span>Banner de subcampeón en el Cuadro de Honor</span></li>
+            </ul>
+          </div>
+        </div>
+        <p class="prize-note">Los mismos premios aplican para TCG Pocket y para Pokémon Champions.</p>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <img class="trophy-img" src="assets/trono-prisma-trofeo.png" alt="Trofeo Trono Prisma">
+      <div class="eyebrow">TCG Pocket · Pokémon Champions</div>
+      <h1>Trono Prisma</h1>
+      <p class="glory">La corona es de cristal: se raja con el primer error y solo el mejor la levanta entera.</p>
+      <div class="hero-cta">
+        <a href="#inscripcion" class="btn-primary">Inscribirme</a>
+        <a href="#honor" class="btn-ghost">Ver el Cuadro de Honor</a>
+      </div>
+      <div class="hero-stats">
+        <div><strong>8–32</strong><span>jugadores</span></div>
+        <div><strong>BO3</strong><span>ambos formatos</span></div>
+        <div><strong>90%</strong><span>para el campeón</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="honor">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Cuadro de Honor</h2>
+      <p>Cada campeón y subcampeón queda aquí para siempre, con su sticker, su banner y su final.</p>
+    </div>
+
+    <div class="honor-block">
+      <div class="honor-block-head">
+        <span class="honor-dot pocket"></span>
+        <h3>TCG Pocket</h3>
+      </div>
+      <div class="honor-grid" id="honorGridPocket">
+        <div class="honor-loading">Cargando el Cuadro de Honor…</div>
+      </div>
+    </div>
+
+    <div class="honor-block">
+      <div class="honor-block-head">
+        <span class="honor-dot champions"></span>
+        <h3>Trono Prisma Champions</h3>
+      </div>
+      <div class="honor-grid" id="honorGridChampions">
+        <div class="honor-loading">Cargando el Cuadro de Honor…</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="inscripcion">
+  <div class="wrap">
+    <div class="cta-final">
+      <h2>¿Listo para pelear por el trono?</h2>
+      <p>Cupos limitados a 8, 16 o 32 jugadores. Escríbenos para asegurar tu lugar en la próxima edición.</p>
+      <div class="hero-cta">
+        <a href="#" class="btn-primary">Contactar por TikTok</a>
+        <a href="#" class="btn-ghost">Contactar por YouTube</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-row">
+      <a href="#" class="brand">
+        <svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M12 2L4 9l2.5 11h11L20 9l-8-7z" stroke="#3ED6FF" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        Trono Prisma
+      </a>
+      <div class="foot-links">
+        <button class="nav-btn" data-panel="panelTorneo" style="padding:0">El torneo</button>
+        <button class="nav-btn" data-panel="panelPremios" style="padding:0">Premios</button>
+        <a href="#honor">Cuadro de honor</a>
+      </div>
+    </div>
+    <p class="foot-note">Trono Prisma — torneo independiente de TCG Pocket y Pokémon Champions. No afiliado a The Pokémon Company.</p>
+  </div>
+</footer>
+
+<script>
+  // ============================================================
+  // CONFIGURACIÓN — edita esto con tu usuario y repo de GitHub
+  // ============================================================
+  const CONFIG = {
+    GITHUB_USER: "TU-USUARIO",
+    GITHUB_REPO: "trono-prisma",
+    BRANCH: "main",
+    DATA_PATHS: {
+      pocket: "data/campeones-tcg-pocket.json",
+      champions: "data/campeones-champions.json"
+    }
+  };
+
+  const CDN_BASE = `https://cdn.jsdelivr.net/gh/${CONFIG.GITHUB_USER}/${CONFIG.GITHUB_REPO}@${CONFIG.BRANCH}`;
+
+  function assetUrl(path){
+    if(!path) return "";
+    if(path.startsWith("http")) return path;
+    return `${CDN_BASE}/${path.replace(/^\/+/,"")}`;
+  }
+
+  function honorCardHTML(edicion){
+    const c = edicion.campeon || {};
+    const s = edicion.subcampeon || {};
+    return `
+      <div class="honor-card">
+        ${c.banner ? `<img class="honor-banner" src="${assetUrl(c.banner)}" alt="Banner de ${c.nombre || 'campeón'}" loading="lazy">` : ""}
+        <div class="honor-body">
+          <div class="honor-meta">
+            <span>${edicion.torneo || ""}</span>
+            <span>${edicion.fecha || ""}</span>
+          </div>
+          <div class="honor-row">
+            ${c.sticker ? `<img class="honor-sticker" src="${assetUrl(c.sticker)}" alt="Sticker de ${c.nombre || 'campeón'}" loading="lazy">` : ""}
+            <div><span class="role">Campeón</span><span class="name">${c.nombre || "—"}</span></div>
+          </div>
+          <div class="honor-row sub">
+            ${s.sticker ? `<img class="honor-sticker" src="${assetUrl(s.sticker)}" alt="Sticker de ${s.nombre || 'subcampeón'}" loading="lazy">` : ""}
+            <div><span class="role">Subcampeón</span><span class="name">${s.nombre || "—"}</span></div>
+          </div>
+          ${edicion.final_url ? `<a class="honor-final" href="${edicion.final_url}" target="_blank" rel="noopener">Ver la final →</a>` : ""}
+        </div>
+      </div>
+    `;
+  }
+
+  async function loadHonorRoll(dataPath, gridId, nombreVacio){
+    const grid = document.getElementById(gridId);
+    try{
+      const res = await fetch(`${CDN_BASE}/${dataPath}`, {cache:"no-store"});
+      if(!res.ok) throw new Error("No se pudo cargar el archivo de datos");
+      const ediciones = await res.json();
+
+      if(!Array.isArray(ediciones) || ediciones.length === 0){
+        grid.innerHTML = `
+          <div class="honor-empty">
+            <strong>El Cuadro de Honor está vacío — por ahora</strong>
+            El primer campeón de ${nombreVacio} escribirá aquí la primera página.
+          </div>`;
+        return;
+      }
+
+      grid.innerHTML = ediciones.slice().reverse().map(honorCardHTML).join("");
+
+    }catch(err){
+      grid.innerHTML = `
+        <div class="honor-empty">
+          <strong>El Cuadro de Honor aún no está conectado</strong>
+          Configura CONFIG.GITHUB_USER y CONFIG.GITHUB_REPO en el código, y agrega ${dataPath} a tu repositorio.
+        </div>`;
+      console.warn("Trono Prisma — error cargando el Cuadro de Honor:", err);
+    }
+  }
+
+  // ---------- pestañas genéricas (formatos y cuadros de honor) ----------
+  document.querySelectorAll(".tab-bar").forEach(bar => {
+    const buttons = bar.querySelectorAll("button");
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        buttons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        // los paneles asociados están junto al tab-bar (mismo panel padre o mismo section)
+        const scope = bar.closest(".panel") || bar.closest("section") || document;
+        scope.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+        const target = document.getElementById(btn.dataset.tab);
+        if(target) target.classList.add("active");
+      });
+    });
+  });
+
+  // ---------- acordeón del menú ----------
+  const dropzone = document.getElementById("dropzone");
+  const navBtns = document.querySelectorAll(".nav-btn[data-panel]");
+
+  function closeDropzone(){
+    dropzone.classList.remove("open");
+    navBtns.forEach(b => b.setAttribute("aria-expanded","false"));
+    document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+  }
+
+  navBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const panelId = btn.dataset.panel;
+      const alreadyOpen = btn.getAttribute("aria-expanded") === "true";
+
+      if(alreadyOpen){
+        closeDropzone();
+        return;
+      }
+
+      closeDropzone();
+      dropzone.classList.add("open");
+      btn.setAttribute("aria-expanded","true");
+      document.getElementById(panelId).classList.add("active");
+    });
+  });
+
+  document.addEventListener("click", (e) => {
+    if(!e.target.closest("header")) closeDropzone();
+  });
+
+  document.getElementById("menuToggle").addEventListener("click", () => {
+    document.getElementById("navLinks").classList.toggle("open");
+  });
+
+  loadHonorRoll(CONFIG.DATA_PATHS.pocket, "honorGridPocket", "TCG Pocket");
+  loadHonorRoll(CONFIG.DATA_PATHS.champions, "honorGridChampions", "Trono Prisma Champions");
+</script>
+
+</body>
+</html>
