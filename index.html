@@ -276,6 +276,10 @@
   .cta-final h2{font-size:clamp(24px,3.4vw,32px); font-weight:800;}
   .cta-final p{color:var(--ice-dim); margin-top:12px; max-width:420px; margin-left:auto; margin-right:auto; font-size:14.5px;}
   .cta-final .hero-cta{margin-top:28px;}
+  .cta-watch{margin-top:24px; display:flex; gap:9px; justify-content:center; align-items:center; flex-wrap:wrap; font-size:13px; color:var(--sub);}
+  .cta-watch .sep{color:var(--line);}
+  .cta-watch-link{color:var(--ice-dim); font-weight:600; border-bottom:1px solid transparent; padding-bottom:1px; transition:color .15s, border-color .15s;}
+  .cta-watch-link:hover{color:var(--prism); border-color:var(--prism);}
   @media(max-width:640px){.cta-final{padding:46px 24px;}}
 
   /* ---------- footer ---------- */
@@ -483,13 +487,21 @@
   <div class="wrap">
     <div class="cta-final">
       <h2>¿Listo para pelear por el trono?</h2>
-      <p>Cupos limitados a 8, 16 o 32 jugadores. Escríbenos para asegurar tu lugar en la próxima edición.</p>
+      <p>La inscripción es directa en el grupo de WhatsApp de Trono Prisma. Cupos limitados a 8, 16 o 32 jugadores.</p>
       <div class="hero-cta">
+        <!-- TODO: reemplazar "#" por el link de invitación al grupo de WhatsApp en cuanto lo tengas -->
         <a href="#" class="btn-primary">
-          Contactar por TikTok
-          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Unirme al grupo de WhatsApp
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 21c5 0 8-3.4 8-7.6S17 5.8 12 5.8 4 9.2 4 13.4c0 1.5.4 2.9 1.2 4.1L4 21l3.8-1.1C9 20.6 10.4 21 12 21z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12.3c.3 1.7 2 3.2 3.6 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
         </a>
-        <a href="#" class="btn-ghost">Contactar por YouTube</a>
+      </div>
+      <div class="cta-watch">
+        <span>¿Solo quieres ver las finales?</span>
+        <!-- TODO: reemplazar "#" por el link oficial del canal de TikTok -->
+        <a href="#" class="cta-watch-link">TikTok</a>
+        <span class="sep">·</span>
+        <!-- TODO: reemplazar "#" por el link oficial del canal de YouTube -->
+        <a href="#" class="cta-watch-link">YouTube</a>
       </div>
     </div>
   </div>
