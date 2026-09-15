@@ -43,6 +43,36 @@ Notas:
   reflejarse en el sitio publicado, por caché del CDN. Si algo "no aparece" recién
   subido, espera un poco antes de asumir que hay un error.
 
+## Configurar la edición (lo que vas a tocar cada torneo)
+
+Dentro del bloque `CONFIG` al final de `index.html` está `EDICION`. Es lo único
+que hay que editar entre torneo y torneo — de ahí salen la cuenta regresiva, la
+sección "Próxima edición", la calculadora del bote, la barra fija del celular y
+los datos que lee Google:
+
+```js
+EDICION: {
+  numero: 1,
+  fecha: "2026-10-11T18:00:00-06:00",  // null = "Fecha por anunciar"
+  inscripcionesAbiertas: true,
+  cuota: 50,
+  moneda: "MXN",
+  cuposTotales: 16,      // 8, 16 o 32
+  cuposOcupados: 0,      // súbelo conforme se llenen
+  metodosPago: ["Transferencia", "OXXO", "PayPal"]
+}
+```
+
+- `fecha` va en formato ISO **con tu huso horario** (`-06:00` es el centro de
+  México). Cada visitante la ve convertida a su propia hora.
+- `cuota` y `moneda` se formatean solos según el idioma del visitante.
+- `cuposOcupados` mueve la barra de cupos y el texto "Quedan N lugares".
+- Si pones `inscripcionesAbiertas: false`, la etiqueta cambia a "Inscripciones
+  cerradas" sin que tengas que tocar nada más.
+
+También hay un bloque `SOCIAL` para los links de TikTok y YouTube. Si los dejas
+vacíos, esos links se apagan solos en lugar de llevar a ninguna parte.
+
 ## Configuración
 
 Todo lo editable sin tocar el HTML/CSS vive en el bloque `CONFIG` al final de
@@ -57,7 +87,6 @@ Todo lo editable sin tocar el HTML/CSS vive en el bloque `CONFIG` al final de
 
 - [ ] Subir `reglamento-trono-prisma.pdf` a la raíz del repo (el botón de descarga ya
       apunta ahí).
-- [ ] Reemplazar los links de TikTok y YouTube en el CTA final (buscar `TODO` en
-      `index.html`).
+- [ ] Poner los links de TikTok y YouTube en `CONFIG.SOCIAL`.
 - [ ] Confirmar la URL final publicada en `og:url`, `og:image`, `canonical` y
       `sitemap.xml` si el sitio se sirve desde un dominio distinto al de GitHub Pages.

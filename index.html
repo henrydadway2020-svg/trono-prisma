@@ -675,9 +675,195 @@
     .hero::after{opacity:.35;}
   }
 
+  /* ==================================================================
+     CAPA EDICIÓN · v2
+     Todo lo nuevo de esta versión vive aquí abajo, igual que la capa
+     Prisma: se puede borrar el bloque entero y el sitio vuelve atrás.
+     Qué resuelve: un torneo de paga necesita responder tres cosas en
+     los primeros 5 segundos — cuándo es, cuánto cuesta y cuánto se
+     puede ganar. Eso es lo que hace la sección "Próxima edición".
+     ================================================================== */
+
+  /* ---- barra de progreso de lectura (filo espectral superior) ----- */
+  .tp-progress{
+    position:fixed; top:0; left:0; height:2px; width:0%; z-index:100;
+    background:linear-gradient(90deg, var(--spec-a), var(--spec-b) 55%, var(--spec-c));
+    box-shadow:0 0 12px rgba(62,214,255,.7); pointer-events:none;
+    transition:width .1s linear;
+  }
+
+  /* ---- revelado al hacer scroll (lo activa JS; sin JS todo se ve) - */
+  .tp-reveal{opacity:0; transform:translateY(18px); transition:opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1);}
+  .tp-reveal.tp-in{opacity:1; transform:none;}
+  @media (prefers-reduced-motion: reduce){ .tp-reveal{opacity:1; transform:none;} }
+
+  /* ---- sección Próxima edición ------------------------------------ */
+  #edicion{
+    background:
+      radial-gradient(ellipse 720px 420px at 18% 0%, rgba(62,214,255,.09), transparent 66%),
+      radial-gradient(ellipse 620px 400px at 86% 100%, rgba(255,111,216,.06), transparent 68%),
+      var(--void-2);
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  .ed-grid{display:grid; grid-template-columns:1.02fr .98fr; gap:26px; align-items:stretch;}
+  @media(max-width:900px){ .ed-grid{grid-template-columns:1fr;} }
+
+  .ed-panel{
+    position:relative; overflow:hidden;
+    background:linear-gradient(166deg, rgba(22,32,58,.92), rgba(11,17,32,.92));
+    border:1px solid var(--line);
+    box-shadow:var(--bevel), var(--lift);
+    clip-path:polygon(0 0,100% 0,100% 94%,95% 100%,0 100%);
+    padding:30px 30px 32px;
+  }
+  .ed-panel::before{
+    content:""; position:absolute; left:0; right:0; top:0; height:1px;
+    background:var(--spec-line); opacity:.85;
+  }
+
+  .ed-state{
+    display:inline-flex; align-items:center; gap:8px; margin-bottom:20px;
+    padding:6px 14px 6px 11px; font-size:11.5px; font-weight:700; letter-spacing:.02em;
+    color:#04070F; background:var(--spec-fill);
+    clip-path:polygon(0 0,100% 0,94% 100%,6% 100%);
+  }
+  .ed-state.closed{background:rgba(255,255,255,.07); color:var(--ice-dim); box-shadow:inset 0 0 0 1px var(--line);}
+  .ed-state .dot{width:6px; height:6px; border-radius:50%; background:#04070F; animation:tp-pulse 2.6s ease-in-out infinite;}
+  .ed-state.closed .dot{background:var(--sub); animation:none;}
+
+  .ed-when{font-family:'Unbounded'; font-weight:700; font-size:clamp(19px,2.6vw,25px); line-height:1.24; letter-spacing:-.02em;}
+  .ed-when-sub{font-size:12.5px; color:var(--sub); margin-top:8px;}
+
+  /* cuenta regresiva */
+  .ed-count{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; margin:24px 0 4px; background:var(--line); border:1px solid var(--line);}
+  .ed-count div{background:rgba(5,6,11,.66); padding:14px 6px; text-align:center;}
+  .ed-count b{
+    display:block; font-family:'Unbounded'; font-weight:700; font-size:clamp(20px,3.4vw,27px);
+    background:var(--spec-fill); -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent; color:transparent; font-variant-numeric:tabular-nums;
+  }
+  .ed-count span{display:block; font-size:10.5px; color:var(--sub); margin-top:5px; letter-spacing:.03em;}
+  .ed-count-note{font-size:12px; color:var(--sub); margin-top:12px;}
+
+  /* datos duros: cuota y cupos */
+  .ed-facts{display:grid; grid-template-columns:1fr 1fr; gap:1px; margin-top:26px; background:var(--line); border:1px solid var(--line);}
+  @media(max-width:420px){ .ed-facts{grid-template-columns:1fr;} }
+  .ed-fact{background:rgba(5,6,11,.6); padding:18px 18px 20px;}
+  .ed-fact .lbl{font-size:11px; color:var(--sub); letter-spacing:.03em;}
+  .ed-fact .val{font-family:'Unbounded'; font-weight:700; font-size:22px; margin-top:6px; color:var(--ice); font-variant-numeric:tabular-nums;}
+  .ed-fact .val.gold{background:linear-gradient(100deg, var(--spec-d), #FFE6AE); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;}
+  .ed-fact .hint{font-size:11.5px; color:var(--ice-dim); margin-top:7px;}
+
+  .cupos-bar{height:7px; margin-top:12px; background:var(--void); border:1px solid var(--line); overflow:hidden;}
+  .cupos-bar i{display:block; height:100%; width:0%; background:var(--spec-fill); box-shadow:0 0 14px -2px rgba(62,214,255,.8); transition:width .8s cubic-bezier(.2,.7,.3,1);}
+
+  .ed-actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:26px;}
+
+  /* ---- calculadora del bote --------------------------------------- */
+  .pot-head{display:flex; align-items:baseline; justify-content:space-between; gap:14px; flex-wrap:wrap; margin-bottom:6px;}
+  .pot-title{font-family:'Unbounded'; font-weight:700; font-size:15.5px;}
+  .pot-sub{font-size:12.5px; color:var(--sub); max-width:330px; line-height:1.6;}
+
+  .pot-seg{display:flex; margin:20px 0 22px; border:1px solid var(--line); background:var(--void-2); box-shadow:var(--bevel);}
+  .pot-seg button{
+    flex:1; padding:11px 8px; font-size:13px; font-weight:700; color:var(--ice-dim);
+    border-right:1px solid var(--line); transition:color .15s, background .15s; font-variant-numeric:tabular-nums;
+  }
+  .pot-seg button:last-child{border-right:none;}
+  .pot-seg button:hover{color:var(--ice);}
+  .pot-seg button.active{background:var(--spec-fill); color:#04070F; box-shadow:0 8px 22px -14px rgba(62,214,255,.9);}
+
+  .pot-total{text-align:center; padding:22px 12px 20px; border:1px solid var(--line); background:rgba(5,6,11,.55); box-shadow:var(--bevel); position:relative; overflow:hidden;}
+  .pot-total::before{content:""; position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse 320px 160px at 50% 0%, rgba(62,214,255,.14), transparent 70%);}
+  .pot-total .lbl{position:relative; font-size:11.5px; color:var(--sub); letter-spacing:.04em;}
+  .pot-total .big{
+    position:relative; display:block; margin-top:6px; font-family:'Unbounded'; font-weight:800;
+    font-size:clamp(30px,5.6vw,44px); letter-spacing:-.03em; font-variant-numeric:tabular-nums;
+    background:linear-gradient(180deg,#FFFFFF 10%,#CFE6FF 48%,#9C8CFF 100%);
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+  }
+
+  .pot-split{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; margin-top:18px; background:var(--line); border:1px solid var(--line);}
+  .pot-split div{background:rgba(5,6,11,.6); padding:16px 12px; text-align:center;}
+  .pot-split .pct{font-size:11px; color:var(--sub); letter-spacing:.03em;}
+  .pot-split .amt{display:block; font-family:'Unbounded'; font-weight:700; font-size:17px; margin-top:6px; font-variant-numeric:tabular-nums;}
+  .pot-split .who{display:block; font-size:11px; color:var(--ice-dim); margin-top:5px;}
+  .pot-split .c .amt{background:linear-gradient(100deg, var(--spec-d), #FFE6AE); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;}
+  .pot-split .s .amt{color:#C7CEDE;}
+  .pot-split .o .amt{color:var(--sub); font-size:15px;}
+  .pot-note{margin-top:16px; font-size:12px; color:var(--sub); line-height:1.65;}
+
+  /* ---- cómo entrar: la ruta ---------------------------------------- */
+  .steps{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+  @media(max-width:900px){ .steps{grid-template-columns:repeat(2,1fr);} }
+  @media(max-width:520px){ .steps{grid-template-columns:1fr;} }
+  .step{position:relative; background:var(--void); padding:26px 22px 28px; transition:background .25s;}
+  .step:hover{background:var(--void-2);}
+  .step::before{content:""; position:absolute; left:0; top:0; width:100%; height:2px; background:var(--spec-line); opacity:.5;}
+  .step .n{
+    display:grid; place-items:center; width:32px; height:32px; margin-bottom:14px;
+    font-family:'Unbounded'; font-weight:700; font-size:13px; color:#DCEBFF;
+    background:linear-gradient(150deg, rgba(62,214,255,.24), rgba(156,140,255,.14));
+    box-shadow:var(--bevel), 0 0 16px -6px rgba(62,214,255,.8);
+    clip-path:polygon(20% 0,100% 0,100% 80%,80% 100%,0 100%,0 20%);
+  }
+  .step h3{font-size:14.5px; font-weight:700; margin-bottom:9px;}
+  .step p{font-size:13.5px; color:var(--ice-dim); line-height:1.65;}
+
+  .pay-row{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:26px;}
+  .pay-label{font-size:12.5px; color:var(--sub);}
+  .pay-chip{
+    font-size:12px; font-weight:600; color:var(--ice-dim); padding:7px 13px;
+    border:1px solid var(--line); background:rgba(255,255,255,.02); box-shadow:var(--bevel);
+    clip-path:polygon(6% 0,100% 0,94% 100%,0 100%);
+  }
+  .trust-note{
+    margin-top:22px; display:flex; gap:11px; align-items:flex-start;
+    font-size:13px; color:var(--ice-dim); max-width:720px;
+    padding:16px 18px; background:rgba(62,214,255,.04); border:1px solid rgba(62,214,255,.18);
+  }
+  .trust-note svg{width:16px; height:16px; flex-shrink:0; margin-top:2px; color:var(--spec-a);}
+
+  /* ---- barra fija de inscripción en móvil -------------------------- */
+  .mobile-cta{
+    display:none; position:fixed; left:0; right:0; bottom:0; z-index:90;
+    padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+    background:rgba(5,6,11,.93); backdrop-filter:blur(14px);
+    border-top:1px solid var(--line);
+    align-items:center; justify-content:space-between; gap:12px;
+    transform:translateY(120%); transition:transform .3s cubic-bezier(.2,.7,.3,1);
+  }
+  .mobile-cta.show{transform:none;}
+  .mobile-cta::before{content:""; position:absolute; left:0; right:0; top:0; height:1px; background:var(--spec-line); opacity:.7;}
+  .mobile-cta .mc-info{line-height:1.3;}
+  .mobile-cta .mc-lbl{display:block; font-size:10.5px; color:var(--sub);}
+  .mobile-cta .mc-val{display:block; font-family:'Unbounded'; font-weight:700; font-size:15px;}
+  .mobile-cta .btn-primary{padding:13px 22px 13px 18px; font-size:13.5px;}
+  @media(max-width:860px){
+    .mobile-cta{display:flex;}
+    /* aire extra para que la barra fija no tape el final del footer */
+    body{padding-bottom:84px;}
+  }
+
+  /* ---- detalles finos --------------------------------------------- */
+  .nav-plain.active{color:var(--spec-a);}
+  /* el menú es de una sola línea: nada de palabras partidas a la mitad */
+  .nav-btn, .nav-plain, .brand{white-space:nowrap;}
+  @media(min-width:861px) and (max-width:1120px){
+    .nav-btn, .nav-plain{padding:10px 11px; font-size:13.5px;}
+    .lang-pill{padding:6px 8px;}
+  }
+  @media(max-width:860px){ .nav-btn, .nav-plain{white-space:normal;} }
+  /* al saltar a una sección con el header pegajoso, que no tape el título */
+  section[id]{scroll-margin-top:86px;}
+  .honor-empty strong{background:var(--spec-fill); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;}
+  @media(max-width:640px){ .ed-panel{padding:24px 20px 26px;} }
+
 </style>
 </head>
 <body>
+
+<div class="tp-progress" aria-hidden="true"></div>
 
 <header>
   <nav>
@@ -694,6 +880,7 @@
       <div class="nav-item">
         <button class="nav-btn" data-panel="panelPremios" aria-expanded="false"><span data-i18n="nav.premios">Premios</span> <span class="chev"></span></button>
       </div>
+      <a href="#edicion" class="nav-plain" data-i18n="nav.edicion">Próxima edición</a>
       <a href="#acerca" class="nav-plain" data-i18n="nav.acerca">Acerca de</a>
       <a href="#honor" class="nav-plain" data-i18n="nav.honor">Cuadro de honor</a>
       <a href="#reglamento" class="nav-plain" data-i18n="nav.reglamento">Reglamento</a>
@@ -803,6 +990,85 @@
         <div><strong>BO3</strong><span data-i18n="hero.stat.formats">ambos formatos</span></div>
         <div><strong>70%</strong><span data-i18n="hero.stat.champ">para el campeón</span></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section id="edicion">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker" data-i18n="edicion.kicker">Próxima edición</div>
+      <h2 data-i18n="edicion.h2">Cuándo es, cuánto cuesta, cuánto se lleva</h2>
+      <p data-i18n="edicion.p">Todo lo que necesitas saber antes de pagar tu lugar. Sin letras chiquitas.</p>
+    </div>
+
+    <div class="ed-grid">
+
+      <div class="ed-panel">
+        <div class="ed-state" id="edState"><span class="dot"></span><span data-i18n="edicion.abiertas">Inscripciones abiertas</span></div>
+        <div class="ed-when" id="edWhen" data-i18n="edicion.fechaTBA">Fecha por anunciar</div>
+        <div class="ed-when-sub" id="edWhenSub"></div>
+
+        <div class="ed-count" id="edCount" hidden>
+          <div><b data-cd="d">—</b><span data-i18n="cd.dias">días</span></div>
+          <div><b data-cd="h">—</b><span data-i18n="cd.horas">horas</span></div>
+          <div><b data-cd="m">—</b><span data-i18n="cd.min">min</span></div>
+          <div><b data-cd="s">—</b><span data-i18n="cd.seg">seg</span></div>
+        </div>
+        <div class="ed-count-note" id="edCountNote"></div>
+
+        <div class="ed-facts">
+          <div class="ed-fact">
+            <div class="lbl" data-i18n="edicion.cuotaLabel">Inscripción</div>
+            <div class="val gold" id="edCuota">—</div>
+            <div class="hint" data-i18n="edicion.cuotaNota">Pago único por edición. Confirma tu lugar en el bracket.</div>
+          </div>
+          <div class="ed-fact">
+            <div class="lbl" data-i18n="edicion.cuposLabel">Cupos</div>
+            <div class="val" id="edCupos">—</div>
+            <div class="cupos-bar"><i id="edCuposBar"></i></div>
+            <div class="hint" id="edCuposHint"></div>
+          </div>
+        </div>
+
+        <div class="ed-actions">
+          <a href="#" data-whatsapp-link class="btn-primary" target="_blank" rel="noopener">
+            <span data-i18n="cta.join">Unirme al grupo de WhatsApp</span>
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 21c5 0 8-3.4 8-7.6S17 5.8 12 5.8 4 9.2 4 13.4c0 1.5.4 2.9 1.2 4.1L4 21l3.8-1.1C9 20.6 10.4 21 12 21z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12.3c.3 1.7 2 3.2 3.6 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </a>
+          <a href="#como" class="btn-ghost">
+            <span data-i18n="edicion.verPasos">Cómo se paga</span>
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14m0 0l-6-6m6 6l6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="ed-panel">
+        <div class="pot-head">
+          <div class="pot-title" data-i18n="pot.title">Calculadora del bote</div>
+        </div>
+        <p class="pot-sub" data-i18n="pot.p">El bote es el 100% de las inscripciones. Elige cuántos jugadores entran y mira cuánto se reparte.</p>
+
+        <div class="pot-seg" id="potSeg" role="group" aria-label="Jugadores">
+          <button type="button" data-players="8">8</button>
+          <button type="button" data-players="16">16</button>
+          <button type="button" data-players="32">32</button>
+        </div>
+
+        <div class="pot-total">
+          <span class="lbl" data-i18n="pot.bote">Bote total</span>
+          <span class="big" id="potBig">—</span>
+        </div>
+
+        <div class="pot-split">
+          <div class="c"><span class="pct">70%</span><span class="amt" id="potChamp">—</span><span class="who" data-i18n="payout.champ">Campeón</span></div>
+          <div class="s"><span class="pct">20%</span><span class="amt" id="potSub">—</span><span class="who" data-i18n="payout.sub">Subcampeón</span></div>
+          <div class="o"><span class="pct">10%</span><span class="amt" id="potOrg">—</span><span class="who" data-i18n="payout.org">Organización</span></div>
+        </div>
+
+        <p class="pot-note" id="potNote"></p>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1075,6 +1341,48 @@
   </div>
 </section>
 
+<section id="como">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker" data-i18n="como.kicker">Cómo entrar</div>
+      <h2 data-i18n="como.h2">De curioso a inscrito en cuatro pasos</h2>
+      <p data-i18n="como.p">El proceso completo, tal como funciona en cada edición.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="n">1</div>
+        <h3 data-i18n="como.s1.t">Entra al grupo</h3>
+        <p data-i18n="como.s1.p">Únete al grupo de WhatsApp de Trono Prisma. Es el único canal oficial: ahí se abren los cupos y se anuncia la fecha.</p>
+      </div>
+      <div class="step">
+        <div class="n">2</div>
+        <h3 data-i18n="como.s2.t">Paga tu cuota</h3>
+        <p data-i18n="como.s2.p">Envía el pago de la inscripción al organizador y recibe tu confirmación. El pago es lo que reserva tu lugar en el bracket.</p>
+      </div>
+      <div class="step">
+        <div class="n">3</div>
+        <h3 data-i18n="como.s3.t">Manda tus decks</h3>
+        <p data-i18n="como.s3.p">Registra tus 3 decks (TCG Pocket) o tu equipo (Champions) antes de las 48 horas previas. Después de ese corte quedan bloqueados.</p>
+      </div>
+      <div class="step">
+        <div class="n">4</div>
+        <h3 data-i18n="como.s4.t">Juega la llave</h3>
+        <p data-i18n="como.s4.p">Eliminación directa, BO3. Si llegas a la final, se transmite en TikTok y YouTube y queda publicada para siempre.</p>
+      </div>
+    </div>
+
+    <div class="pay-row" id="payRow">
+      <span class="pay-label" data-i18n="como.pago">Métodos de pago aceptados:</span>
+    </div>
+
+    <div class="trust-note">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5.5c0 4.3-2.9 7.9-7 9.5-4.1-1.6-7-5.2-7-9.5V6l7-3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span data-i18n="como.trust">Si no se llega al mínimo de 8 jugadores, la edición se pospone y tu inscripción se conserva para la nueva fecha: no pagas dos veces ni tienes que reconfirmar.</span>
+    </div>
+  </div>
+</section>
+
 <section id="inscripcion">
   <div class="wrap">
     <div class="cta-final">
@@ -1088,11 +1396,10 @@
       </div>
       <div class="cta-watch">
         <span data-i18n="cta.watchQuestion">¿Solo quieres ver las finales?</span>
-        <!-- TODO: reemplazar "#" por el link oficial del canal de TikTok -->
-        <a href="#" class="cta-watch-link">TikTok</a>
+        <!-- Los links salen de CONFIG.SOCIAL (al final del archivo) -->
+        <a href="#" class="cta-watch-link" data-social="tiktok">TikTok</a>
         <span class="sep">·</span>
-        <!-- TODO: reemplazar "#" por el link oficial del canal de YouTube -->
-        <a href="#" class="cta-watch-link">YouTube</a>
+        <a href="#" class="cta-watch-link" data-social="youtube">YouTube</a>
         <span class="sep">·</span>
         <a href="#reglamento" class="cta-watch-link" data-i18n="reg.h2">Reglamento oficial</a>
       </div>
@@ -1112,6 +1419,8 @@
       <div class="foot-links">
         <button class="nav-btn" data-panel="panelTorneo" style="padding:0" data-i18n="nav.torneo">El torneo</button>
         <button class="nav-btn" data-panel="panelPremios" style="padding:0" data-i18n="nav.premios">Premios</button>
+        <a href="#edicion" data-i18n="nav.edicion">Próxima edición</a>
+        <a href="#como" data-i18n="nav.como">Cómo entrar</a>
         <a href="#acerca" data-i18n="nav.acerca">Acerca de</a>
         <a href="#honor" data-i18n="nav.honor">Cuadro de honor</a>
         <a href="#reglamento" data-i18n="nav.reglamento">Reglamento</a>
@@ -1121,6 +1430,17 @@
     <p class="foot-note" data-i18n="footer.note">Trono Prisma — torneo independiente de TCG Pocket y Pokémon Champions. No afiliado a The Pokémon Company.</p>
   </div>
 </footer>
+
+<div class="mobile-cta" aria-hidden="false">
+  <div class="mc-info">
+    <span class="mc-lbl" id="mcLbl">Inscripción</span>
+    <span class="mc-val" id="mcVal">—</span>
+  </div>
+  <a href="#" data-whatsapp-link class="btn-primary" target="_blank" rel="noopener">
+    <span data-i18n="cta.inscribirme">Inscribirme</span>
+    <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+</div>
 
 <script>
   // ============================================================
@@ -1760,6 +2080,183 @@
   };
 
   // ============================================================
+  // TEXTOS DE LA CAPA EDICIÓN (v2)
+  // Se fusionan con los diccionarios de arriba para no romper el
+  // bloque original. Mismas reglas: la clave manda, el valor se edita.
+  // ============================================================
+  Object.assign(I18N.es, {
+    "nav.edicion": "Próxima edición",
+    "nav.como": "Cómo entrar",
+    "edicion.kicker": "Próxima edición",
+    "edicion.h2": "Cuándo es, cuánto cuesta y cuánto se lleva el campeón",
+    "edicion.p": "Todo lo que necesitas saber antes de pagar tu lugar. Sin letras chiquitas.",
+    "edicion.abiertas": "Inscripciones abiertas",
+    "edicion.cerradas": "Inscripciones cerradas",
+    "edicion.fechaTBA": "Fecha por anunciar",
+    "edicion.tbaNota": "La fecha se anuncia en el grupo de WhatsApp en cuanto se llena el cupo mínimo.",
+    "edicion.enTuHora": "Horario mostrado en tu zona horaria ({tz}).",
+    "edicion.faltan": "Cuenta regresiva para el primer duelo.",
+    "edicion.enCurso": "La edición ya está en marcha.",
+    "edicion.cuotaLabel": "Inscripción",
+    "edicion.cuotaNota": "Pago único por edición. Confirma tu lugar en el bracket.",
+    "edicion.cuposLabel": "Cupos",
+    "edicion.cuposRestantes": "Quedan {n} de {total} lugares.",
+    "edicion.cuposLlenos": "Cupo lleno — la lista de espera pasa a la siguiente edición.",
+    "edicion.verPasos": "Cómo se paga",
+    "cd.dias": "días",
+    "cd.horas": "horas",
+    "cd.min": "min",
+    "cd.seg": "seg",
+    "pot.title": "Calculadora del bote",
+    "pot.p": "El bote es el 100% de las inscripciones. Elige cuántos jugadores entran y mira cómo se reparte.",
+    "pot.bote": "Bote total",
+    "pot.nota": "Con {jugadores} jugadores a {cuota} cada uno. El campeón se lleva {campeon}, es decir {veces} veces su inscripción.",
+    "como.kicker": "Cómo entrar",
+    "como.h2": "De curioso a inscrito en cuatro pasos",
+    "como.p": "El proceso completo, tal como funciona en cada edición.",
+    "como.s1.t": "Entra al grupo",
+    "como.s1.p": "Únete al grupo de WhatsApp de Trono Prisma. Es el único canal oficial: ahí se abren los cupos y se anuncia la fecha.",
+    "como.s2.t": "Paga tu cuota",
+    "como.s2.p": "Envía el pago de la inscripción al organizador y recibe tu confirmación. El pago es lo que reserva tu lugar en el bracket.",
+    "como.s3.t": "Manda tus decks",
+    "como.s3.p": "Registra tus 3 decks (TCG Pocket) o tu equipo (Champions) antes del corte de 48 horas. Después de ese corte quedan bloqueados.",
+    "como.s4.t": "Juega la llave",
+    "como.s4.p": "Eliminación directa, BO3. Si llegas a la final, se transmite en TikTok y YouTube y queda publicada para siempre.",
+    "como.pago": "Métodos de pago aceptados:",
+    "como.trust": "Si no se llega al mínimo de 8 jugadores, la edición se pospone y tu inscripción se conserva para la nueva fecha: no pagas dos veces ni tienes que reconfirmar.",
+    "sticky.lbl": "Inscripción"
+  });
+
+  Object.assign(I18N.en, {
+    "nav.edicion": "Next edition",
+    "nav.como": "How to enter",
+    "edicion.kicker": "Next edition",
+    "edicion.h2": "When it runs, what it costs, what the champion takes",
+    "edicion.p": "Everything you need to know before paying for your seat. No fine print.",
+    "edicion.abiertas": "Registration open",
+    "edicion.cerradas": "Registration closed",
+    "edicion.fechaTBA": "Date to be announced",
+    "edicion.tbaNota": "The date is announced in the WhatsApp group as soon as the minimum bracket fills.",
+    "edicion.enTuHora": "Times shown in your own time zone ({tz}).",
+    "edicion.faltan": "Countdown to the first match.",
+    "edicion.enCurso": "This edition is already under way.",
+    "edicion.cuotaLabel": "Entry fee",
+    "edicion.cuotaNota": "One payment per edition. It confirms your seat in the bracket.",
+    "edicion.cuposLabel": "Seats",
+    "edicion.cuposRestantes": "{n} of {total} seats left.",
+    "edicion.cuposLlenos": "Bracket full — the waiting list rolls over to the next edition.",
+    "edicion.verPasos": "How payment works",
+    "cd.dias": "days",
+    "cd.horas": "hours",
+    "cd.min": "min",
+    "cd.seg": "sec",
+    "pot.title": "Prize pool calculator",
+    "pot.p": "The pool is 100% of the entry fees. Pick how many players enter and see how it splits.",
+    "pot.bote": "Total pool",
+    "pot.nota": "With {jugadores} players at {cuota} each. The champion takes {campeon} — {veces} times their entry fee.",
+    "como.kicker": "How to enter",
+    "como.h2": "From curious to registered in four steps",
+    "como.p": "The full process, exactly how it works each edition.",
+    "como.s1.t": "Join the group",
+    "como.s1.p": "Join the Trono Prisma WhatsApp group. It is the only official channel: seats open and dates are announced there.",
+    "como.s2.t": "Pay your entry",
+    "como.s2.p": "Send your entry payment to the organizer and get your confirmation. The payment is what reserves your spot in the bracket.",
+    "como.s3.t": "Submit your decks",
+    "como.s3.p": "Register your 3 decks (TCG Pocket) or your team (Champions) before the 48-hour cutoff. After that they are locked.",
+    "como.s4.t": "Play the bracket",
+    "como.s4.p": "Single elimination, BO3. If you reach the final it is streamed on TikTok and YouTube and stays online for good.",
+    "como.pago": "Accepted payment methods:",
+    "como.trust": "If the 8-player minimum is not reached, the edition is postponed and your entry carries over to the new date: you never pay twice and you do not need to confirm again.",
+    "sticky.lbl": "Entry fee"
+  });
+
+  Object.assign(I18N.pt, {
+    "nav.edicion": "Próxima edição",
+    "nav.como": "Como entrar",
+    "edicion.kicker": "Próxima edição",
+    "edicion.h2": "Quando é, quanto custa e quanto o campeão leva",
+    "edicion.p": "Tudo o que você precisa saber antes de pagar sua vaga. Sem letras miúdas.",
+    "edicion.abiertas": "Inscrições abertas",
+    "edicion.cerradas": "Inscrições encerradas",
+    "edicion.fechaTBA": "Data a anunciar",
+    "edicion.tbaNota": "A data é anunciada no grupo de WhatsApp assim que a vaga mínima é preenchida.",
+    "edicion.enTuHora": "Horário exibido no seu fuso horário ({tz}).",
+    "edicion.faltan": "Contagem regressiva para o primeiro duelo.",
+    "edicion.enCurso": "Esta edição já começou.",
+    "edicion.cuotaLabel": "Inscrição",
+    "edicion.cuotaNota": "Pagamento único por edição. Confirma sua vaga na chave.",
+    "edicion.cuposLabel": "Vagas",
+    "edicion.cuposRestantes": "Restam {n} de {total} vagas.",
+    "edicion.cuposLlenos": "Vagas esgotadas — a lista de espera passa para a próxima edição.",
+    "edicion.verPasos": "Como se paga",
+    "cd.dias": "dias",
+    "cd.horas": "horas",
+    "cd.min": "min",
+    "cd.seg": "seg",
+    "pot.title": "Calculadora do prêmio",
+    "pot.p": "O prêmio é 100% das inscrições. Escolha quantos jogadores entram e veja como é dividido.",
+    "pot.bote": "Prêmio total",
+    "pot.nota": "Com {jugadores} jogadores a {cuota} cada. O campeão leva {campeon}, ou seja {veces} vezes a inscrição dele.",
+    "como.kicker": "Como entrar",
+    "como.h2": "De curioso a inscrito em quatro passos",
+    "como.p": "O processo completo, exatamente como funciona em cada edição.",
+    "como.s1.t": "Entre no grupo",
+    "como.s1.p": "Entre no grupo de WhatsApp do Trono Prisma. É o único canal oficial: as vagas abrem e a data é anunciada ali.",
+    "como.s2.t": "Pague sua inscrição",
+    "como.s2.p": "Envie o pagamento ao organizador e receba sua confirmação. O pagamento é o que reserva sua vaga na chave.",
+    "como.s3.t": "Envie seus decks",
+    "como.s3.p": "Registre seus 3 decks (TCG Pocket) ou sua equipe (Champions) antes do corte de 48 horas. Depois disso ficam bloqueados.",
+    "como.s4.t": "Jogue a chave",
+    "como.s4.p": "Eliminatória direta, BO3. Se chegar à final, ela é transmitida no TikTok e no YouTube e fica publicada para sempre.",
+    "como.pago": "Formas de pagamento aceitas:",
+    "como.trust": "Se o mínimo de 8 jogadores não for atingido, a edição é adiada e sua inscrição vale para a nova data: você não paga duas vezes nem precisa reconfirmar.",
+    "sticky.lbl": "Inscrição"
+  });
+
+  Object.assign(I18N.fr, {
+    "nav.edicion": "Prochaine édition",
+    "nav.como": "Comment participer",
+    "edicion.kicker": "Prochaine édition",
+    "edicion.h2": "Quand, à quel prix et ce que remporte le champion",
+    "edicion.p": "Tout ce qu'il faut savoir avant de payer sa place. Sans petits caractères.",
+    "edicion.abiertas": "Inscriptions ouvertes",
+    "edicion.cerradas": "Inscriptions fermées",
+    "edicion.fechaTBA": "Date à annoncer",
+    "edicion.tbaNota": "La date est annoncée dans le groupe WhatsApp dès que le quota minimum est atteint.",
+    "edicion.enTuHora": "Horaires affichés dans votre fuseau horaire ({tz}).",
+    "edicion.faltan": "Compte à rebours avant le premier duel.",
+    "edicion.enCurso": "Cette édition a déjà commencé.",
+    "edicion.cuotaLabel": "Inscription",
+    "edicion.cuotaNota": "Paiement unique par édition. Il confirme votre place dans le tableau.",
+    "edicion.cuposLabel": "Places",
+    "edicion.cuposRestantes": "Il reste {n} places sur {total}.",
+    "edicion.cuposLlenos": "Complet — la liste d'attente bascule sur l'édition suivante.",
+    "edicion.verPasos": "Comment payer",
+    "cd.dias": "jours",
+    "cd.horas": "heures",
+    "cd.min": "min",
+    "cd.seg": "sec",
+    "pot.title": "Calculateur de cagnotte",
+    "pot.p": "La cagnotte représente 100% des inscriptions. Choisissez le nombre de joueurs et voyez la répartition.",
+    "pot.bote": "Cagnotte totale",
+    "pot.nota": "Avec {jugadores} joueurs à {cuota} chacun. Le champion remporte {campeon}, soit {veces} fois son inscription.",
+    "como.kicker": "Comment participer",
+    "como.h2": "De curieux à inscrit en quatre étapes",
+    "como.p": "Le processus complet, tel qu'il fonctionne à chaque édition.",
+    "como.s1.t": "Rejoignez le groupe",
+    "como.s1.p": "Rejoignez le groupe WhatsApp de Trono Prisma. C'est le seul canal officiel : les places et la date y sont annoncées.",
+    "como.s2.t": "Payez votre inscription",
+    "como.s2.p": "Envoyez le paiement à l'organisateur et recevez votre confirmation. C'est le paiement qui réserve votre place dans le tableau.",
+    "como.s3.t": "Envoyez vos decks",
+    "como.s3.p": "Enregistrez vos 3 decks (TCG Pocket) ou votre équipe (Champions) avant la limite des 48 heures. Ensuite, ils sont verrouillés.",
+    "como.s4.t": "Jouez le tableau",
+    "como.s4.p": "Élimination directe, BO3. Si vous atteignez la finale, elle est diffusée sur TikTok et YouTube et reste en ligne définitivement.",
+    "como.pago": "Moyens de paiement acceptés :",
+    "como.trust": "Si le minimum de 8 joueurs n'est pas atteint, l'édition est reportée et votre inscription reste valable pour la nouvelle date : vous ne payez pas deux fois et n'avez rien à reconfirmer.",
+    "sticky.lbl": "Inscription"
+  });
+
+  // ============================================================
   // CONFIGURACIÓN — edita esto con tu usuario y repo de GitHub
   // ============================================================
   const CONFIG = {
@@ -1772,7 +2269,39 @@
     },
     // Único lugar donde se define el link del grupo de WhatsApp.
     // Si el grupo cambia, actualiza SOLO esta línea.
-    WHATSAPP_URL: "https://chat.whatsapp.com/JdEqbPhLGwO3rDBwXvaHbY?s=cl&p=a&mlu=4&ilr=4"
+    WHATSAPP_URL: "https://chat.whatsapp.com/JdEqbPhLGwO3rDBwXvaHbY?s=cl&p=a&mlu=4&ilr=4",
+
+    // ----------------------------------------------------------
+    // DATOS DE LA EDICIÓN EN CURSO
+    // Esto alimenta la sección "Próxima edición", la cuenta
+    // regresiva, la calculadora del bote y la barra fija del
+    // celular. Es el único lugar donde se tocan estos números.
+    // ----------------------------------------------------------
+    EDICION: {
+      numero: 1,
+
+      // Fecha y hora de inicio, en formato ISO con tu huso horario.
+      // "2026-10-11T18:00:00-06:00" = 6:00 pm del centro de México.
+      // Si todavía no hay fecha, pon null y el sitio dirá
+      // "Fecha por anunciar" y esconderá la cuenta regresiva.
+      fecha: "2026-10-11T18:00:00-06:00",
+
+      inscripcionesAbiertas: true,
+
+      cuota: 50,          // cuánto cuesta entrar
+      moneda: "MXN",      // MXN, USD, EUR, BRL...
+
+      cuposTotales: 16,   // 8, 16 o 32
+      cuposOcupados: 0,   // actualízalo conforme se llenen
+
+      metodosPago: ["Transferencia", "OXXO", "PayPal"]
+    },
+
+    // Canales de contenido. Si dejas uno vacío, el link se apaga solo.
+    SOCIAL: {
+      tiktok: "",
+      youtube: ""
+    }
   };
 
   // aplica el link de WhatsApp a todos los <a data-whatsapp-link>
@@ -2068,6 +2597,319 @@
     var card = e.target.closest && e.target.closest(".honor-card");
     if(card) card.style.transform = "";
   }, true);
+})();
+</script>
+
+
+<script>
+/* ==================================================================
+   CAPA EDICIÓN · lógica
+   Cuenta regresiva, cupos, calculadora del bote, métodos de pago,
+   barra de progreso, revelado al hacer scroll y CTA fija en móvil.
+   Todo se alimenta de CONFIG.EDICION: no hay números escritos a mano
+   dentro del HTML, así que cambiar la cuota o la fecha en un solo
+   lugar actualiza toda la página.
+   ================================================================== */
+(function(){
+  "use strict";
+
+  var ED = (typeof CONFIG !== "undefined" && CONFIG.EDICION) ? CONFIG.EDICION : null;
+  if(!ED) return;
+
+  var LOC = { es:"es-MX", en:"en-US", pt:"pt-BR", fr:"fr-FR" };
+  var quieto = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function lang(){ return document.documentElement.lang || "es"; }
+  function locale(){ return LOC[lang()] || "es-MX"; }
+
+  function money(n){
+    try{
+      return new Intl.NumberFormat(locale(), {
+        style:"currency", currency:ED.moneda || "MXN",
+        minimumFractionDigits:0, maximumFractionDigits:0
+      }).format(n);
+    }catch(e){
+      return "$" + Math.round(n).toLocaleString("es-MX");
+    }
+  }
+
+  var $ = function(id){ return document.getElementById(id); };
+
+  // ---------- fecha de la edición ----------
+  function fechaEdicion(){
+    if(!ED.fecha) return null;
+    var d = new Date(ED.fecha);
+    return isNaN(d.getTime()) ? null : d;
+  }
+
+  function pintarFecha(){
+    var d = fechaEdicion(), when = $("edWhen"), sub = $("edWhenSub");
+    if(!when) return;
+    if(!d){
+      when.textContent = t("edicion.fechaTBA");
+      if(sub) sub.textContent = t("edicion.tbaNota");
+      return;
+    }
+    var txt;
+    try{
+      txt = d.toLocaleString(locale(), {
+        weekday:"long", day:"numeric", month:"long",
+        hour:"2-digit", minute:"2-digit"
+      });
+    }catch(e){ txt = d.toLocaleString(); }
+    when.textContent = txt.charAt(0).toUpperCase() + txt.slice(1);
+    if(sub){
+      var tz = "";
+      try{ tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; }catch(e){}
+      sub.innerHTML = tz ? tFormat("edicion.enTuHora", {tz:tz}) : "";
+    }
+  }
+
+  // ---------- cuenta regresiva ----------
+  function tick(){
+    var box = $("edCount"), note = $("edCountNote"), d = fechaEdicion();
+    if(!box) return;
+    if(!d){ box.hidden = true; if(note) note.textContent = ""; return; }
+
+    var diff = d.getTime() - Date.now();
+    if(diff <= 0){
+      box.hidden = true;
+      if(note) note.textContent = t("edicion.enCurso");
+      return;
+    }
+    box.hidden = false;
+    var s = Math.floor(diff/1000);
+    var val = { d:Math.floor(s/86400), h:Math.floor(s%86400/3600), m:Math.floor(s%3600/60), s:s%60 };
+    box.querySelectorAll("[data-cd]").forEach(function(el){
+      var v = val[el.getAttribute("data-cd")];
+      var txt = String(v).padStart(2, "0");
+      if(el.textContent !== txt) el.textContent = txt;
+    });
+    if(note) note.textContent = t("edicion.faltan");
+  }
+
+  // ---------- estado, cuota y cupos ----------
+  function pintarEstado(){
+    var st = $("edState");
+    if(st){
+      var abierto = ED.inscripcionesAbiertas !== false;
+      st.classList.toggle("closed", !abierto);
+      var label = st.querySelector("[data-i18n]");
+      if(label){
+        label.setAttribute("data-i18n", abierto ? "edicion.abiertas" : "edicion.cerradas");
+        label.textContent = t(abierto ? "edicion.abiertas" : "edicion.cerradas");
+      }
+    }
+
+    var cuota = $("edCuota");
+    if(cuota) cuota.textContent = money(ED.cuota || 0);
+
+    var total = ED.cuposTotales || 16;
+    var ocupados = Math.min(ED.cuposOcupados || 0, total);
+    var libres = Math.max(total - ocupados, 0);
+
+    var cupos = $("edCupos");
+    if(cupos) cupos.textContent = ocupados + " / " + total;
+
+    var bar = $("edCuposBar");
+    if(bar) bar.style.width = (total ? (ocupados/total)*100 : 0) + "%";
+
+    var hint = $("edCuposHint");
+    if(hint){
+      hint.innerHTML = libres > 0
+        ? tFormat("edicion.cuposRestantes", {n:libres, total:total})
+        : t("edicion.cuposLlenos");
+    }
+
+    // barra fija de móvil
+    var mcVal = $("mcVal"), mcLbl = $("mcLbl");
+    if(mcVal) mcVal.textContent = money(ED.cuota || 0);
+    if(mcLbl) mcLbl.textContent = t("sticky.lbl");
+  }
+
+  // ---------- métodos de pago ----------
+  function pintarPagos(){
+    var row = $("payRow");
+    if(!row) return;
+    row.querySelectorAll(".pay-chip").forEach(function(c){ c.remove(); });
+    (ED.metodosPago || []).forEach(function(m){
+      var span = document.createElement("span");
+      span.className = "pay-chip";
+      span.textContent = m;
+      row.appendChild(span);
+    });
+  }
+
+  // ---------- calculadora del bote ----------
+  var jugadores = ED.cuposTotales || 16;
+  var animCache = {};
+
+  function animarNumero(el, destino, key){
+    if(!el) return;
+    var desde = animCache[key] == null ? destino : animCache[key];
+    animCache[key] = destino;
+    if(quieto || desde === destino){ el.textContent = money(destino); return; }
+    var t0 = performance.now(), dur = 550;
+    function paso(now){
+      var p = Math.min((now - t0)/dur, 1);
+      var e = 1 - Math.pow(1 - p, 3);
+      el.textContent = money(desde + (destino - desde) * e);
+      if(p < 1) requestAnimationFrame(paso);
+    }
+    requestAnimationFrame(paso);
+  }
+
+  function pintarBote(){
+    var cuota = ED.cuota || 0;
+    var bote = cuota * jugadores;
+
+    animarNumero($("potBig"), bote, "big");
+    animarNumero($("potChamp"), bote*0.7, "champ");
+    animarNumero($("potSub"), bote*0.2, "sub");
+    animarNumero($("potOrg"), bote*0.1, "org");
+
+    var nota = $("potNote");
+    if(nota){
+      nota.innerHTML = tFormat("pot.nota", {
+        jugadores: jugadores,
+        cuota: money(cuota),
+        campeon: money(bote*0.7),
+        veces: (jugadores*0.7).toFixed(1).replace(/\.0$/, "")
+      });
+    }
+
+    var seg = $("potSeg");
+    if(seg){
+      seg.querySelectorAll("button").forEach(function(b){
+        b.classList.toggle("active", Number(b.dataset.players) === jugadores);
+      });
+    }
+  }
+
+  var seg = $("potSeg");
+  if(seg){
+    seg.addEventListener("click", function(e){
+      var b = e.target.closest("button[data-players]");
+      if(!b) return;
+      jugadores = Number(b.dataset.players);
+      pintarBote();
+    });
+  }
+
+  // ---------- links de redes desde CONFIG ----------
+  (function(){
+    var S = (typeof CONFIG !== "undefined" && CONFIG.SOCIAL) ? CONFIG.SOCIAL : {};
+    document.querySelectorAll("[data-social]").forEach(function(a){
+      var url = S[a.getAttribute("data-social")];
+      if(url){ a.href = url; a.target = "_blank"; a.rel = "noopener"; }
+      else{ a.removeAttribute("href"); a.style.opacity = ".5"; a.style.cursor = "default"; }
+    });
+  })();
+
+  // ---------- datos estructurados para Google (Event) ----------
+  (function(){
+    var d = fechaEdicion();
+    var data = {
+      "@context":"https://schema.org",
+      "@type":"Event",
+      "name":"Trono Prisma" + (ED.numero ? " #" + ED.numero : ""),
+      "description":"Torneo de paga de TCG Pocket y Pokémon Champions.",
+      "eventAttendanceMode":"https://schema.org/OnlineEventAttendanceMode",
+      "eventStatus":"https://schema.org/EventScheduled",
+      "location":{"@type":"VirtualLocation","url":"https://trono-prisma.pages.dev/"},
+      "organizer":{"@type":"Organization","name":"Residente","url":"https://trono-prisma.pages.dev/"},
+      "image":["https://trono-prisma.pages.dev/assets/og-image.png"],
+      "offers":{
+        "@type":"Offer",
+        "price": String(ED.cuota || 0),
+        "priceCurrency": ED.moneda || "MXN",
+        "availability": ED.inscripcionesAbiertas !== false
+          ? "https://schema.org/InStock" : "https://schema.org/SoldOut",
+        "url":"https://trono-prisma.pages.dev/#inscripcion"
+      }
+    };
+    if(d) data.startDate = d.toISOString();
+    var s = document.createElement("script");
+    s.type = "application/ld+json";
+    s.textContent = JSON.stringify(data);
+    document.head.appendChild(s);
+  })();
+
+  // ---------- barra de progreso de lectura ----------
+  var prog = document.querySelector(".tp-progress");
+  var mcta = document.querySelector(".mobile-cta");
+  var hero = document.querySelector(".hero");
+  var ticking = false;
+
+  function onScroll(){
+    if(ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      if(prog) prog.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + "%";
+      if(mcta && hero) mcta.classList.toggle("show", window.scrollY > hero.offsetHeight * 0.7);
+      ticking = false;
+    });
+  }
+  window.addEventListener("scroll", onScroll, {passive:true});
+  onScroll();
+
+  // ---------- revelado al hacer scroll ----------
+  // Las clases las pone JS: si el script falla, la página se ve completa.
+  if("IntersectionObserver" in window && !quieto){
+    var targets = document.querySelectorAll(
+      "#edicion .section-head, .ed-panel, #acerca .section-head, .about-card, " +
+      "#honor .section-head, .honor-block, #como .section-head, .step, .pay-row, .trust-note, " +
+      "#reglamento .section-head, .reg-block, #faq .section-head, .faq-list, .cta-final"
+    );
+    targets.forEach(function(el){ el.classList.add("tp-reveal"); });
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          en.target.classList.add("tp-in");
+          io.unobserve(en.target);
+        }
+      });
+    }, {rootMargin:"0px 0px -8% 0px", threshold:0.08});
+    targets.forEach(function(el){ io.observe(el); });
+  }
+
+  // ---------- link activo en el menú según la sección visible ----------
+  if("IntersectionObserver" in window){
+    var links = {};
+    document.querySelectorAll('.nav-plain[href^="#"]').forEach(function(a){
+      links[a.getAttribute("href").slice(1)] = a;
+    });
+    var io2 = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(!en.isIntersecting) return;
+        Object.keys(links).forEach(function(k){ links[k].classList.remove("active"); });
+        if(links[en.target.id]) links[en.target.id].classList.add("active");
+      });
+    }, {rootMargin:"-45% 0px -50% 0px"});
+    Object.keys(links).forEach(function(id){
+      var sec = document.getElementById(id);
+      if(sec) io2.observe(sec);
+    });
+  }
+
+  // ---------- repintar todo cuando cambia el idioma ----------
+  function repintar(){
+    pintarFecha();
+    pintarEstado();
+    pintarPagos();
+    animCache = {};
+    pintarBote();
+    tick();
+  }
+
+  if(typeof window.applyLanguage === "function"){
+    var original = window.applyLanguage;
+    window.applyLanguage = function(l){ original(l); repintar(); };
+  }
+
+  repintar();
+  setInterval(tick, 1000);
 })();
 </script>
 
