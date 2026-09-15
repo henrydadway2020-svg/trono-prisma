@@ -29,13 +29,19 @@ agregar una edición, añade un objeto al final del arreglo del JSON correspondi
     "nombre": "OtroJugador",
     "sticker": "assets/stickers/edicion3-subcampeon.png"
   },
+  "tercer_lugar": {
+    "nombre": "OtroJugadorMas",
+    "sticker": "assets/stickers/edicion3-tercer.png"
+  },
   "final_url": "https://www.tiktok.com/@..."
 }
 ```
 
 Notas:
 - Todos los campos son opcionales excepto que el objeto exista; si falta `banner`,
-  `sticker` o `final_url`, la tarjeta simplemente no muestra esa parte.
+  `sticker`, `tercer_lugar` o `final_url`, la tarjeta simplemente no muestra esa parte.
+- `tercer_lugar` solo admite `nombre` y `sticker` (no tiene banner, igual que el
+  subcampeón).
 - Las rutas de imágenes (`banner`, `sticker`) son relativas a la raíz del repo.
 - El sitio lee estos JSON y las imágenes referenciadas a través de jsDelivr
   (`cdn.jsdelivr.net/gh/...`), **no** directamente desde GitHub. Esto significa que

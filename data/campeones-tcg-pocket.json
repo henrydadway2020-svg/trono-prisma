@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "torneo": "Trono Prisma #1",
+    "fecha": "",
+    "campeon": {
+      "nombre": "Markov",
+      "sticker": "assets/stickers/edicion1-campeon.png"
+    },
+    "subcampeon": {
+      "nombre": "Ketchup",
+      "sticker": "assets/stickers/edicion1-subcampeon.png"
+    },
+    "tercer_lugar": {
+      "nombre": "Ronwhisky",
+      "sticker": "assets/stickers/edicion1-tercer.png"
+    }
+  }
+]

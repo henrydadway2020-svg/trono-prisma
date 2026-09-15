@@ -303,6 +303,7 @@
   .honor-sticker{width:40px; height:40px; border-radius:50%; object-fit:cover; background:var(--panel); border:1px solid var(--line); flex-shrink:0;}
   .honor-row .role{font-size:10.5px; color:var(--prism); font-weight:700; display:block; margin-bottom:2px;}
   .honor-row.sub .role{color:var(--sub);}
+  .honor-row.tercer .role{color:#C08A4E;}
   .honor-row .name{font-weight:600; font-size:14.5px;}
   .honor-final{margin-top:16px; display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:var(--prism); border-bottom:1px solid transparent; transition:border-color .15s;}
   .honor-final:hover{border-color:var(--prism);}
@@ -612,12 +613,14 @@
   .honor-banner{aspect-ratio:16/7; transition:transform .5s ease;}
   .honor-card:hover .honor-banner{transform:scale(1.03);}
 
-  /* jerarquía por puesto: oro para campeón, plata para subcampeón */
+  /* jerarquía por puesto: oro para campeón, plata para subcampeón, bronce para tercer lugar */
   .honor-row .role{color:var(--spec-d); letter-spacing:.04em;}
   .honor-row.sub .role{color:#C7CEDE;}
+  .honor-row.tercer .role{color:#D69A5C;}
   .honor-row .name{font-size:15px;}
   .honor-sticker{border-color:rgba(255,194,89,.45); box-shadow:0 0 0 2px rgba(255,194,89,.12), 0 6px 14px -6px #000;}
   .honor-row.sub .honor-sticker{border-color:rgba(199,206,222,.4); box-shadow:0 0 0 2px rgba(199,206,222,.1), 0 6px 14px -6px #000;}
+  .honor-row.tercer .honor-sticker{border-color:rgba(214,154,92,.45); box-shadow:0 0 0 2px rgba(214,154,92,.12), 0 6px 14px -6px #000;}
   .honor-dot{box-shadow:0 0 12px currentColor; color:var(--spec-a);}
   .honor-dot.champions{color:var(--spec-b);}
   .honor-final{color:var(--spec-a);}
@@ -1469,6 +1472,7 @@
           "payout.label": "Reparto del bote",
           "payout.champ": "Campeón",
           "payout.sub": "Subcampeón",
+          "payout.tercer": "Tercer lugar",
           "payout.org": "Organización",
           "payout.prizes": "Premios",
           "fmt.champions.l1": "<b>Juego:</b> Pokémon Champions.",
@@ -1626,6 +1630,7 @@
           "payout.label": "Prize pool split",
           "payout.champ": "Champion",
           "payout.sub": "Runner-up",
+          "payout.tercer": "Third place",
           "payout.org": "Organization",
           "payout.prizes": "Prizes",
           "fmt.champions.l1": "<b>Game:</b> Pokémon Champions.",
@@ -1783,6 +1788,7 @@
           "payout.label": "Divisão do prêmio",
           "payout.champ": "Campeão",
           "payout.sub": "Vice-campeão",
+          "payout.tercer": "Terceiro lugar",
           "payout.org": "Organização",
           "payout.prizes": "Premiação",
           "fmt.champions.l1": "<b>Jogo:</b> Pokémon Champions.",
@@ -1940,6 +1946,7 @@
           "payout.label": "Répartition de la cagnotte",
           "payout.champ": "Champion",
           "payout.sub": "Vice-champion",
+          "payout.tercer": "Troisième place",
           "payout.org": "Organisation",
           "payout.prizes": "Récompenses",
           "fmt.champions.l1": "<b>Jeu :</b> Pokémon Champions.",
@@ -2424,6 +2431,7 @@
   function honorCardHTML(edicion){
     const c = edicion.campeon || {};
     const s = edicion.subcampeon || {};
+    const th = edicion.tercer_lugar || {};
     const finalUrl = safeUrl(edicion.final_url);
     return `
       <div class="honor-card">
@@ -2441,6 +2449,10 @@
             ${s.sticker ? `<img class="honor-sticker" src="${esc(assetUrl(s.sticker))}" alt="${tFormat('honor.stickerAlt', {name:s.nombre || t('payout.sub')})}" loading="lazy">` : ""}
             <div><span class="role">${esc(t('payout.sub'))}</span><span class="name">${esc(s.nombre) || "—"}</span></div>
           </div>
+          ${(th.sticker || th.nombre) ? `<div class="honor-row tercer">
+            ${th.sticker ? `<img class="honor-sticker" src="${esc(assetUrl(th.sticker))}" alt="${tFormat('honor.stickerAlt', {name:th.nombre || t('payout.tercer')})}" loading="lazy">` : ""}
+            <div><span class="role">${esc(t('payout.tercer'))}</span><span class="name">${esc(th.nombre) || "—"}</span></div>
+          </div>` : ""}
           ${finalUrl ? `<a class="honor-final" href="${finalUrl}" target="_blank" rel="noopener">${esc(t('honor.verFinal'))}</a>` : ""}
         </div>
       </div>
