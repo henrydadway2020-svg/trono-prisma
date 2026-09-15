@@ -15,4 +15,46 @@
       "sticker": "assets/stickers/edicion1-tercer.png"
     }
   }
-]
+],
+{
+  "torneo": "Trono Prisma #4",
+  "fecha": "",
+  "campeon": { "nombre": "Omega", "sticker": "assets/stickers/edicion4-campeon.png" },
+  "subcampeon": { "nombre": "Scapricee", "sticker": "assets/stickers/edicion4-subcampeon.png" },
+  "tercer_lugar": { "nombre": "Ketchup", "sticker": "assets/stickers/edicion4-tercer.png" }
+},
+{
+  "torneo": "Trono Prisma #5",
+  "fecha": "",
+  "campeon": { "nombre": "Redwarrior", "sticker": "assets/stickers/edicion5-campeon.png" },
+  "subcampeon": { "nombre": "Omega", "sticker": "assets/stickers/edicion5-subcampeon.png" },
+  "tercer_lugar": { "nombre": "9dudul", "sticker": "assets/stickers/edicion5-tercer.png" }
+},
+{
+  "torneo": "Trono Prisma #6",
+  "fecha": "",
+  "campeon": { "nombre": "Yas", "sticker": "assets/stickers/edicion6-campeon.png" },
+  "subcampeon": { "nombre": "Markov", "sticker": "assets/stickers/edicion6-subcampeon.png" },
+  "tercer_lugar": { "nombre": "M.D.D.", "sticker": "assets/stickers/edicion6-tercer.png" }
+},
+{
+  "torneo": "Trono Prisma #7",
+  "fecha": "",
+  "campeon": { "nombre": "Omega", "sticker": "assets/stickers/edicion7-campeon.png" },
+  "subcampeon": { "nombre": "Xhunquito", "sticker": "assets/stickers/edicion7-subcampeon.png" },
+  "tercer_lugar": { "nombre": "9dudul", "sticker": "assets/stickers/edicion7-tercer.png" }
+},
+{
+  "torneo": "Trono Prisma #8",
+  "fecha": "",
+  "campeon": { "nombre": "9dudul", "sticker": "assets/stickers/edicion8-campeon.png" },
+  "subcampeon": { "nombre": "Omega", "sticker": "assets/stickers/edicion8-subcampeon.png" },
+  "tercer_lugar": { "nombre": "M.D.D.", "sticker": "assets/stickers/edicion8-tercer.png" }
+},
+{
+  "torneo": "Trono Prisma #9",
+  "fecha": "",
+  "campeon": { "nombre": "Ekko", "sticker": "assets/stickers/edicion9-campeon.png" },
+  "subcampeon": { "nombre": "9dudul", "sticker": "assets/stickers/edicion9-subcampeon.png" },
+  "tercer_lugar": { "nombre": "Giskard", "sticker": "assets/stickers/edicion9-tercer.png" }
+}
