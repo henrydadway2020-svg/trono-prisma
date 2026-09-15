@@ -389,6 +389,292 @@
   .foot-links{display:flex; gap:24px; font-size:13px; color:var(--ice-dim);}
   .foot-links a:hover, .foot-links button:hover{color:var(--prism);}
   .foot-note{margin-top:26px; font-size:12px; color:var(--sub); text-align:center;}
+
+  /* ==================================================================
+     CAPA PRISMA PREMIUM
+     Todo lo visual nuevo vive aquí. Va al final del <style> a propósito:
+     sobrescribe por cascada sin tocar una sola línea del diseño base,
+     así que se puede borrar este bloque entero y el sitio vuelve a como
+     estaba. Idea rectora: el prisma no es un color, es un material —
+     la luz se descompone (cian → violeta → magenta → oro) y las cartas
+     del Cuadro de Honor se comportan como cartas holográficas.
+     ================================================================== */
+
+  :root{
+    --spec-a:#3ED6FF;                 /* cian     */
+    --spec-b:#9C8CFF;                 /* violeta  */
+    --spec-c:#FF6FD8;                 /* magenta  */
+    --spec-d:#FFC259;                 /* oro      */
+    --spec-line:linear-gradient(90deg, transparent, var(--spec-a) 22%, var(--spec-b) 48%, var(--spec-c) 68%, var(--spec-d) 86%, transparent);
+    --spec-fill:linear-gradient(112deg, var(--spec-a) 0%, #5FA8FF 34%, var(--spec-b) 62%, var(--spec-c) 88%);
+    --sheen:linear-gradient(112deg, transparent 26%, rgba(62,214,255,.42) 40%, rgba(156,140,255,.5) 48%, rgba(255,111,216,.4) 56%, rgba(255,194,89,.32) 64%, transparent 78%);
+    --bevel:inset 0 1px 0 rgba(255,255,255,.075), inset 0 0 0 1px rgba(255,255,255,.02);
+    --lift:0 20px 48px -28px rgba(0,0,0,.95);
+    --glass:linear-gradient(168deg, rgba(255,255,255,.045), rgba(255,255,255,0) 58%);
+  }
+
+  /* ---- grano fino sobre toda la página ---------------------------- */
+  /* mata el banding de los degradados y da textura de impresión */
+  body::after{
+    content:""; position:fixed; inset:0; z-index:2; pointer-events:none;
+    opacity:.035; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  ::-webkit-scrollbar{width:10px; height:10px;}
+  ::-webkit-scrollbar-track{background:var(--void-2);}
+  ::-webkit-scrollbar-thumb{background:var(--line); border:2px solid var(--void-2);}
+  ::-webkit-scrollbar-thumb:hover{background:var(--spec-a);}
+
+  /* ---- header: filo espectral en lugar de una línea muerta -------- */
+  header{border-bottom:0; box-shadow:0 1px 0 rgba(33,48,82,.9);}
+  header::after{
+    content:""; position:absolute; left:0; right:0; bottom:0; height:1px;
+    background:var(--spec-line); opacity:.55; pointer-events:none;
+  }
+  .brand-mark{
+    background:linear-gradient(160deg, rgba(62,214,255,.22), rgba(156,140,255,.1) 60%, transparent);
+    box-shadow:var(--bevel), 0 0 18px -6px rgba(62,214,255,.6);
+  }
+
+  /* ---- hero: la luz entra y se descompone ------------------------- */
+  .hero{padding:104px 0 108px;}
+  .hero::before{
+    background:
+      radial-gradient(ellipse 700px 480px at 30% 8%, rgba(62,214,255,.17), transparent 62%),
+      radial-gradient(ellipse 560px 440px at 72% 4%, rgba(156,140,255,.14), transparent 64%),
+      radial-gradient(ellipse 420px 340px at 55% 96%, rgba(255,111,216,.07), transparent 70%);
+  }
+  /* haces refractados detrás del trofeo */
+  .hero::after{
+    content:""; position:absolute; top:-8%; left:50%; width:min(900px,120vw); height:640px;
+    transform:translateX(-50%); pointer-events:none; z-index:0; opacity:.5;
+    background:
+      conic-gradient(from 195deg at 50% 12%,
+        transparent 0deg, rgba(62,214,255,.16) 12deg, transparent 22deg,
+        rgba(156,140,255,.14) 32deg, transparent 44deg,
+        rgba(255,111,216,.1) 54deg, transparent 66deg,
+        rgba(255,194,89,.1) 74deg, transparent 90deg);
+    -webkit-mask-image:radial-gradient(ellipse 60% 70% at 50% 18%, black, transparent 78%);
+    mask-image:radial-gradient(ellipse 60% 70% at 50% 18%, black, transparent 78%);
+  }
+
+  .season-tag{
+    background:linear-gradient(120deg, rgba(62,214,255,.09), rgba(156,140,255,.05));
+    border-color:rgba(62,214,255,.3); color:var(--ice);
+    box-shadow:var(--bevel);
+  }
+  .season-tag .dot{
+    border-radius:50%;
+    background:var(--spec-a); box-shadow:0 0 10px var(--spec-a);
+    animation:tp-pulse 2.6s ease-in-out infinite;
+  }
+  @keyframes tp-pulse{0%,100%{opacity:1; box-shadow:0 0 10px var(--spec-a);} 50%{opacity:.45; box-shadow:0 0 3px var(--spec-a);}}
+
+  /* trofeo: halo espectral + flotación mínima + reflejo en el suelo */
+  .trophy-img{
+    max-width:268px; position:relative; z-index:1;
+    filter:
+      drop-shadow(0 0 26px rgba(62,214,255,.42))
+      drop-shadow(-14px 16px 30px rgba(156,140,255,.26))
+      drop-shadow(14px 18px 34px rgba(255,111,216,.16))
+      drop-shadow(0 30px 56px rgba(0,0,0,.7));
+    animation:tp-float 7s ease-in-out infinite;
+  }
+  @keyframes tp-float{0%,100%{transform:translateY(0);} 50%{transform:translateY(-9px);}}
+
+  /* h1 como cristal: el texto es el prisma */
+  .hero h1{
+    background:linear-gradient(180deg, #FFFFFF 12%, #CFE6FF 46%, #7FB4FF 72%, #9C8CFF 100%);
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent; color:transparent;
+    text-shadow:0 0 38px rgba(62,214,255,.22);
+    letter-spacing:-0.025em;
+  }
+  .glory{color:#A9B7D6; font-size:clamp(15px,2vw,17px);}
+
+  /* ---- botones: bisel + destello al pasar ------------------------- */
+  .btn-primary{
+    position:relative; overflow:hidden;
+    background:var(--spec-fill);
+    box-shadow:0 0 0 1px rgba(62,214,255,.45), 0 14px 34px -12px rgba(62,214,255,.7), var(--bevel);
+  }
+  .btn-primary > *{position:relative; z-index:1;}
+  .btn-primary::after{
+    content:""; position:absolute; top:0; bottom:0; left:-60%; width:45%;
+    background:linear-gradient(100deg, transparent, rgba(255,255,255,.55), transparent);
+    transform:skewX(-18deg); transition:left .5s ease;
+  }
+  .btn-primary:hover::after{left:120%;}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 0 0 1px rgba(156,140,255,.8), 0 18px 42px -10px rgba(62,214,255,.8), var(--bevel);}
+  .btn-primary:active{transform:translateY(0);}
+
+  .btn-ghost{background:rgba(255,255,255,.015); box-shadow:var(--bevel);}
+  .btn-ghost:hover{
+    border-color:rgba(156,140,255,.7); color:#fff;
+    background:linear-gradient(120deg, rgba(62,214,255,.12), rgba(156,140,255,.1));
+    box-shadow:var(--bevel), 0 12px 30px -16px rgba(156,140,255,.9);
+  }
+
+  /* ---- métricas del hero: vidrio, no caja plana ------------------- */
+  .hero-stats{
+    background:linear-gradient(168deg, rgba(19,28,51,.9), rgba(14,21,38,.7));
+    box-shadow:var(--bevel), var(--lift);
+    backdrop-filter:blur(8px);
+    clip-path:polygon(0 0,100% 0,100% 78%,97% 100%,0 100%);
+  }
+  .hero-stats div strong{
+    background:var(--spec-fill); -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent; color:transparent;
+    font-size:26px;
+  }
+
+  /* ---- entrada orquestada: una sola vez, al cargar ---------------- */
+  .hero-inner > *{animation:tp-in .7s cubic-bezier(.2,.7,.3,1) both;}
+  .hero-inner > *:nth-child(1){animation-delay:.02s;}
+  .hero-inner > *:nth-child(2){animation-delay:.08s;}
+  .hero-inner > *:nth-child(3){animation-delay:.14s;}
+  .hero-inner > *:nth-child(4){animation-delay:.22s;}
+  .hero-inner > *:nth-child(5){animation-delay:.3s;}
+  .hero-inner > *:nth-child(6){animation-delay:.38s;}
+  .hero-inner > *:nth-child(7){animation-delay:.46s;}
+  @keyframes tp-in{from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:none;}}
+  /* el trofeo entra con el resto y luego flota por su cuenta */
+  .hero-inner > img.trophy-img{animation:tp-in .8s cubic-bezier(.2,.7,.3,1) .14s both, tp-float 7s ease-in-out 1.2s infinite;}
+
+  /* ---- paneles de cristal (about / premios / reglamento) ---------- */
+  .about-card, .payout-mini, .prize-col, .reg-prize-card, .reg-contact{
+    box-shadow:var(--bevel);
+  }
+  .about-card{
+    position:relative; transition:background .25s, transform .25s;
+    background:var(--void);
+  }
+  .about-card::before{
+    content:""; position:absolute; inset:0; pointer-events:none; opacity:0; transition:opacity .25s;
+    background:var(--glass);
+  }
+  .about-card:hover{transform:translateY(-2px);}
+  .about-card:hover::before{opacity:1;}
+  .about-card .tag .sq{
+    clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);
+    box-shadow:0 0 10px currentColor;
+  }
+  .about-card .tag .sq{background:var(--spec-a); color:var(--spec-a);}
+  .about-card.accent-violet .tag .sq{background:var(--spec-b); color:var(--spec-b);}
+  .about-card.accent-gold .tag .sq{background:var(--spec-d); color:var(--spec-d);}
+
+  .section-head .kicker::before{background:var(--spec-line); width:26px; height:2px;}
+  .section-head h2{letter-spacing:-0.02em;}
+
+  /* ---- pestañas: pastilla espectral ------------------------------- */
+  .tab-bar{box-shadow:var(--bevel); background:var(--void-2);}
+  .tab-bar button.active{
+    background:var(--spec-fill); color:#04070F;
+    box-shadow:0 8px 22px -12px rgba(62,214,255,.9);
+  }
+
+  /* ---- barra de reparto: degradado continuo ----------------------- */
+  .payout-bar{height:12px; box-shadow:var(--bevel);}
+  .payout-bar .champ-share{background:linear-gradient(90deg, var(--spec-a), #5FA8FF);}
+  .payout-bar .sub-share{background:linear-gradient(90deg, var(--spec-b), var(--spec-c));}
+  .payout-legend b{background:var(--spec-fill); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;}
+  .payout-legend div:nth-child(2) b{background:linear-gradient(90deg, var(--spec-b), var(--spec-c)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;}
+  .payout-legend div:nth-child(3) b{background:none; -webkit-text-fill-color:var(--sub); color:var(--sub);}
+
+  /* ---- CUADRO DE HONOR: cartas holográficas ----------------------- */
+  /* es un torneo de cartas: las tarjetas de campeón se comportan como
+     una carta foil — el brillo sigue al cursor y la carta se inclina.   */
+  .honor-card{
+    position:relative; isolation:isolate;
+    background:linear-gradient(162deg, #16203A, #0C1322 62%);
+    box-shadow:var(--bevel), var(--lift);
+    transition:transform .35s cubic-bezier(.2,.7,.3,1), box-shadow .35s, border-color .3s;
+    transform-style:preserve-3d;
+  }
+  .honor-card::after{
+    content:""; position:absolute; inset:0; z-index:3; pointer-events:none;
+    opacity:0; transition:opacity .3s;
+    background:
+      radial-gradient(420px circle at var(--mx,50%) var(--my,50%), rgba(255,255,255,.14), transparent 62%),
+      var(--sheen);
+    background-blend-mode:screen;
+    mix-blend-mode:screen;
+  }
+  .honor-card:hover{
+    border-color:rgba(156,140,255,.55);
+    transform:translateY(-4px);
+    box-shadow:var(--bevel), 0 28px 60px -30px rgba(62,214,255,.55), 0 0 0 1px rgba(62,214,255,.18);
+  }
+  .honor-card:hover::after{opacity:.85;}
+  .honor-banner{aspect-ratio:16/7; transition:transform .5s ease;}
+  .honor-card:hover .honor-banner{transform:scale(1.03);}
+
+  /* jerarquía por puesto: oro para campeón, plata para subcampeón */
+  .honor-row .role{color:var(--spec-d); letter-spacing:.04em;}
+  .honor-row.sub .role{color:#C7CEDE;}
+  .honor-row .name{font-size:15px;}
+  .honor-sticker{border-color:rgba(255,194,89,.45); box-shadow:0 0 0 2px rgba(255,194,89,.12), 0 6px 14px -6px #000;}
+  .honor-row.sub .honor-sticker{border-color:rgba(199,206,222,.4); box-shadow:0 0 0 2px rgba(199,206,222,.1), 0 6px 14px -6px #000;}
+  .honor-dot{box-shadow:0 0 12px currentColor; color:var(--spec-a);}
+  .honor-dot.champions{color:var(--spec-b);}
+  .honor-final{color:var(--spec-a);}
+  .honor-empty{border-color:rgba(62,214,255,.2); background:rgba(62,214,255,.02);}
+
+  /* ---- reglamento ------------------------------------------------- */
+  .reg-num{
+    background:linear-gradient(150deg, rgba(62,214,255,.22), rgba(156,140,255,.14));
+    color:#DCEBFF; box-shadow:var(--bevel), 0 0 16px -6px rgba(62,214,255,.8);
+  }
+  .reg-list li::before{background:var(--spec-a); box-shadow:0 0 8px rgba(62,214,255,.8);}
+  .reg-sub{text-transform:none; letter-spacing:0; font-size:13.5px; color:#BFD4F5;}
+  .reg-prize-card{background:var(--void); position:relative; overflow:hidden;}
+  .reg-prize-card::before{
+    content:""; position:absolute; left:0; top:0; width:100%; height:2px; background:var(--spec-d); opacity:.8;
+  }
+  .reg-prize-card.silver::before{background:#C7CEDE;}
+  .reg-prize-card.bronze::before{background:var(--spec-b);}
+  .reg-prize-card .lbl{text-transform:none; letter-spacing:0;}
+  .reg-prize-card .pct{font-size:28px;}
+  .reg-contact{border-left-color:transparent; background:linear-gradient(90deg, rgba(62,214,255,.07), rgba(14,21,38,.6) 40%);}
+  .reg-contact{position:relative;}
+  .reg-contact::before{
+    content:""; position:absolute; left:0; top:0; bottom:0; width:3px;
+    background:linear-gradient(180deg, var(--spec-a), var(--spec-b) 55%, var(--spec-c));
+  }
+
+  /* ---- FAQ -------------------------------------------------------- */
+  .faq-item summary .ico{clip-path:polygon(15% 0,100% 0,100% 85%,85% 100%,0 100%,0 15%);}
+  .faq-item[open] summary{color:var(--spec-a);}
+
+  /* ---- CTA final: el momento más brillante de la página ----------- */
+  .cta-final{
+    background:linear-gradient(140deg, #16203A, #0B1120 70%);
+    box-shadow:var(--bevel), 0 40px 90px -50px rgba(62,214,255,.6);
+  }
+  .cta-final::before{
+    background:
+      radial-gradient(ellipse 560px 320px at 50% 0%, rgba(62,214,255,.16), transparent 70%),
+      radial-gradient(ellipse 420px 260px at 82% 100%, rgba(255,111,216,.1), transparent 72%);
+  }
+  .cta-final::after{
+    content:""; position:absolute; left:0; right:0; top:0; height:1px;
+    background:var(--spec-line); opacity:.9;
+  }
+  .cta-final h2{letter-spacing:-0.02em;}
+
+  /* ---- footer ----------------------------------------------------- */
+  footer{border-top:0; position:relative;}
+  footer::before{content:""; position:absolute; left:0; right:0; top:0; height:1px; background:var(--spec-line); opacity:.35;}
+
+  /* ---- móvil: menos efectos, mismo carácter ----------------------- */
+  @media(max-width:860px){
+    .hero{padding:72px 0 80px;}
+    .trophy-img{max-width:200px;}
+    .honor-card:hover{transform:none;}
+    .hero::after{opacity:.35;}
+  }
+
 </style>
 </head>
 <body>
@@ -1749,6 +2035,40 @@
   applyLanguage(savedLang);
 
   setInterval(updateLocalClock, 30000);
+</script>
+
+
+<script>
+/* ---------- brillo holográfico del Cuadro de Honor ----------
+   Las tarjetas de campeón se renderizan desde JSON, así que el efecto se
+   engancha por delegación en el documento: al mover el puntero sobre una
+   tarjeta se actualizan --mx/--my y el degradado espectral sigue al cursor,
+   como el foil de una carta. Es movimiento que responde al usuario, no
+   decoración automática, y se apaga solo si el visitante pide menos
+   animación o si el dispositivo es táctil. */
+(function(){
+  var quieto = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var finoPuntero = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  if(quieto || !finoPuntero) return;
+
+  document.addEventListener("pointermove", function(e){
+    var card = e.target.closest && e.target.closest(".honor-card");
+    if(!card) return;
+    var r = card.getBoundingClientRect();
+    var x = (e.clientX - r.left) / r.width;
+    var y = (e.clientY - r.top) / r.height;
+    card.style.setProperty("--mx", (x*100).toFixed(1) + "%");
+    card.style.setProperty("--my", (y*100).toFixed(1) + "%");
+    card.style.transform =
+      "perspective(900px) rotateX(" + ((0.5 - y) * 5).toFixed(2) + "deg) rotateY(" +
+      ((x - 0.5) * 6).toFixed(2) + "deg) translateY(-4px)";
+  }, {passive:true});
+
+  document.addEventListener("pointerleave", function(e){
+    var card = e.target.closest && e.target.closest(".honor-card");
+    if(card) card.style.transform = "";
+  }, true);
+})();
 </script>
 
 </body>
