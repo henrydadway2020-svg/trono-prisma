@@ -2,59 +2,71 @@
   {
     "torneo": "Trono Prisma #1",
     "fecha": "",
-    "campeon": {
-      "nombre": "Markov",
-      "sticker": "assets/stickers/edicion1-campeon.png"
-    },
-    "subcampeon": {
-      "nombre": "Ketchup",
-      "sticker": "assets/stickers/edicion1-subcampeon.png"
-    },
-    "tercer_lugar": {
-      "nombre": "Ronwhisky",
-      "sticker": "assets/stickers/edicion1-tercer.png"
-    }
+    "campeon": { "nombre": "Markov", "sticker": "assets/stickers/edicion1-campeon.png" },
+    "subcampeon": { "nombre": "Ketchup", "sticker": "assets/stickers/edicion1-subcampeon.png" },
+    "tercer_lugar": { "nombre": "Ronwhisky", "sticker": "assets/stickers/edicion1-tercer.png" }
+  },
+  {
+    "torneo": "Trono Prisma #2",
+    "fecha": "",
+    "campeon": { "nombre": "Markov", "sticker": "assets/stickers/edicion2-campeon.png" },
+    "subcampeon": { "nombre": "Ketchup", "sticker": "assets/stickers/edicion2-subcampeon.png" },
+    "tercer_lugar": { "nombre": "Xhunquito", "sticker": "assets/stickers/edicion2-tercer.png" }
+  },
+  {
+    "torneo": "Trono Prisma #3",
+    "fecha": "",
+    "campeon": { "nombre": "Markov", "sticker": "assets/stickers/edicion3-campeon.png" },
+    "subcampeon": { "nombre": "Xhunquito", "sticker": "assets/stickers/edicion3-subcampeon.png" },
+    "tercer_lugar": { "nombre": "", "sticker": "assets/stickers/edicion3-tercer.png" }
+  },
+  {
+    "torneo": "Trono Prisma #4",
+    "fecha": "",
+    "campeon": { "nombre": "Omega", "sticker": "assets/stickers/edicion4-campeon.png" },
+    "subcampeon": { "nombre": "Scapricee", "sticker": "assets/stickers/edicion4-subcampeon.png" },
+    "tercer_lugar": { "nombre": "Ketchup", "sticker": "assets/stickers/edicion4-tercer.png" }
+  },
+  {
+    "torneo": "Trono Prisma #5",
+    "fecha": "",
+    "campeon": { "nombre": "Redwarrior", "sticker": "assets/stickers/edicion5-campeon.png" },
+    "subcampeon": { "nombre": "Omega", "sticker": "assets/stickers/edicion5-subcampeon.png" },
+    "tercer_lugar": { "nombre": "9dudul", "sticker": "assets/stickers/edicion5-tercer.png" }
+  },
+  {
+    "torneo": "Trono Prisma #6",
+    "fecha": "",
+    "campeon": { "nombre": "Yas", "sticker": "assets/stickers/edicion6-campeon.png" },
+    "subcampeon": { "nombre": "Markov", "sticker": "assets/stickers/edicion6-subcampeon.png" },
+    "tercer_lugar": { "nombre": "M.D.D.", "sticker": "assets/stickers/edicion6-tercer.png" }
+  },
+  {
+    "torneo": "Trono Prisma #7",
+    "fecha": "",
+    "campeon": { "nombre": "Omega", "sticker": "assets/stickers/edicion7-campeon.png" },
+    "subcampeon": { "nombre": "Xhunquito", "sticker": "assets/stickers/edicion7-subcampeon.png" },
+    "tercer_lugar": { "nombre": "9dudul", "sticker": "assets/stickers/edicion7-tercer.png" }
+  },
+  {
+    "torneo": "Trono Prisma #8",
+    "fecha": "",
+    "campeon": { "nombre": "9dudul", "sticker": "assets/stickers/edicion8-campeon.png" },
+    "subcampeon": { "nombre": "Omega", "sticker": "assets/stickers/edicion8-subcampeon.png" },
+    "tercer_lugar": { "nombre": "M.D.D.", "sticker": "assets/stickers/edicion8-tercer.png" }
+  },
+  {
+    "torneo": "Trono Prisma #9",
+    "fecha": "",
+    "campeon": { "nombre": "Ekko", "sticker": "assets/stickers/edicion9-campeon.png" },
+    "subcampeon": { "nombre": "9dudul", "sticker": "assets/stickers/edicion9-subcampeon.png" },
+    "tercer_lugar": { "nombre": "Giskard", "sticker": "assets/stickers/edicion9-tercer.png" }
+  },
+  {
+    "torneo": "Trono Prisma #10",
+    "fecha": "",
+    "campeon": { "nombre": "Fellogod", "sticker": "assets/stickers/edicion10-campeon.png" },
+    "subcampeon": { "nombre": "Omega", "sticker": "assets/stickers/edicion10-subcampeon.png" },
+    "tercer_lugar": { "nombre": "Lylie", "sticker": "assets/stickers/edicion10-tercer.png" }
   }
-],
-{
-  "torneo": "Trono Prisma #4",
-  "fecha": "",
-  "campeon": { "nombre": "Omega", "sticker": "assets/stickers/edicion4-campeon.png" },
-  "subcampeon": { "nombre": "Scapricee", "sticker": "assets/stickers/edicion4-subcampeon.png" },
-  "tercer_lugar": { "nombre": "Ketchup", "sticker": "assets/stickers/edicion4-tercer.png" }
-},
-{
-  "torneo": "Trono Prisma #5",
-  "fecha": "",
-  "campeon": { "nombre": "Redwarrior", "sticker": "assets/stickers/edicion5-campeon.png" },
-  "subcampeon": { "nombre": "Omega", "sticker": "assets/stickers/edicion5-subcampeon.png" },
-  "tercer_lugar": { "nombre": "9dudul", "sticker": "assets/stickers/edicion5-tercer.png" }
-},
-{
-  "torneo": "Trono Prisma #6",
-  "fecha": "",
-  "campeon": { "nombre": "Yas", "sticker": "assets/stickers/edicion6-campeon.png" },
-  "subcampeon": { "nombre": "Markov", "sticker": "assets/stickers/edicion6-subcampeon.png" },
-  "tercer_lugar": { "nombre": "M.D.D.", "sticker": "assets/stickers/edicion6-tercer.png" }
-},
-{
-  "torneo": "Trono Prisma #7",
-  "fecha": "",
-  "campeon": { "nombre": "Omega", "sticker": "assets/stickers/edicion7-campeon.png" },
-  "subcampeon": { "nombre": "Xhunquito", "sticker": "assets/stickers/edicion7-subcampeon.png" },
-  "tercer_lugar": { "nombre": "9dudul", "sticker": "assets/stickers/edicion7-tercer.png" }
-},
-{
-  "torneo": "Trono Prisma #8",
-  "fecha": "",
-  "campeon": { "nombre": "9dudul", "sticker": "assets/stickers/edicion8-campeon.png" },
-  "subcampeon": { "nombre": "Omega", "sticker": "assets/stickers/edicion8-subcampeon.png" },
-  "tercer_lugar": { "nombre": "M.D.D.", "sticker": "assets/stickers/edicion8-tercer.png" }
-},
-{
-  "torneo": "Trono Prisma #9",
-  "fecha": "",
-  "campeon": { "nombre": "Ekko", "sticker": "assets/stickers/edicion9-campeon.png" },
-  "subcampeon": { "nombre": "9dudul", "sticker": "assets/stickers/edicion9-subcampeon.png" },
-  "tercer_lugar": { "nombre": "Giskard", "sticker": "assets/stickers/edicion9-tercer.png" }
-}
+]
