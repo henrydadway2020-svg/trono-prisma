@@ -864,6 +864,45 @@
   .honor-empty strong{background:var(--spec-fill); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;}
   @media(max-width:640px){ .ed-panel{padding:24px 20px 26px;} }
 
+  /* ===== Lightbox de imágenes (zoom al hacer click) ===== */
+  .tp-zoomable{cursor:zoom-in;}
+  .tp-lightbox{
+    position:fixed; inset:0; z-index:9999;
+    display:flex; align-items:center; justify-content:center;
+    padding:40px;
+    background:rgba(4,6,12,0.88);
+    -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
+    opacity:0; visibility:hidden;
+    transition:opacity .28s ease, visibility 0s linear .28s;
+  }
+  .tp-lightbox.is-open{
+    opacity:1; visibility:visible;
+    transition:opacity .28s ease, visibility 0s linear 0s;
+  }
+  .tp-lightbox-img{
+    max-width:min(92vw, 1100px); max-height:88vh;
+    width:auto; height:auto;
+    border-radius:14px;
+    box-shadow:0 30px 90px -20px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.08);
+    background:var(--panel, #12131c);
+    transform:scale(.85); opacity:0;
+    transition:transform .32s cubic-bezier(.2,.8,.25,1), opacity .32s ease;
+  }
+  .tp-lightbox.is-open .tp-lightbox-img{transform:scale(1); opacity:1;}
+  .tp-lightbox-close{
+    position:absolute; top:18px; right:22px;
+    width:44px; height:44px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18);
+    color:#fff; font-size:22px; line-height:1; cursor:pointer;
+    transition:background .2s ease, transform .2s ease;
+  }
+  .tp-lightbox-close:hover{background:rgba(255,255,255,0.18); transform:scale(1.06);}
+  @media(max-width:640px){
+    .tp-lightbox{padding:16px;}
+    .tp-lightbox-close{top:10px; right:10px; width:38px; height:38px; font-size:19px;}
+  }
+
 </style>
 </head>
 <body>
@@ -2924,6 +2963,60 @@
 
   repintar();
   setInterval(tick, 1000);
+})();
+</script>
+
+<div class="tp-lightbox" id="tpLightbox" aria-hidden="true">
+  <button type="button" class="tp-lightbox-close" id="tpLightboxClose" aria-label="Cerrar">&times;</button>
+  <img class="tp-lightbox-img" id="tpLightboxImg" src="" alt="">
+</div>
+
+<script>
+(function(){
+  var ZOOM_SELECTOR = ".trophy-img, .honor-banner, .honor-sticker";
+  var lightbox = document.getElementById("tpLightbox");
+  var lightboxImg = document.getElementById("tpLightboxImg");
+  var closeBtn = document.getElementById("tpLightboxClose");
+
+  function openLightbox(img){
+    lightboxImg.src = img.currentSrc || img.src;
+    lightboxImg.alt = img.alt || "";
+    lightbox.classList.add("is-open");
+    lightbox.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeLightbox(){
+    lightbox.classList.remove("is-open");
+    lightbox.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
+  // Delegación: funciona también con imágenes creadas dinámicamente (banners/stickers)
+  document.addEventListener("click", function(e){
+    var img = e.target.closest(ZOOM_SELECTOR);
+    if (img && img.tagName === "IMG"){
+      openLightbox(img);
+    }
+  });
+
+  // Marcar visualmente (cursor de zoom) las imágenes clicleables, incluidas las futuras
+  function markZoomable(){
+    document.querySelectorAll(ZOOM_SELECTOR).forEach(function(img){
+      img.classList.add("tp-zoomable");
+    });
+  }
+  markZoomable();
+  var mo = new MutationObserver(markZoomable);
+  mo.observe(document.body, {childList:true, subtree:true});
+
+  closeBtn.addEventListener("click", closeLightbox);
+  lightbox.addEventListener("click", function(e){
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener("keydown", function(e){
+    if (e.key === "Escape") closeLightbox();
+  });
 })();
 </script>
 
