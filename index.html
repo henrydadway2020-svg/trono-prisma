@@ -866,6 +866,280 @@
   @media(max-width:640px){ .ed-panel{padding:24px 20px 26px;} }
 
   /* =====================================================================
+     FONDO DE PRISMAS — cristales flotando y haces refractados
+     ===================================================================== */
+  .prism-bg{
+    position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;
+    contain:strict;
+  }
+  /* neblina espectral general */
+  .prism-haze{
+    position:absolute; inset:-10%;
+    background:
+      radial-gradient(ellipse 50% 40% at 18% 12%, rgba(62,214,255,.13), transparent 62%),
+      radial-gradient(ellipse 46% 42% at 84% 26%, rgba(156,140,255,.12), transparent 64%),
+      radial-gradient(ellipse 60% 34% at 50% 96%, rgba(255,111,216,.07), transparent 66%);
+    animation:tp-haze 24s ease-in-out infinite alternate;
+  }
+  @keyframes tp-haze{from{transform:translate3d(0,0,0) scale(1);} to{transform:translate3d(-2%,1.5%,0) scale(1.06);}}
+
+  /* haces de luz que cruzan la pantalla */
+  .prism-bg .beam{
+    position:absolute; top:-30%; height:170%; width:230px;
+    background:linear-gradient(90deg, transparent, rgba(62,214,255,.09), transparent);
+    filter:blur(22px); transform-origin:50% 0;
+  }
+  .prism-bg .b1{--r:14deg;  left:6%;  transform:rotate(var(--r)); animation:tp-beam 19s ease-in-out infinite;}
+  .prism-bg .b2{--r:-11deg; left:44%; width:320px; background:linear-gradient(90deg, transparent, rgba(156,140,255,.085), transparent); transform:rotate(var(--r)); animation:tp-beam 26s ease-in-out infinite reverse;}
+  .prism-bg .b3{--r:17deg; left:78%; width:190px; background:linear-gradient(90deg, transparent, rgba(255,111,216,.07), transparent); transform:rotate(var(--r)); animation:tp-beam 22s ease-in-out infinite 3s;}
+  @keyframes tp-beam{
+    0%,100%{opacity:.5;  transform:translateX(-4%) rotate(var(--r,14deg));}
+    50%    {opacity:1;   transform:translateX(4%)  rotate(var(--r,14deg));}
+  }
+
+  /* cristales: contorno espectral, interior vacío */
+  .prism-bg .shard{
+    position:absolute; display:block;
+    background:linear-gradient(135deg, var(--spec-a), var(--spec-b) 42%, var(--spec-c) 70%, var(--spec-d));
+    opacity:.22; mix-blend-mode:screen;
+    will-change:transform;
+    animation:tp-drift 30s ease-in-out infinite;
+  }
+  .prism-bg .shard::after{
+    content:""; position:absolute; inset:1.5px;
+    background:var(--void);
+    clip-path:inherit;
+  }
+  /* triángulo */
+  .prism-bg .s1{
+    width:260px; height:230px; top:9%; left:4%;
+    clip-path:polygon(50% 0,100% 100%,0 100%);
+    animation-duration:34s;
+  }
+  .prism-bg .s1::after{clip-path:polygon(50% 0,100% 100%,0 100%);}
+  /* rombo grande */
+  .prism-bg .s2{
+    width:300px; height:340px; top:32%; right:5%; left:auto;
+    clip-path:polygon(50% 0,100% 30%,100% 72%,50% 100%,0 72%,0 30%);
+    animation-duration:41s; animation-delay:-6s; opacity:.13;
+  }
+  .prism-bg .s2::after{clip-path:polygon(50% 0,100% 30%,100% 72%,50% 100%,0 72%,0 30%);}
+  /* esquirla fina */
+  .prism-bg .s3{
+    width:140px; height:300px; top:62%; left:14%;
+    clip-path:polygon(38% 0,100% 24%,66% 100%,0 70%);
+    animation-duration:28s; animation-delay:-14s; opacity:.15;
+  }
+  .prism-bg .s3::after{clip-path:polygon(38% 0,100% 24%,66% 100%,0 70%);}
+  /* diamante pequeño */
+  .prism-bg .s4{
+    width:120px; height:120px; top:18%; left:60%;
+    clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);
+    animation-duration:24s; animation-delay:-9s; opacity:.2;
+  }
+  .prism-bg .s4::after{clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);}
+  /* hexágono */
+  .prism-bg .s5{
+    width:210px; height:186px; top:78%; right:16%; left:auto;
+    clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);
+    animation-duration:37s; animation-delay:-20s; opacity:.12;
+  }
+  .prism-bg .s5::after{clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);}
+  /* triángulo invertido */
+  .prism-bg .s6{
+    width:170px; height:150px; top:47%; left:38%;
+    clip-path:polygon(0 0,100% 0,50% 100%);
+    animation-duration:31s; animation-delay:-3s; opacity:.1;
+  }
+  .prism-bg .s6::after{clip-path:polygon(0 0,100% 0,50% 100%);}
+  /* esquirla alta derecha */
+  .prism-bg .s7{
+    width:96px; height:210px; top:4%; right:26%; left:auto;
+    clip-path:polygon(60% 0,100% 62%,40% 100%,0 34%);
+    animation-duration:26s; animation-delay:-17s; opacity:.17;
+  }
+  .prism-bg .s7::after{clip-path:polygon(60% 0,100% 62%,40% 100%,0 34%);}
+
+  @keyframes tp-drift{
+    0%,100%{transform:translate3d(0,0,0) rotate(0deg);}
+    25%    {transform:translate3d(14px,-26px,0) rotate(6deg);}
+    50%    {transform:translate3d(-10px,-42px,0) rotate(-5deg);}
+    75%    {transform:translate3d(-22px,-18px,0) rotate(4deg);}
+  }
+
+  /* menos ruido en pantallas pequeñas: se ocultan los cristales más pesados */
+  @media(max-width:860px){
+    .prism-bg .s2, .prism-bg .s5, .prism-bg .s6{display:none;}
+    .prism-bg .shard{opacity:.12;}
+    .prism-bg .beam{filter:blur(28px);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .prism-bg .shard, .prism-bg .beam, .prism-haze{animation:none !important;}
+  }
+
+  /* =====================================================================
+     MENÚ v2
+     ===================================================================== */
+  header{
+    transition:padding .25s ease, background .25s ease, box-shadow .25s ease;
+  }
+  header::after{
+    content:""; position:absolute; left:0; right:0; bottom:-1px; height:1px;
+    background:var(--spec-line); opacity:0; transition:opacity .3s ease; pointer-events:none;
+  }
+  header.scrolled{
+    background:rgba(5,6,11,0.94);
+    -webkit-backdrop-filter:blur(18px) saturate(140%); backdrop-filter:blur(18px) saturate(140%);
+    box-shadow:0 10px 34px -22px rgba(0,0,0,.95);
+  }
+  header.scrolled::after{opacity:.75;}
+  header.scrolled nav{padding-top:10px; padding-bottom:10px;}
+  nav{transition:padding .25s ease;}
+
+  /* marca */
+  .brand{transition:opacity .2s ease;}
+  .brand-mark{
+    position:relative; overflow:hidden;
+    transition:transform .35s cubic-bezier(.2,.8,.25,1), box-shadow .3s ease;
+    box-shadow:0 0 0 1px rgba(62,214,255,.14), 0 0 18px -6px rgba(62,214,255,.6);
+  }
+  .brand:hover .brand-mark{transform:rotate(-8deg) scale(1.06); box-shadow:0 0 0 1px rgba(62,214,255,.4), 0 0 24px -4px rgba(62,214,255,.9);}
+  .brand-mark::after{
+    content:""; position:absolute; inset:0; background:var(--sheen);
+    transform:translateX(-120%); transition:transform .6s ease; mix-blend-mode:screen;
+  }
+  .brand:hover .brand-mark::after{transform:translateX(120%);}
+
+  /* enlaces de escritorio: subrayado espectral + estado activo */
+  .nav-btn, .nav-plain{position:relative; transition:color .2s ease;}
+  .nav-btn::after, .nav-plain::after{
+    content:""; position:absolute; left:15px; right:15px; bottom:4px; height:1.5px;
+    background:var(--spec-line); opacity:0;
+    transform:scaleX(.35); transform-origin:50% 50%;
+    transition:transform .28s cubic-bezier(.2,.8,.25,1), opacity .22s ease;
+  }
+  .nav-btn:hover::after, .nav-plain:hover::after,
+  .nav-plain.is-active::after, .nav-btn[aria-expanded="true"]::after{opacity:1; transform:scaleX(1);}
+  .nav-plain.is-active{color:var(--ice);}
+  .nav-plain:hover, .nav-btn:hover{background:transparent;}
+  .nav-btn[aria-expanded="true"]{background:transparent; color:var(--prism);}
+
+  .lang-pills{margin-left:8px; flex-shrink:0;}
+  .nav-links{min-width:0;}
+  @media(max-width:1320px){
+    .nav-btn, .nav-plain{padding:10px 11px; font-size:13.5px;}
+    .nav-btn::after, .nav-plain::after{left:11px; right:11px;}
+    .lang-pills{margin-left:4px;}
+    .lang-pill{padding:6px 8px;}
+  }
+  .lang-pill.active{
+    background:var(--spec-fill); color:var(--void);
+    box-shadow:0 0 16px -5px rgba(62,214,255,.9);
+  }
+
+  /* botón hamburguesa animado */
+  .menu-toggle{
+    position:relative; width:42px; height:42px; border:1px solid var(--line);
+    background:rgba(255,255,255,.02);
+    clip-path:polygon(18% 0,100% 0,100% 82%,82% 100%,0 100%,0 18%);
+    transition:border-color .2s ease, background .2s ease;
+  }
+  .menu-toggle:hover{border-color:rgba(62,214,255,.5); background:rgba(62,214,255,.08);}
+  .burger{display:block; width:18px; height:12px; position:relative; margin:0 auto;}
+  .burger i{
+    position:absolute; left:0; width:100%; height:1.8px; background:var(--ice);
+    border-radius:2px; transition:transform .3s cubic-bezier(.2,.8,.25,1), opacity .2s ease, background .2s ease;
+  }
+  .burger i:nth-child(1){top:0;}
+  .burger i:nth-child(2){top:5.1px;}
+  .burger i:nth-child(3){top:10.2px;}
+  .menu-toggle.is-open .burger i{background:var(--prism);}
+  .menu-toggle.is-open .burger i:nth-child(1){transform:translateY(5.1px) rotate(45deg);}
+  .menu-toggle.is-open .burger i:nth-child(2){opacity:0; transform:scaleX(.2);}
+  .menu-toggle.is-open .burger i:nth-child(3){transform:translateY(-5.1px) rotate(-45deg);}
+
+  .nav-mobile-head, .nav-mobile-cta{display:none;}
+
+  @media(max-width:860px){
+    /* panel deslizante a pantalla completa */
+    .nav-links{
+      display:flex !important; position:fixed; top:0; right:0; bottom:0; left:auto;
+      width:min(88vw, 380px); height:100dvh;
+      flex-direction:column; align-items:stretch; gap:0;
+      padding:0 0 28px; overflow-y:auto; overscroll-behavior:contain;
+      background:linear-gradient(170deg, #0B1020 0%, #05060B 62%);
+      border-left:1px solid var(--line); border-bottom:0;
+      box-shadow:-30px 0 70px -30px rgba(0,0,0,.95);
+      transform:translateX(102%); visibility:hidden;
+      transition:transform .38s cubic-bezier(.22,.9,.24,1), visibility 0s linear .38s;
+      z-index:120;
+    }
+    .nav-links.open{transform:translateX(0); visibility:visible; transition:transform .38s cubic-bezier(.22,.9,.24,1), visibility 0s linear 0s;}
+    .nav-links::before{
+      content:""; position:absolute; left:0; top:0; bottom:0; width:2px;
+      background:linear-gradient(180deg, var(--spec-a), var(--spec-b) 40%, var(--spec-c) 70%, var(--spec-d));
+      opacity:.7;
+    }
+    /* velo detrás del panel */
+    .nav-scrim{
+      position:fixed; inset:0; z-index:110;
+      background:rgba(3,5,11,.66);
+      -webkit-backdrop-filter:blur(5px); backdrop-filter:blur(5px);
+      opacity:0; visibility:hidden; transition:opacity .3s ease, visibility 0s linear .3s;
+    }
+    .nav-scrim.show{opacity:1; visibility:visible; transition:opacity .3s ease, visibility 0s linear 0s;}
+
+    .nav-mobile-head{
+      display:flex; align-items:center; min-height:68px; padding:0 24px;
+      font-family:'Unbounded', sans-serif; font-size:12px; font-weight:700;
+      letter-spacing:.18em; text-transform:uppercase; color:var(--sub);
+      border-bottom:1px solid var(--line);
+    }
+    .nav-item, .nav-btn, .nav-plain{width:100%;}
+    .nav-btn, .nav-plain{
+      padding:17px 24px; border-top:0; border-bottom:1px solid rgba(33,48,82,.55);
+      justify-content:space-between; border-radius:0; font-size:15.5px;
+    }
+    .nav-btn::after, .nav-plain::after{
+      left:0; right:auto; top:0; bottom:0; width:2px; height:auto;
+      background:var(--spec-a); transform:scaleY(0); transform-origin:50% 50%;
+    }
+    .nav-plain.is-active{color:var(--prism); background:rgba(62,214,255,.05);}
+    .nav-plain.is-active::after, .nav-btn[aria-expanded="true"]::after{opacity:1; transform:scaleY(1);}
+    /* entrada escalonada de los enlaces */
+    .nav-links .nav-item, .nav-links .nav-plain, .nav-links .lang-pills, .nav-links .nav-mobile-cta{
+      opacity:0; transform:translateX(18px);
+      transition:opacity .3s ease, transform .35s cubic-bezier(.2,.8,.25,1);
+    }
+    .nav-links.open .nav-item, .nav-links.open .nav-plain,
+    .nav-links.open .lang-pills, .nav-links.open .nav-mobile-cta{opacity:1; transform:none;}
+    .nav-links.open .nav-item:nth-child(2){transition-delay:.06s;}
+    .nav-links.open .nav-item:nth-child(3){transition-delay:.10s;}
+    .nav-links.open .nav-plain:nth-child(4){transition-delay:.14s;}
+    .nav-links.open .nav-plain:nth-child(5){transition-delay:.18s;}
+    .nav-links.open .nav-plain:nth-child(6){transition-delay:.22s;}
+    .nav-links.open .nav-plain:nth-child(7){transition-delay:.26s;}
+    .nav-links.open .nav-plain:nth-child(8){transition-delay:.30s;}
+    .nav-links.open .lang-pills{transition-delay:.34s;}
+    .nav-links.open .nav-mobile-cta{transition-delay:.38s;}
+
+    .lang-pills{margin:18px 0 0; padding:0 24px; border-top:0;}
+    .nav-mobile-cta{
+      display:flex; align-items:center; justify-content:center; gap:9px;
+      margin:22px 24px 0; padding:15px 20px; font-size:14.5px;
+    }
+    .nav-mobile-cta svg{width:15px; height:15px;}
+    /* el header crea su propio contexto de apilamiento: hay que elevarlo
+       por encima del velo cuando el panel está abierto */
+    body.nav-open header{z-index:130;}
+    body.nav-open{overflow:hidden;}
+  }
+
+  /* secciones semitransparentes para que los prismas se intuyan detrás */
+  #honor, #reglamento{background:rgba(9,12,21,.80);}
+  footer{background:rgba(5,6,11,.85);}
+
+  /* =====================================================================
      CUADRO DE HONOR v2 — el sticker es el protagonista
      Antes los stickers (arte de 500px con el nombre impreso por fuera del
      círculo) se metían en un círculo de 40px con object-fit:cover, lo que
@@ -1060,6 +1334,21 @@
 </head>
 <body>
 
+<!-- ============ FONDO DE PRISMAS ============ -->
+<div class="prism-bg" aria-hidden="true">
+  <span class="beam b1"></span>
+  <span class="beam b2"></span>
+  <span class="beam b3"></span>
+  <span class="shard s1"></span>
+  <span class="shard s2"></span>
+  <span class="shard s3"></span>
+  <span class="shard s4"></span>
+  <span class="shard s5"></span>
+  <span class="shard s6"></span>
+  <span class="shard s7"></span>
+  <span class="prism-haze"></span>
+</div>
+
 <div class="tp-progress" aria-hidden="true"></div>
 
 <header>
@@ -1071,6 +1360,9 @@
       Trono Prisma
     </a>
     <div class="nav-links" id="navLinks">
+      <div class="nav-mobile-head">
+        <span class="nav-mobile-title" data-i18n="nav.menuLabel">Menú</span>
+      </div>
       <div class="nav-item">
         <button class="nav-btn" data-panel="panelTorneo" aria-expanded="false"><span data-i18n="nav.torneo">El torneo</span> <span class="chev"></span></button>
       </div>
@@ -1088,12 +1380,18 @@
         <button class="lang-pill" data-lang="pt" type="button">PT</button>
         <button class="lang-pill" data-lang="fr" type="button">FR</button>
       </div>
+      <a href="#inscripcion" class="nav-mobile-cta btn-primary">
+        <span data-i18n="cta.inscribirme">Inscribirme</span>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
     </div>
     <a href="#inscripcion" class="btn-enter">
       <span data-i18n="cta.inscribirme">Inscribirme</span>
       <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
-    <button class="menu-toggle" id="menuToggle" aria-label="Menú" data-i18n-attr="aria-label:nav.menuLabel">☰</button>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menú" aria-expanded="false" aria-controls="navLinks" data-i18n-attr="aria-label:nav.menuLabel">
+      <span class="burger"><i></i><i></i><i></i></span>
+    </button>
   </nav>
 
   <div class="dropzone" id="dropzone">
@@ -2773,14 +3071,75 @@
     }
   });
 
-  document.getElementById("menuToggle").addEventListener("click", () => {
-    navLinksEl.classList.toggle("open");
+  // ---------- menú móvil v2: velo, bloqueo de scroll, Escape ----------
+  const menuBtn = document.getElementById("menuToggle");
+  const scrim = document.createElement("div");
+  scrim.className = "nav-scrim";
+  document.body.appendChild(scrim);
+
+  function setMenu(open){
+    navLinksEl.classList.toggle("open", open);
+    menuBtn.classList.toggle("is-open", open);
+    menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    scrim.classList.toggle("show", open);
+    document.body.classList.toggle("nav-open", open);
+  }
+
+  menuBtn.addEventListener("click", () => setMenu(!navLinksEl.classList.contains("open")));
+  scrim.addEventListener("click", () => setMenu(false));
+  document.addEventListener("keydown", (e) => {
+    if(e.key === "Escape" && navLinksEl.classList.contains("open")) setMenu(false);
   });
 
   // al tocar un link ancla normal (Acerca de, FAQ, etc.) dentro del menú móvil, ciérralo
-  navLinksEl.querySelectorAll(".nav-plain").forEach(link => {
-    link.addEventListener("click", () => navLinksEl.classList.remove("open"));
+  navLinksEl.querySelectorAll(".nav-plain, .nav-mobile-cta").forEach(link => {
+    link.addEventListener("click", () => setMenu(false));
   });
+
+  // en móvil, los paneles "El torneo" / "Premios" se despliegan bajo el header:
+  // cerramos el panel lateral para que queden a la vista
+  navLinksEl.querySelectorAll(".nav-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if(window.innerWidth <= 860) setTimeout(() => setMenu(false), 60);
+    });
+  });
+
+  // si se vuelve a escritorio con el menú abierto, restablece el estado
+  window.addEventListener("resize", () => {
+    if(window.innerWidth > 860 && navLinksEl.classList.contains("open")) setMenu(false);
+  });
+
+  // ---------- header compacto al hacer scroll ----------
+  const headerEl = document.querySelector("header");
+  let lastScrolled = null;
+  function onScrollHeader(){
+    const s = window.scrollY > 24;
+    if(s !== lastScrolled){ headerEl.classList.toggle("scrolled", s); lastScrolled = s; }
+  }
+  onScrollHeader();
+  window.addEventListener("scroll", onScrollHeader, {passive:true});
+
+  // ---------- resalta en el menú la sección que se está viendo ----------
+  (function scrollSpy(){
+    const links = Array.from(navLinksEl.querySelectorAll('.nav-plain[href^="#"]'));
+    const map = new Map();
+    links.forEach(a => {
+      const sec = document.querySelector(a.getAttribute("href"));
+      if(sec) map.set(sec, a);
+    });
+    if(!map.size || !("IntersectionObserver" in window)) return;
+    const visible = new Set();
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => en.isIntersecting ? visible.add(en.target) : visible.delete(en.target));
+      let best = null;
+      visible.forEach(sec => {
+        if(!best || sec.getBoundingClientRect().top < best.getBoundingClientRect().top) best = sec;
+      });
+      links.forEach(a => a.classList.remove("is-active"));
+      if(best && map.get(best)) map.get(best).classList.add("is-active");
+    }, {rootMargin:"-45% 0px -50% 0px", threshold:0});
+    map.forEach((a, sec) => io.observe(sec));
+  })();
 
   loadHonorRoll(CONFIG.DATA_PATHS.pocket, "honorGridPocket", "TCG Pocket");
   loadHonorRoll(CONFIG.DATA_PATHS.champions, "honorGridChampions", "Trono Prisma Champions");
