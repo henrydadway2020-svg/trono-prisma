@@ -475,8 +475,9 @@
   @keyframes tp-pulse{0%,100%{opacity:1; box-shadow:0 0 10px var(--spec-a);} 50%{opacity:.45; box-shadow:0 0 3px var(--spec-a);}}
 
   /* trofeo: halo espectral + flotación mínima + reflejo en el suelo */
+  .trophy-wrap{display:block; position:relative; z-index:1;}
   .trophy-img{
-    max-width:268px; position:relative; z-index:1;
+    max-width:300px; width:100%; height:auto; position:relative; z-index:1; cursor:zoom-in;
     filter:
       drop-shadow(0 0 26px rgba(62,214,255,.42))
       drop-shadow(-14px 16px 30px rgba(156,140,255,.26))
@@ -864,6 +865,157 @@
   .honor-empty strong{background:var(--spec-fill); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;}
   @media(max-width:640px){ .ed-panel{padding:24px 20px 26px;} }
 
+  /* =====================================================================
+     CUADRO DE HONOR v2 — el sticker es el protagonista
+     Antes los stickers (arte de 500px con el nombre impreso por fuera del
+     círculo) se metían en un círculo de 40px con object-fit:cover, lo que
+     los volvía manchas ilegibles y les cortaba el nombre. Ahora se muestran
+     completos, grandes y sobre un escenario iluminado.
+     ===================================================================== */
+  .honor-grid{grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:28px;}
+  .honor-card{
+    display:flex; flex-direction:column;
+    clip-path:polygon(0 0,100% 0,100% 94%,94% 100%,0 100%);
+  }
+
+  /* --- escenario del campeón --- */
+  .honor-stage{
+    position:relative; isolation:isolate;
+    display:flex; align-items:center; justify-content:center;
+    padding:46px 20px 26px; min-height:268px; overflow:hidden;
+    background:
+      radial-gradient(ellipse 62% 54% at 50% 46%, rgba(62,214,255,.20), transparent 68%),
+      radial-gradient(ellipse 120% 70% at 50% 118%, rgba(156,140,255,.18), transparent 70%),
+      linear-gradient(180deg, rgba(3,5,10,.72), rgba(3,5,10,.12));
+  }
+  /* haces de luz de arena detrás del sticker */
+  .honor-stage::before{
+    content:""; position:absolute; inset:-30% -10% auto -10%; height:150%; z-index:-1;
+    background:
+      conic-gradient(from 200deg at 50% 100%,
+        transparent 0deg, rgba(62,214,255,.16) 12deg, transparent 26deg,
+        transparent 46deg, rgba(156,140,255,.14) 58deg, transparent 72deg,
+        transparent 106deg, rgba(255,194,89,.10) 118deg, transparent 132deg);
+    opacity:.85; pointer-events:none;
+  }
+  /* piso reflectante */
+  .honor-stage::after{
+    content:""; position:absolute; left:8%; right:8%; bottom:12px; height:1px; z-index:-1;
+    background:linear-gradient(90deg, transparent, rgba(62,214,255,.55), transparent);
+    box-shadow:0 0 22px 3px rgba(62,214,255,.20);
+  }
+  .honor-edition{
+    position:absolute; top:14px; left:15px; z-index:2;
+    font-family:'Unbounded', sans-serif; font-size:10px; font-weight:700;
+    letter-spacing:.09em; text-transform:uppercase; color:#DCF4FF;
+    padding:5px 11px; background:rgba(62,214,255,.13);
+    border:1px solid rgba(62,214,255,.34);
+    clip-path:polygon(8% 0,100% 0,100% 74%,92% 100%,0 100%,0 26%);
+  }
+  .honor-date{
+    position:absolute; top:16px; right:15px; z-index:2;
+    font-size:11px; color:var(--sub); letter-spacing:.02em;
+  }
+  .honor-hero-wrap{display:block; width:min(228px, 74%);}
+  .honor-hero{
+    width:100%; height:auto; object-fit:contain; cursor:zoom-in;
+    filter:
+      drop-shadow(0 0 26px rgba(62,214,255,.42))
+      drop-shadow(0 4px 10px rgba(255,194,89,.22))
+      drop-shadow(0 22px 30px rgba(0,0,0,.65));
+    transition:transform .45s cubic-bezier(.2,.8,.25,1), filter .45s ease;
+    will-change:transform;
+  }
+  .honor-card:hover .honor-hero{
+    transform:translateY(-7px) scale(1.045);
+    filter:
+      drop-shadow(0 0 36px rgba(62,214,255,.6))
+      drop-shadow(0 6px 14px rgba(255,194,89,.32))
+      drop-shadow(0 28px 38px rgba(0,0,0,.7));
+  }
+  .honor-hero-empty{font-size:44px; color:var(--line); opacity:.8;}
+
+  /* sticker inexistente: rombo tenue en lugar del icono de imagen rota */
+  .honor-sticker-wrap.is-missing, .honor-hero-wrap.is-missing{position:relative;}
+  .honor-sticker-wrap.is-missing img, .honor-hero-wrap.is-missing img{visibility:hidden;}
+  .honor-sticker-wrap.is-missing::after, .honor-hero-wrap.is-missing::after{
+    content:"◆"; position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--line); font-size:26px; opacity:.85;
+  }
+  .honor-hero-wrap.is-missing::after{font-size:52px;}
+
+  /* --- nombre del campeón --- */
+  .honor-body{padding:0;}
+  .honor-champ{
+    text-align:center; padding:6px 22px 20px;
+    border-bottom:1px solid var(--line);
+  }
+  .honor-champ .role{
+    display:block; font-size:10px; font-weight:700; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--gold); margin-bottom:6px;
+  }
+  .honor-champ .name{
+    display:block; font-family:'Unbounded', sans-serif; font-weight:800;
+    font-size:clamp(20px, 2.3vw, 24px); line-height:1.15; letter-spacing:-0.015em;
+    background:linear-gradient(180deg,#FFFFFF 10%,#FFE7B6 52%,#FFC259 100%);
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent; color:transparent;
+    text-shadow:0 0 26px rgba(255,194,89,.18);
+  }
+
+  /* --- podio: subcampeón y tercer lugar --- */
+  .honor-podium{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(118px, 1fr));
+    gap:12px; padding:18px 18px 4px;
+  }
+  .honor-podium:empty{display:none;}
+  .honor-row{
+    display:flex; flex-direction:column; align-items:center; text-align:center;
+    gap:7px; padding:14px 8px 12px;
+    background:rgba(255,255,255,.022);
+    border:1px solid var(--line);
+    clip-path:polygon(0 0,100% 0,100% 88%,88% 100%,0 100%);
+    transition:border-color .2s ease, background .2s ease;
+  }
+  .honor-row:hover{border-color:rgba(62,214,255,.35); background:rgba(62,214,255,.05);}
+  .honor-sticker-wrap{display:block; line-height:0;}
+  .honor-sticker{
+    width:84px; height:84px; object-fit:contain; cursor:zoom-in;
+    border:0; border-radius:0; background:none;
+    transition:transform .3s cubic-bezier(.2,.8,.25,1), filter .3s ease;
+  }
+  .honor-row.sub .honor-sticker{
+    box-shadow:none;
+    filter:drop-shadow(0 0 12px rgba(199,206,222,.30)) drop-shadow(0 10px 14px rgba(0,0,0,.55));
+  }
+  .honor-row.tercer .honor-sticker{
+    box-shadow:none;
+    filter:drop-shadow(0 0 12px rgba(214,154,92,.32)) drop-shadow(0 10px 14px rgba(0,0,0,.55));
+  }
+  .honor-row:hover .honor-sticker{transform:scale(1.07);}
+  .honor-row .role{
+    display:block; font-size:9.5px; font-weight:700; letter-spacing:.13em;
+    text-transform:uppercase; margin-bottom:0;
+  }
+  .honor-row .name{font-size:13.5px; font-weight:600; color:var(--ice); line-height:1.25;}
+  .honor-final{
+    margin:16px 18px 20px; justify-content:center; width:calc(100% - 36px);
+    padding:11px 14px; font-size:13px;
+    border:1px solid rgba(62,214,255,.3); border-bottom-color:rgba(62,214,255,.3);
+    background:rgba(62,214,255,.06);
+    clip-path:polygon(0 0,100% 0,100% 78%,96% 100%,0 100%);
+    transition:background .2s ease, border-color .2s ease;
+  }
+  .honor-final:hover{background:rgba(62,214,255,.14); border-color:var(--prism);}
+
+  @media(max-width:520px){
+    .honor-grid{grid-template-columns:1fr; gap:22px;}
+    .honor-stage{min-height:230px; padding:42px 16px 22px;}
+    .honor-hero-wrap{width:min(200px, 68%);}
+    .honor-sticker{width:74px; height:74px;}
+  }
+
   /* ===== Lightbox de imágenes (zoom al hacer click) ===== */
   .tp-zoomable{cursor:zoom-in;}
   .tp-lightbox{
@@ -882,9 +1034,10 @@
   .tp-lightbox-img{
     max-width:min(92vw, 1100px); max-height:88vh;
     width:auto; height:auto;
-    border-radius:14px;
-    box-shadow:0 30px 90px -20px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.08);
-    background:var(--panel, #12131c);
+    border-radius:0;
+    background:none; box-shadow:none;
+    filter:drop-shadow(0 0 60px rgba(62,214,255,.30)) drop-shadow(0 26px 48px rgba(0,0,0,.75));
+    image-rendering:auto;
     transform:scale(.85); opacity:0;
     transition:transform .32s cubic-bezier(.2,.8,.25,1), opacity .32s ease;
   }
@@ -1016,7 +1169,10 @@
     <div class="hero-inner">
       <div class="season-tag"><span class="dot"></span><span data-i18n="hero.tag">Torneo de paga · próxima edición abierta</span></div>
       <div class="local-clock" id="localClock" aria-live="polite"></div>
-      <img class="trophy-img" src="assets/trono-prisma-trofeo.png" alt="Trofeo Trono Prisma" data-i18n-attr="alt:hero.trophyAlt">
+      <picture class="trophy-wrap">
+        <source type="image/webp" srcset="assets/trono-prisma-trofeo.webp">
+        <img class="trophy-img" src="assets/trono-prisma-trofeo.png" alt="Trofeo Trono Prisma" width="876" height="900" fetchpriority="high" decoding="async" data-i18n-attr="alt:hero.trophyAlt">
+      </picture>
       <h1>Trono Prisma</h1>
       <p class="glory" data-i18n="hero.glory">La corona es de cristal: se raja con el primer error y solo el mejor la levanta entera.</p>
       <div class="hero-cta">
@@ -2467,34 +2623,56 @@
     el.innerHTML = `${esc(t("clock.prefix"))} <b>${esc(dateCap)} · ${esc(timePart)}</b>${tz ? ` <span class="tz">(${esc(tz)})</span>` : ""}`;
   }
 
+  // <picture> con WebP (ligero, alta fidelidad) y PNG como respaldo.
+  // Los stickers son arte circular con el nombre impreso fuera del círculo:
+  // por eso se muestran completos (object-fit:contain), nunca recortados.
+  function pictureHTML(path, cls, alt, px){
+    if(!path) return "";
+    const png  = esc(assetUrl(path));
+    const webp = png.replace(/\.png(\?.*)?$/i, ".webp$1");
+    return `<picture class="${cls}-wrap">
+      <source type="image/webp" srcset="${webp}">
+      <img class="${cls} tp-zoomable" src="${png}" alt="${alt}" width="${px}" height="${px}" loading="lazy" decoding="async">
+    </picture>`;
+  }
+
+  function podiumSlotHTML(p, mod, roleKey){
+    if(!p || (!p.sticker && !p.nombre)) return "";
+    const alt = tFormat('honor.stickerAlt', {name: p.nombre || t(roleKey)});
+    return `<div class="honor-row ${mod}">
+      ${pictureHTML(p.sticker, 'honor-sticker', alt, 132)}
+      <span class="role">${esc(t(roleKey))}</span>
+      <span class="name">${esc(p.nombre) || "—"}</span>
+    </div>`;
+  }
+
   function honorCardHTML(edicion){
     const c = edicion.campeon || {};
     const s = edicion.subcampeon || {};
     const th = edicion.tercer_lugar || {};
     const finalUrl = safeUrl(edicion.final_url);
+    const champAlt = tFormat('honor.stickerAlt', {name:c.nombre || t('payout.champ')});
     return `
-      <div class="honor-card">
-        ${c.banner ? `<img class="honor-banner" src="${esc(assetUrl(c.banner))}" alt="${tFormat('honor.bannerAlt', {name:c.nombre || t('payout.champ')})}" loading="lazy">` : ""}
+      <article class="honor-card">
+        <div class="honor-stage">
+          <span class="honor-edition">${esc(edicion.torneo)}</span>
+          ${edicion.fecha ? `<span class="honor-date">${esc(edicion.fecha)}</span>` : ""}
+          ${c.sticker
+            ? pictureHTML(c.sticker, 'honor-hero', champAlt, 500)
+            : (c.banner ? `<img class="honor-hero tp-zoomable" src="${esc(assetUrl(c.banner))}" alt="${champAlt}" loading="lazy" decoding="async">` : `<span class="honor-hero-empty">◆</span>`)}
+        </div>
         <div class="honor-body">
-          <div class="honor-meta">
-            <span>${esc(edicion.torneo)}</span>
-            <span>${esc(edicion.fecha)}</span>
+          <div class="honor-champ">
+            <span class="role">${esc(t('payout.champ'))}</span>
+            <span class="name">${esc(c.nombre) || "—"}</span>
           </div>
-          <div class="honor-row">
-            ${c.sticker ? `<img class="honor-sticker" src="${esc(assetUrl(c.sticker))}" alt="${tFormat('honor.stickerAlt', {name:c.nombre || t('payout.champ')})}" loading="lazy">` : ""}
-            <div><span class="role">${esc(t('payout.champ'))}</span><span class="name">${esc(c.nombre) || "—"}</span></div>
+          <div class="honor-podium">
+            ${podiumSlotHTML(s, 'sub', 'payout.sub')}
+            ${podiumSlotHTML(th, 'tercer', 'payout.tercer')}
           </div>
-          <div class="honor-row sub">
-            ${s.sticker ? `<img class="honor-sticker" src="${esc(assetUrl(s.sticker))}" alt="${tFormat('honor.stickerAlt', {name:s.nombre || t('payout.sub')})}" loading="lazy">` : ""}
-            <div><span class="role">${esc(t('payout.sub'))}</span><span class="name">${esc(s.nombre) || "—"}</span></div>
-          </div>
-          ${(th.sticker || th.nombre) ? `<div class="honor-row tercer">
-            ${th.sticker ? `<img class="honor-sticker" src="${esc(assetUrl(th.sticker))}" alt="${tFormat('honor.stickerAlt', {name:th.nombre || t('payout.tercer')})}" loading="lazy">` : ""}
-            <div><span class="role">${esc(t('payout.tercer'))}</span><span class="name">${esc(th.nombre) || "—"}</span></div>
-          </div>` : ""}
           ${finalUrl ? `<a class="honor-final" href="${finalUrl}" target="_blank" rel="noopener">${esc(t('honor.verFinal'))}</a>` : ""}
         </div>
-      </div>
+      </article>
     `;
   }
 
@@ -2973,7 +3151,26 @@
 
 <script>
 (function(){
-  var ZOOM_SELECTOR = ".trophy-img, .honor-banner, .honor-sticker";
+  // Respaldo seguro: si el .webp no existe todavía en el CDN/repo, <picture>
+  // no vuelve solo al PNG. Este listener quita las <source> y fuerza el PNG.
+  document.addEventListener("error", function(e){
+    var img = e.target;
+    if (!img || img.tagName !== "IMG") return;
+    var pic = img.parentElement;
+    if (!pic || pic.tagName !== "PICTURE") return;
+    if (img.dataset.tpFallback){        // el PNG tampoco existe: placeholder limpio
+      pic.classList.add("is-missing");
+      return;
+    }
+    img.dataset.tpFallback = "1";
+    pic.querySelectorAll("source").forEach(function(s){ s.remove(); });
+    var png = (img.getAttribute("src") || "").replace(/\.webp(\?.*)?$/i, ".png$1");
+    img.removeAttribute("srcset");
+    img.src = "";
+    img.src = png;
+  }, true);
+
+  var ZOOM_SELECTOR = ".trophy-img, .honor-banner, .honor-sticker, .honor-hero";
   var lightbox = document.getElementById("tpLightbox");
   var lightboxImg = document.getElementById("tpLightboxImg");
   var closeBtn = document.getElementById("tpLightboxClose");
