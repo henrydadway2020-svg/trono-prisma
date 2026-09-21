@@ -2811,7 +2811,10 @@
     a.href = CONFIG.WHATSAPP_URL;
   });
 
-  const CDN_BASE = `https://cdn.jsdelivr.net/gh/${CONFIG.GITHUB_USER}/${CONFIG.GITHUB_REPO}@${CONFIG.BRANCH}`;
+  // Las imágenes y los JSON se sirven desde el mismo sitio (antes pasaban por
+  // jsDelivr, que era más lento y tardaba en reflejar los cambios). Ruta
+  // relativa: funciona igual en Cloudflare Pages, GitHub Pages o local.
+  const CDN_BASE = ".";
 
   function assetUrl(path){
     if(!path) return "";
@@ -2924,8 +2927,12 @@
   // <picture> con WebP (ligero, alta fidelidad) y PNG como respaldo.
   // Los stickers son arte circular con el nombre impreso fuera del círculo:
   // por eso se muestran completos (object-fit:contain), nunca recortados.
-  function pictureHTML(path, cls, alt, px){
+  // thumb=true: pide la miniatura "-sm" (192px) en vez del sticker completo.
+  // Si esa miniatura no existe, el manejador de errores de más abajo vuelve
+  // solo al sticker completo, así que subir la miniatura es opcional.
+  function pictureHTML(path, cls, alt, px, thumb){
     if(!path) return "";
+    if(thumb) path = path.replace(/\.png(\?.*)?$/i, "-sm.png$1");
     const png  = esc(assetUrl(path));
     const webp = png.replace(/\.png(\?.*)?$/i, ".webp$1");
     return `<picture class="${cls}-wrap">
@@ -2938,7 +2945,7 @@
     if(!p || (!p.sticker && !p.nombre)) return "";
     const alt = tFormat('honor.stickerAlt', {name: p.nombre || t(roleKey)});
     return `<div class="honor-row ${mod}">
-      ${pictureHTML(p.sticker, 'honor-sticker', alt, 132)}
+      ${pictureHTML(p.sticker, 'honor-sticker', alt, 132, true)}
       <span class="role">${esc(t(roleKey))}</span>
       <span class="name">${esc(p.nombre) || "—"}</span>
     </div>`;
@@ -3007,7 +3014,7 @@
 
   async function loadHonorRoll(dataPath, gridId, nombreVacio){
     try{
-      const res = await fetch(`${CDN_BASE}/${dataPath}`, {cache:"no-store"});
+      const res = await fetch(`${CDN_BASE}/${dataPath}`, {cache:"no-cache"});
       if(!res.ok) throw new Error("No se pudo cargar el archivo de datos");
       const ediciones = await res.json();
       honorDataCache[gridId] = { ediciones, nombreVacio, dataPath };
@@ -3517,6 +3524,16 @@
     if (!img || img.tagName !== "IMG") return;
     var pic = img.parentElement;
     if (!pic || pic.tagName !== "PICTURE") return;
+    // la miniatura "-sm" no existe: pasar al sticker completo (webp + png de respaldo)
+    var cur = img.getAttribute("src") || "";
+    if (!img.dataset.tpFull && /-sm\.png(\?.*)?$/i.test(cur)){
+      img.dataset.tpFull = "1";
+      pic.querySelectorAll("source").forEach(function(s){
+        s.setAttribute("srcset", (s.getAttribute("srcset") || "").replace(/-sm(\.webp)/i, "$1"));
+      });
+      img.src = cur.replace(/-sm\.png/i, ".png");
+      return;
+    }
     if (img.dataset.tpFallback){        // el PNG tampoco existe: placeholder limpio
       pic.classList.add("is-missing");
       return;
@@ -3535,7 +3552,8 @@
   var closeBtn = document.getElementById("tpLightboxClose");
 
   function openLightbox(img){
-    lightboxImg.src = img.currentSrc || img.src;
+    // si se hizo clic en una miniatura "-sm", el zoom carga el sticker completo
+    lightboxImg.src = (img.currentSrc || img.src).replace(/-sm(\.(?:png|webp))/i, "$1");
     lightboxImg.alt = img.alt || "";
     lightbox.classList.add("is-open");
     lightbox.setAttribute("aria-hidden", "false");

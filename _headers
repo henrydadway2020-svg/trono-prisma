@@ -1,0 +1,5 @@
+# Cloudflare Pages: guarda stickers y banners en el navegador 1 día,
+# para que quien vuelva a entrar no los descargue otra vez.
+# (GitHub Pages ignora este archivo.)
+/assets/*
+  Cache-Control: public, max-age=86400

@@ -18,7 +18,7 @@
     "fecha": "",
     "campeon": { "nombre": "Markov", "sticker": "assets/stickers/edicion3-campeon.png" },
     "subcampeon": { "nombre": "Xhunquito", "sticker": "assets/stickers/edicion3-subcampeon.png" },
-    "tercer_lugar": { "nombre": "", "sticker": "assets/stickers/edicion3-tercer.png" }
+    "tercer_lugar": { "nombre": "" }
   },
   {
     "torneo": "Trono Prisma #4",

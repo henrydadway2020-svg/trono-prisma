@@ -43,11 +43,15 @@ Notas:
 - `tercer_lugar` solo admite `nombre` y `sticker` (no tiene banner, igual que el
   subcampeón).
 - Las rutas de imágenes (`banner`, `sticker`) son relativas a la raíz del repo.
-- El sitio lee estos JSON y las imágenes referenciadas a través de jsDelivr
-  (`cdn.jsdelivr.net/gh/...`), **no** directamente desde GitHub. Esto significa que
-  después de hacer `push`, los cambios pueden tardar unos minutos (a veces más) en
-  reflejarse en el sitio publicado, por caché del CDN. Si algo "no aparece" recién
-  subido, espera un poco antes de asumir que hay un error.
+- El sitio lee estos JSON y las imágenes directamente desde su propio dominio
+  (ya no usa jsDelivr), así que lo que subas aparece en cuanto Cloudflare
+  Pages / GitHub Pages termine de desplegar (1-2 minutos). Si no lo ves,
+  recarga con Ctrl+Shift+R.
+- **Miniaturas (opcional):** en el podio (subcampeón y tercer lugar) el sitio
+  pide primero una versión chica del sticker con el sufijo `-sm`, de 192×192
+  (por ejemplo `edicion12-subcampeon-sm.png` y `edicion12-subcampeon-sm.webp`).
+  Pesa ~10 KB en vez de ~75 KB. Si no la subes, el sitio usa el sticker
+  completo automáticamente; solo carga un poco más lento.
 
 ## Configurar la edición (lo que vas a tocar cada torneo)
 
