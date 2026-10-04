@@ -75,5 +75,12 @@
     "campeon": { "nombre": "Fellogod", "banner": "assets/banners/edicion11-campeon.png", "sticker": "assets/stickers/edicion11-campeon.png" },
     "subcampeon": { "nombre": "Omega", "sticker": "assets/stickers/edicion11-subcampeon.png" },
     "tercer_lugar": { "nombre": "Lilye", "sticker": "assets/stickers/edicion11-tercer.png" }
+  },
+  {
+    "torneo": "Trono Prisma #12",
+    "fecha": "",
+    "campeon": { "nombre": "Yuzmeg", "sticker": "assets/stickers/edicion12-campeon.png" },
+    "subcampeon": { "nombre": "Omega", "sticker": "assets/stickers/edicion12-subcampeon.png" },
+    "tercer_lugar": { "nombre": "Druber", "sticker": "assets/stickers/edicion12-tercer.png" }
   }
 ]
